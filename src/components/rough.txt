@@ -1,0 +1,59 @@
+const ChatBox = [
+  {
+    name:"Oliyide Ibrahim", 
+    img: "http://images/",
+    id: 1,
+    message: "Hello",
+    time: "12:00", 
+  },{
+    name:"Adekunle Lanre",
+    img: "http://images/",
+    id: 2,
+    message:"Done with the task",
+    time: "11:00",
+  },
+  {
+    name:"Alabi Temitope",
+    img: "http://images/",
+    id: 3,
+    message:"I am done with the task",
+    time: "10:00",
+  }
+]
+
+
+const fetchImages = async () => {
+    try {
+      const res = await axios.get(
+        "https://jsonplaceholder.typicode.com/photos"
+      );
+      const data = await res.data;
+      const photos = data.slice(0, 10);
+      console.log(photos);
+    } catch (err: any) {
+      console.log("Error", err.message);
+    }
+  };
+
+
+
+  const fecthPhotoChat = async (dispatch:any) => {
+    try {
+        const api = "https://jsonplaceholder.typicode.com/photos";
+        const res = await axios.get(api);
+        const data = await res.data;
+        dispatch(FetchChat(data));
+        
+    }catch(err:any) {
+        console.log(err.message);
+    }
+}
+
+     sx={{
+        margin: "auto",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gridTemplateRows: "1fr",
+        gridColumnGap: "0",
+        width: "100vw",
+      }}

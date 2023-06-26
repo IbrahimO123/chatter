@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routers } from "./routes/routers";
+import { AppNav } from "./components/AppNav";
+import "./assets/styles/main.css";
+import { Snackbar, Alert } from "@mui/material";
+import { RootState } from "./redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { updateOtherState } from "./redux/Others/slice";
 
 function App() {
+  const others = useSelector((state: RootState) => state.others);
+  const { open, message , severity} = others;
+  const dispatch = useDispatch();
+
+  const handleSnackbarClose = () => {
+    dispatch(updateOtherState({ ...others, open: false, message: "", severity }));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppNav />
+      <Routers />
+      <Snackbar
+        onClose={handleSnackbarClose}
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={4000}
+      >
+        <Alert variant="filled" severity={severity}>
+          {message}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
 
