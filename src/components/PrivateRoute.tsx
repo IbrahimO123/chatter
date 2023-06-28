@@ -4,6 +4,6 @@ import { useSelector } from "react-redux";
 
 export const PrivateRoute = () => {
   const user = useSelector((state: RootState) => state.users.aUser);
-  const { isRegistered, isAuthorised } = user;
-  return isRegistered && isAuthorised ? <Outlet /> : <Navigate to="/login" />;
+  const { isRegistered, isAuthorised, isLoggedIn } = user;
+  return isRegistered && isAuthorised && isLoggedIn  ? <Outlet /> : <Navigate to="/login" />;
 };

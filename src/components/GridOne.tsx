@@ -25,11 +25,14 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { updateOtherState } from "../redux/Others/slice";
+import { updateAUser } from "../redux/user/slice";
 
 export const GridOne = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const others = useSelector((state: RootState) => state.others);
+  const aUser = useSelector((state: RootState) => state.users.aUser);
+  const { isLoggedIn } = aUser;
 
   const handleSignOut = async () => {
     try {
@@ -38,12 +41,13 @@ export const GridOne = () => {
         updateOtherState({
           ...others,
           open: true,
-          severity:"error",
+          severity: "error",
           message: "Signed out successfully",
         })
       );
+      dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
       navigate("/login", { replace: true });
-      return
+      return;
     } catch (e: any) {
       console.error(e.message);
     }
