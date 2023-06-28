@@ -42,7 +42,8 @@ export const GridOne = () => {
           message: "Signed out successfully",
         })
       );
-      return navigate("/login", { replace: true });
+      navigate("/login", { replace: true });
+      return
     } catch (e: any) {
       console.error(e.message);
     }
