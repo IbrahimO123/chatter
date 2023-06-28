@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import {
   Box,
   IconButton,
@@ -128,7 +129,7 @@ export const Login = () => {
                   })
                 );
                 setTimeout(() => navigate("/", { replace: true }), 500);
-                return
+                return;
               } else {
                 dispatch(
                   updateOtherState({
