@@ -41,8 +41,8 @@ export const Home = () => {
 
   return (
     <Box component="div">
-      <Grid container p={{ xs: 0, md: 2 }} spacing={1}>
-        <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={1.8}>
+      <Grid container p={{ xs: 0, md: 1 }} spacing={1}>
+        <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2}>
           <GridOne />
         </Grid>
         <Grid item xs={12} md={8}>
@@ -57,7 +57,7 @@ export const Home = () => {
             )}
           </Box>
         </Grid>
-        <Grid item sx={{ display: { xs: "none", md: "grid" } }} md={2.2}>
+        <Grid item sx={{ display: { xs: "none", md: "grid" } }} md={2}>
           <GridThree />
           <About />
         </Grid>
