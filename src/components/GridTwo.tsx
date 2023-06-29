@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import womanImage from "../assets/images/woman.avif";
+
 type Photo = {
   albumId: number;
   id: number;
@@ -24,6 +25,8 @@ const postStyle = {
   justifyContent: "space-around",
   flexDirection: "row",
 };
+
+
 export const GridTwo = () => {
   const [photo, setPhoto] = useState<Photo>({} as Photo);
   const userPhoto = async () => {
