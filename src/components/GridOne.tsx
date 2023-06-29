@@ -32,7 +32,6 @@ export const GridOne = () => {
   const dispatch = useDispatch();
   const others = useSelector((state: RootState) => state.others);
   const aUser = useSelector((state: RootState) => state.users.aUser);
-  const { isLoggedIn } = aUser;
 
   const handleSignOut = async () => {
     try {
@@ -105,11 +104,11 @@ export const GridOne = () => {
               <TrendingUpIcon />
             </Box>
             <MenuList>
-              <MenuItem>Programming</MenuItem>
-              <MenuItem>Science</MenuItem>
-              <MenuItem>Technology</MenuItem>
-              <MenuItem>Machine Learning</MenuItem>
-              <MenuItem>Politics</MenuItem>
+              <MenuItem>&#35;Programming</MenuItem>
+              <MenuItem>&#35;Science</MenuItem>
+              <MenuItem>&#35;Technology</MenuItem>
+              <MenuItem>&#35;Machine Learning</MenuItem>
+              <MenuItem>&#35;Politics</MenuItem>
               <MenuItem>See all</MenuItem>
             </MenuList>
             <Divider></Divider>
