@@ -168,7 +168,7 @@ export const AppNav = () => {
                 <IconButton>
                   <Link
                     style={{ color: "#fff", textDecoration: "none" }}
-                    to="/login"
+                    to="/signup"
                   >
                     Join
                   </Link>
