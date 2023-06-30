@@ -260,7 +260,7 @@ export const SignUp = () => {
           {loading && <LinearProgress color="success" />}
         </Box>
         <p>
-          <Typography variant="caption">
+          <Typography className="caption" variant="caption">
             Already have an account?{" "}
             <Link style={linkStyle} to="/login">
               Login

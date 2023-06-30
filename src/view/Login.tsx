@@ -217,7 +217,7 @@ export const Login = () => {
           </Box>
         </div>
       </form>
-      <Typography variant="caption">
+      <Typography className="caption" variant="caption">
         Don't have an account?{" "}
         <Link style={linkStyle} to="/signup">
           Sign Up
