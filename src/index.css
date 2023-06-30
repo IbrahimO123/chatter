@@ -14,3 +14,7 @@ body {
   margin: 0;
 }
 
+
+.label.MuiFormLabel-root {
+  color: #e3f2fd
+}
