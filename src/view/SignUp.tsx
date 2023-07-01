@@ -19,7 +19,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { linkStyle } from "./Login";
+import { gridStyle, linkStyle } from "./Login";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { AppDispatch, RootState } from "../redux/store";
@@ -129,145 +129,147 @@ export const SignUp = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    <form onSubmit={handleSignUp}>
-      <Typography color="white" p={1} component="p" variant="h6">
-        Sign Up
-      </Typography>
-      <div className="left">
-        <InputLabel className="label" htmlFor="firstname">
-          Firstname:
-        </InputLabel>
-        <TextField
-          required
-          id="firstname"
-          name="firstname"
-          type="text"
-          value={firstname}
-          onChange={handleUserChange}
-          variant="filled"
-          placeholder="Your firstname"
-          className="input"
-        ></TextField>
-        <FormHelperText color="red"></FormHelperText>
-      </div>
-      <div className="right">
-        <InputLabel className="label" htmlFor="lastname">
-          Lastname:
-        </InputLabel>
-        <TextField
-          required
-          id="lastname"
-          name="lastname"
-          type="text"
-          value={lastname}
-          onChange={handleUserChange}
-          variant="filled"
-          placeholder="Your lastname"
-          className="input"
-        ></TextField>
-      </div>
-      <div className="left">
-        <InputLabel className="label" htmlFor="email">
-          Email:
-        </InputLabel>
-        <TextField
-          id="email"
-          value={email}
-          name="email"
-          variant="filled"
-          onChange={handleUserChange}
-          className="input"
-          placeholder="Your email"
-          type="email"
-        ></TextField>
-      </div>
-      <div className="right">
-        <InputLabel className="label" htmlFor="phoneNumber">
-          Phone number:
-        </InputLabel>
-        <TextField
-          id="phoneNumber"
-          type="tel"
-          name="phoneNumber"
-          value={phoneNumber}
-          onChange={handleUserChange}
-          variant="filled"
-          placeholder="Your phone number"
-          className="input"
-        ></TextField>
-      </div>
-
-      <div className="left">
-        <InputLabel className="label" htmlFor="password">
-          Password:
-        </InputLabel>
-        <TextField
-          required
-          id="password"
-          name="password"
-          value={password}
-          type={showPassword ? "text" : "password"}
-          onChange={handleUserChange}
-          variant="filled"
-          placeholder="Your password"
-          className="input"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handleClickShowPassword}>
-                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          autoComplete=""
-        ></TextField>
-      </div>
-      <div className="right">
-        <InputLabel className="label" htmlFor="Confirm password">
-          Confirm Password:
-        </InputLabel>
-        <TextField
-          required
-          id="confirmPassword"
-          name="confirmPassword"
-          value={confirmPassword}
-          type={showPassword ? "text" : "password"}
-          onChange={handleUserChange}
-          variant="filled"
-          placeholder="Confirm password"
-          className="input"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handleClickShowPassword}>
-                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          autoComplete=""
-        ></TextField>
-      </div>
-      <p style={{ color: "red", fontSize: "11px" }}>
-        <small>{errMessage ? errMessage : null}</small>
-      </p>
-      <div className="signup">
-        <Button type="submit" variant="outlined">
+    <Box sx={{...gridStyle, marginTop:{"xs": "9rem", "md":"0em"}}}>
+      <form id="form" onSubmit={handleSignUp}>
+        <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
-        </Button>
-        <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
-          {loading && <LinearProgress color="success" />}
-        </Box>
-        <p>
-          <Typography className="caption" variant="caption">
-            Already have an account?{" "}
-            <Link style={linkStyle} to="/login">
-              Login
-            </Link>
-          </Typography>
+        </Typography>
+        <div className="left">
+          <InputLabel className="label" htmlFor="firstname">
+            Firstname:
+          </InputLabel>
+          <TextField
+            required
+            id="firstname"
+            name="firstname"
+            type="text"
+            value={firstname}
+            onChange={handleUserChange}
+            variant="filled"
+            placeholder="Your firstname"
+            className="input"
+          ></TextField>
+          <FormHelperText color="red"></FormHelperText>
+        </div>
+        <div className="right">
+          <InputLabel className="label" htmlFor="lastname">
+            Lastname:
+          </InputLabel>
+          <TextField
+            required
+            id="lastname"
+            name="lastname"
+            type="text"
+            value={lastname}
+            onChange={handleUserChange}
+            variant="filled"
+            placeholder="Your lastname"
+            className="input"
+          ></TextField>
+        </div>
+        <div className="left">
+          <InputLabel className="label" htmlFor="email">
+            Email:
+          </InputLabel>
+          <TextField
+            id="email"
+            value={email}
+            name="email"
+            variant="filled"
+            onChange={handleUserChange}
+            className="input"
+            placeholder="Your email"
+            type="email"
+          ></TextField>
+        </div>
+        <div className="right">
+          <InputLabel className="label" htmlFor="phoneNumber">
+            Phone number:
+          </InputLabel>
+          <TextField
+            id="phoneNumber"
+            type="tel"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={handleUserChange}
+            variant="filled"
+            placeholder="Your phone number"
+            className="input"
+          ></TextField>
+        </div>
+
+        <div className="left">
+          <InputLabel className="label" htmlFor="password">
+            Password:
+          </InputLabel>
+          <TextField
+            required
+            id="password"
+            name="password"
+            value={password}
+            type={showPassword ? "text" : "password"}
+            onChange={handleUserChange}
+            variant="filled"
+            placeholder="Your password"
+            className="input"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            autoComplete=""
+          ></TextField>
+        </div>
+        <div className="right">
+          <InputLabel className="label" htmlFor="Confirm password">
+            Confirm Password:
+          </InputLabel>
+          <TextField
+            required
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            type={showPassword ? "text" : "password"}
+            onChange={handleUserChange}
+            variant="filled"
+            placeholder="Confirm password"
+            className="input"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            autoComplete=""
+          ></TextField>
+        </div>
+        <p style={{ color: "red", fontSize: "11px" }}>
+          <small>{errMessage ? errMessage : null}</small>
         </p>
-      </div>
-    </form>
+        <div className="signup">
+          <Button type="submit" variant="outlined">
+            Sign Up
+          </Button>
+          <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
+            {loading && <LinearProgress color="success" />}
+          </Box>
+          <p>
+            <Typography className="caption" variant="caption">
+              Already have an account?{" "}
+              <Link style={linkStyle} to="/login">
+                Login
+              </Link>
+            </Typography>
+          </p>
+        </div>
+      </form>
+    </Box>
   );
 };

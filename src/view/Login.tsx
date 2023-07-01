@@ -26,7 +26,7 @@ import { updateOtherState } from "../redux/Others/slice";
 
 export const linkStyle = {
   textDecoration: "none",
-  color: "blue",
+  color: "#76ff03",
 };
 
 export const gridStyle = {
@@ -37,8 +37,8 @@ export const gridStyle = {
 
 export const Login = () => {
   const fieldStyle = {
-    width: { xs: "80%", md: "60%" },
-    margin: "0px 0px 10px 0px",
+    width: { xs: "80%", md: "80%" },
+    
   };
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -158,7 +158,7 @@ export const Login = () => {
   return (
     <Box sx={gridStyle}>
       <form onSubmit={handleLogin}>
-        <Typography color="white" p={3} component="p" variant="h6">
+        <Typography color="white" p={1} component="p" variant="h6">
           Login
         </Typography>
         <div style={{ margin: "10px" }}>
@@ -168,7 +168,6 @@ export const Login = () => {
           <TextField
             sx={fieldStyle}
             variant="filled"
-            name="email"
             className="input"
             onChange={handleLoginDetails}
             required
@@ -216,13 +215,14 @@ export const Login = () => {
             {loading && <LinearProgress color="success" />}
           </Box>
         </div>
+
+        <Typography className="caption" variant="caption">
+          Don't have an account?{" "}
+          <Link style={linkStyle} to="/signup">
+            Sign Up
+          </Link>
+        </Typography>
       </form>
-      <Typography className="caption" variant="caption">
-        Don't have an account?{" "}
-        <Link style={linkStyle} to="/signup">
-          Sign Up
-        </Link>
-      </Typography>
     </Box>
   );
 };
