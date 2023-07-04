@@ -19,7 +19,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { gridStyle, linkStyle } from "./Login";
+import { gridStyle, linkStyle } from "../components/support";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { AppDispatch, RootState } from "../redux/store";
@@ -129,7 +129,7 @@ export const SignUp = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    <Box sx={{...gridStyle, marginTop:{"xs": "9rem", "md":"0em"}}}>
+    <Box sx={{ ...gridStyle, marginTop: { xs: "9rem", md: "0em" } }}>
       <form id="form" onSubmit={handleSignUp}>
         <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
