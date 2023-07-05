@@ -2,7 +2,7 @@ import { Box, Typography, Grid, Paper, Button } from "@mui/material";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { ArrayColor } from "../components/support";
+import { ArrayColor } from "../Utilities/support";
 import parse from "html-react-parser";
 
 export const WritePost = () => {
