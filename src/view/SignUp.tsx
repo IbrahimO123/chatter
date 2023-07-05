@@ -19,7 +19,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { gridStyle, linkStyle } from "../components/support";
+import { gridStyle, linkStyle } from "../Utilities/support";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { AppDispatch, RootState } from "../redux/store";
