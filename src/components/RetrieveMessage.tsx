@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   query,
   collection,
@@ -12,7 +12,7 @@ import { db } from "../config/firebase";
 
 
 export const RetrieveMessage = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+  //const [messages, setMessages] = useState<string[]>([]);
   useEffect(() => {
     const q = query(
       collection(db, "messages"),
