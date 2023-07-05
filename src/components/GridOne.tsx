@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { updateOtherState } from "../redux/Others/slice";
 import { updateAUser } from "../redux/user/slice";
+import { Link } from "react-router-dom";
 
 export const GridOne = () => {
   const navigate = useNavigate();
@@ -61,12 +62,14 @@ export const GridOne = () => {
             </IconButton>
             Home
           </MenuItem>
+          <Link to="/write" className="link" >
           <MenuItem>
             <IconButton>
               <EditNoteIcon />
             </IconButton>
             Draft
           </MenuItem>
+          </Link>
           <MenuItem>
             <IconButton>
               <ChatIcon />
