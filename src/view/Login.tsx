@@ -23,22 +23,12 @@ import { getData } from "../Utilities/ReadData";
 import { updateAUser } from "../redux/user/slice";
 import { loginSchema } from "../config/joi";
 import { updateOtherState } from "../redux/Others/slice";
-
-export const linkStyle = {
-  textDecoration: "none",
-  color: "#76ff03",
-};
-
-export const gridStyle = {
-  display: "grid",
-  placeContent: "center",
-  height: "80vh",
-};
+import { linkStyle } from "../Utilities/support";
+import { gridStyle } from "../Utilities/support";
 
 export const Login = () => {
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
-    
   };
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
