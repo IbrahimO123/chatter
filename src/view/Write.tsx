@@ -1,8 +1,9 @@
-import { Box, Typography, Grid, Paper, Button } from "@mui/material";
+import { Box, Typography, Grid, Paper, Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { ArrayColor } from "../Utilities/support";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import parse from "html-react-parser";
 
 export const WritePost = () => {
@@ -17,7 +18,10 @@ export const WritePost = () => {
         <Grid item md={2.4}>
           <Paper sx={{ height: "70vh", marginLeft: "10px" }} elevation={8}>
             <Typography component="h1" variant="h6" p={1}>
-              Articles Writing
+              <IconButton>
+                <EditNoteIcon />
+              </IconButton>
+              Articles
             </Typography>
           </Paper>
         </Grid>
