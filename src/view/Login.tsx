@@ -159,6 +159,7 @@ export const Login = () => {
             sx={fieldStyle}
             variant="filled"
             className="input"
+            name="email"
             onChange={handleLoginDetails}
             required
             id="email"
