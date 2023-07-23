@@ -3,10 +3,11 @@ import { chatPhotosSlice } from "./chatbox/slice";
 import { postSlice } from "./posts/slice";
 import { userSlice } from "./user/slice";
 import { otherSlice } from "./Others/slice";
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { articleSlice } from "./articles/slice";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
+
 
 import {
   persistReducer,
@@ -16,6 +17,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  persistStore,
 } from "redux-persist";
 
 const persistConfig = {
@@ -52,7 +54,7 @@ export const store = configureStore({
       },
     }),
 });
-
+export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
