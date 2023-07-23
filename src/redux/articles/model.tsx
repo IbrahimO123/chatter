@@ -6,9 +6,15 @@ export type Article = {
   authorEmail: string;
   likes: number;
   comments: {
-    text: Array<string>,
+    text: Array<string>;
     numberOfComments: number;
   };
+  categories: Array<string>;
   repost: number;
   readOnly: boolean;
+};
+
+export type AppArticle = {
+  allArticles: Article[];
+  anArticle: Article;
 };
