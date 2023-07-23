@@ -62,9 +62,7 @@ export const WriteArticle = () => {
     }
     return;
   };
-  const saveArticle = () => {
-    
-  }
+  const saveArticle = () => {}
 
   const handleArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
