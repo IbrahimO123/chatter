@@ -22,7 +22,7 @@ const actionStyle = {
 
 export const AppCard = (cpost: Post) => {
   return (
-    <Card sx={{ margin: "10px", maxHeight:"800px"}}>
+    <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
         avatar={<Avatar src={cpost.id % 2 ? womanImage2 : womanImage} />}
         title="Heading of the post"
@@ -34,14 +34,14 @@ export const AppCard = (cpost: Post) => {
           title="woman holding phone exicted"
         ></CardMedia>
         <Typography variant="body2">{cpost.body}</Typography>
-        <Typography variant="caption" sx={{ float: "right" }}>
-          {new Date().toLocaleTimeString()}
-        </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
         <Button endIcon={<ThumbUpOutlinedIcon />}>Like</Button>
         <Button endIcon={<AddCommentOutlinedIcon />}>Comment</Button>
         <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
+        <Typography variant="caption" sx={{ float: "right" }}>
+          {new Date().toLocaleTimeString()}
+        </Typography>
       </CardActions>
     </Card>
   );
