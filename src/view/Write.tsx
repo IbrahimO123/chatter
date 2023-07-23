@@ -81,7 +81,7 @@ export const WriteArticle = () => {
   return (
     <Box>
       <Paper elevation={4}>
-        <Typography component="h1" variant="h6" m={1}>
+        <Typography textAlign="center" component="h1" variant="h6" m={1}>
           Write an Article
         </Typography>
 
