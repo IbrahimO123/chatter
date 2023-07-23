@@ -68,7 +68,7 @@ export const AppNav = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#4a148c" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#311b92" }}>
         <Toolbar>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
             <img
