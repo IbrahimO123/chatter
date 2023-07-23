@@ -79,8 +79,8 @@ export const userSlice = createSlice({
   name: "user_slice",
   initialState,
   reducers: {
-    getAllUsers(state, action: PayloadAction<AppUser["allUsers"]>) {
-      return { ...state, allUsers: action.payload };
+    getAUser(state) {
+      return state;
     },
     updateAUser(state, action: PayloadAction<AppUser["aUser"]>) {
       return { ...state, aUser: action.payload };
@@ -104,4 +104,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getAllUsers, updateAUser } = userSlice.actions;
+export const { getAUser, updateAUser } = userSlice.actions;
