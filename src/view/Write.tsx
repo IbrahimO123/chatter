@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -25,6 +26,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { updateOtherState } from "../redux/Others/slice";
 import EditorMarkdown from "../components/Editors";
+import { addArticletoDatabase } from "../Utilities/AddData";
 
 export const WriteArticle = () => {
   const dispatch = useDispatch();
@@ -62,7 +64,11 @@ export const WriteArticle = () => {
     }
     return;
   };
-  const saveArticle = () => {}
+  const saveArticle = async () => {
+    const res = await addArticletoDatabase(anArticle, email);
+    console.log(res);
+    return;
+  };
 
   const handleArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -75,8 +81,7 @@ export const WriteArticle = () => {
     );
   };
   // useEffect(() => {
-  //   console.log("The article has been updated", anArticle);
-  //   console.log("Length of text", text.length);
+  //   console.log("The article : ", anArticle);
   // }, [text]);
   return (
     <Box>
@@ -108,7 +113,7 @@ export const WriteArticle = () => {
               elevation={8}
               sx={{ marginBottom: "5px", padding: "0 5px 5px 5px" }}
             >
-              <Typography variant="h4" component="h6">
+              <Typography sx={{ padding: "5px" }} variant="h4" component="h6">
                 Title
               </Typography>
               <TextField
@@ -125,12 +130,12 @@ export const WriteArticle = () => {
               <EditorMarkdown />
             </Paper>
 
-            <Box m={2} component="div" sx={{ width: "25vw" }}>
+            <Box m={2} component="div">
               <Box pb={1}>
                 <Button
                   sx={{ margin: "5px" }}
                   variant="contained"
-                  disabled={text.length < 200 ? true : false}
+                  disabled={text.length < 200 ? true : false && title}
                   size="small"
                   endIcon={<PublishIcon />}
                   color="success"
@@ -138,15 +143,12 @@ export const WriteArticle = () => {
                   Publish
                 </Button>
                 <Button
-                  sx={{
-                    margin: "5px",
-                    backgroundColor: "#311b92",
-                    "& :hover": { backgroundColor: "#311b92" },
-                  }}
+                  color="warning"
                   variant="contained"
-                  disabled={text.length < 200 ? true : false}
+                  disabled={text.length < 200 ? true : false && title}
                   size="small"
                   endIcon={<SaveIcon />}
+                  onClick={saveArticle}
                 >
                   Save
                 </Button>
@@ -155,8 +157,8 @@ export const WriteArticle = () => {
               <Select
                 value={categories}
                 multiple
-                sx={{ width: { sm: "20vw" } }}
-                disabled={text.length < 200 ? true : false}
+                sx={{ width: { xs: "50vw", md: "25vw" } }}
+                disabled={text.length < 200 ? true : false && title}
                 onChange={handleCategory}
                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                 renderValue={(selected) => {
