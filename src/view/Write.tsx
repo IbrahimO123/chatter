@@ -80,10 +80,10 @@ export const WriteArticle = () => {
       })
     );
   };
-  useEffect(() => {
-    console.log("The article : ", anArticle);
-    console.log("What is the title: ", title);
-  }, [text]);
+  // useEffect(() => {
+  //   console.log("The article : ", anArticle);
+  //   console.log("What is the title: ", title);
+  // }, [text]);
   return (
     <Box>
       <Paper elevation={4}>
