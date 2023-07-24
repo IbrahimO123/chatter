@@ -86,12 +86,12 @@ export const AppNav = () => {
               color="inherit"
               onClick={toggleDrawer}
             >
-              <MenuIcon />
+              {isLoggedIn && isRegistered && <MenuIcon />}
             </IconButton>
             <Drawer
               sx={{ display: { xs: "flex", md: "none" } }}
               anchor="left"
-              open={open}
+              open={isLoggedIn && isRegistered && open}
               onClose={toggleDrawer}
             >
               <GridOne />
