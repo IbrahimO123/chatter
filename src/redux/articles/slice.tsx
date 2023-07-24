@@ -9,7 +9,7 @@ const initialState: AppArticle = {
       title: "",
       authorEmail: "",
       authorName: "",
-      timeCreated: "",
+      timeCreated: new Date().toLocaleTimeString(),
       likes: 0,
       comments: {
         numberOfComments: 0,
@@ -25,7 +25,7 @@ const initialState: AppArticle = {
     title: "",
     authorEmail: "",
     authorName: "",
-    timeCreated: "",
+    timeCreated: new Date().toLocaleTimeString(),
     likes: 0,
     comments: {
       numberOfComments: 0,
