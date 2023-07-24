@@ -80,9 +80,10 @@ export const WriteArticle = () => {
       })
     );
   };
-  // useEffect(() => {
-  //   console.log("The article : ", anArticle);
-  // }, [text]);
+  useEffect(() => {
+    console.log("The article : ", anArticle);
+    console.log("What is the title: ", title);
+  }, [text]);
   return (
     <Box>
       <Paper elevation={4}>
@@ -135,7 +136,9 @@ export const WriteArticle = () => {
                 <Button
                   sx={{ margin: "5px" }}
                   variant="contained"
-                  disabled={text.length < 200 ? true : false && title}
+                  disabled={
+                    text.length < 200 ? true : false || title.length === 0
+                  }
                   size="small"
                   endIcon={<PublishIcon />}
                   color="success"
@@ -145,7 +148,9 @@ export const WriteArticle = () => {
                 <Button
                   color="warning"
                   variant="contained"
-                  disabled={text.length < 200 ? true : false && title}
+                  disabled={
+                    text.length < 200 ? true : false || title.length === 0
+                  }
                   size="small"
                   endIcon={<SaveIcon />}
                   onClick={saveArticle}
