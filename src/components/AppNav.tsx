@@ -10,14 +10,17 @@ import {
   Typography,
   InputBase,
   Badge,
+  Drawer,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
+import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
 import { RootState } from "../redux/store";
+import { useState } from "react";
+import { GridOne } from "./GridOne";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,6 +63,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const AppNav = () => {
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = () => {
+    setOpen((prev) => !prev);
+  };
   const menuId = "primary-search-account-menu";
   const { aUser } = useSelector((state: RootState) => state.users);
   const { isLoggedIn, isRegistered, isAuthorised } = aUser;
@@ -70,6 +77,26 @@ export const AppNav = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#311b92" }}>
         <Toolbar>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              color="inherit"
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              sx={{ display: { xs: "flex", md: "none" } }}
+              anchor="left"
+              open={open}
+              onClose={toggleDrawer}
+            >
+              <GridOne />
+            </Drawer>
+          </Box>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
             <img
               src={CircularSawSvg}
@@ -103,14 +130,16 @@ export const AppNav = () => {
             {isLoggedIn && isRegistered && isAuthorised ? (
               <div>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                  <IconButton
-                    size="small"
-                    aria-label="write new article"
-                    color="inherit"
-                    title="Write new article"
-                  >
-                    <CreateIcon />
-                  </IconButton>
+                  <Link className="link" to="/write">
+                    <IconButton
+                      size="small"
+                      aria-label="write new article"
+                      color="inherit"
+                      title="Write new article"
+                    >
+                      <CreateIcon />
+                    </IconButton>
+                  </Link>
                   <IconButton
                     size="small"
                     aria-label="show 4 new mails"
@@ -138,17 +167,6 @@ export const AppNav = () => {
                     color="inherit"
                   >
                     <AccountCircle />
-                  </IconButton>
-                </Box>
-                <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                  <IconButton
-                    size="large"
-                    aria-label="show more"
-                    aria-controls={mobileMenuId}
-                    aria-haspopup="true"
-                    color="inherit"
-                  >
-                    <MoreIcon />
                   </IconButton>
                 </Box>
               </div>
