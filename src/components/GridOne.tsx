@@ -56,19 +56,21 @@ export const GridOne = () => {
     <Box>
       <Paper elevation={8} sx={{ padding: "0px 1px" }}>
         <MenuList>
-          <MenuItem>
-            <IconButton>
-              <HomeIcon />
-            </IconButton>
-            Home
-          </MenuItem>
-          <Link to="/write" className="link" >
-          <MenuItem>
-            <IconButton>
-              <EditNoteIcon />
-            </IconButton>
-            Draft
-          </MenuItem>
+          <Link to="/" className="link">
+            <MenuItem>
+              <IconButton>
+                <HomeIcon />
+              </IconButton>
+              Home
+            </MenuItem>
+          </Link>
+          <Link to="/write" className="link">
+            <MenuItem>
+              <IconButton>
+                <EditNoteIcon />
+              </IconButton>
+              Draft
+            </MenuItem>
           </Link>
           <MenuItem>
             <IconButton>
