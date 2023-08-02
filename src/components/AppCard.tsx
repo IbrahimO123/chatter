@@ -11,6 +11,7 @@ import {
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+
 import { Post } from "../redux/posts/model";
 
 import womanImage from "../assets/images/woman.avif";
