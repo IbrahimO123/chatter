@@ -33,7 +33,7 @@ export const Login = () => {
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const others = useSelector((state: RootState) => state.others);
+  const others = useSelector((state: RootState) => state.session.others);
   const { loading } = others;
   const navigate = useNavigate();
 

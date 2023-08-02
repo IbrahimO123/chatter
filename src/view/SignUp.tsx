@@ -35,7 +35,7 @@ import { getData } from "../Utilities/ReadData";
 
 export const SignUp = () => {
   const { aUser } = useSelector((state: RootState) => state.users);
-  const others = useSelector((state: RootState) => state.others);
+  const others = useSelector((state: RootState) => state.session.others);
   const { loading } = others;
   const [errMessage, setErrMessage] = useState<string>("");
   const navigate = useNavigate();
