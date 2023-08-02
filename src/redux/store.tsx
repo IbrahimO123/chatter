@@ -6,8 +6,8 @@ import { otherSlice } from "./Others/slice";
 import { articleSlice } from "./articles/slice";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import { encryptTransform } from "redux-persist-transform-encrypt";
-
 
 import {
   persistReducer,
@@ -23,6 +23,7 @@ import {
 const persistConfig = {
   key: "root",
   storage: storage,
+  blacklist: ["others", "articles", "session"],
   transforms: [
     encryptTransform({
       secretKey:
@@ -35,12 +36,31 @@ const persistConfig = {
   ],
 };
 
+const persistSessionConfig = {
+  key: "session",
+  storage: storageSession,
+  transforms: [
+    encryptTransform({
+      secretKey:
+        process.env.REACT_APP_SECRET_KEY ||
+        "scgsxvsndbcfgffshdvbcgscxfhvbxccfygacsr",
+      onError: (err) => {
+        console.log("err", err);
+      },
+    }),
+  ],
+};
+
+export const sessionReducer = combineReducers({
+  others: otherSlice.reducer,
+  articles: articleSlice.reducer,
+});
+
 export const rootReducers = combineReducers({
   chats: chatPhotosSlice.reducer,
   posts: postSlice.reducer,
   users: userSlice.reducer,
-  others: otherSlice.reducer,
-  articles: articleSlice.reducer,
+  session: persistReducer(persistSessionConfig, sessionReducer),
 });
 
 const persistReducers = persistReducer(persistConfig, rootReducers);
