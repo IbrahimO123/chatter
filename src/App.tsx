@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Routers } from "./routes/routers";
 import { AppNav } from "./components/AppNav";
 import "./assets/styles/main.css";
@@ -22,11 +22,13 @@ import ForumIcon from "@mui/icons-material/Forum";
 
 function App() {
   const others = useSelector((state: RootState) => state.session.others);
+  const navigate = useNavigate();
   const { open, message, severity } = others;
   const dispatch = useDispatch();
-  const [value, setValue] = useState("home");
+  const [value, setValue] = useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    navigate(`/${newValue}`);
     setValue(newValue);
   };
 
@@ -40,7 +42,7 @@ function App() {
     <>
       <AppNav />
       <Routers />
-      <Box sx={{textAlign:"center"}} p={4} >
+      <Box sx={{ textAlign: "center" }} p={4}>
         Chatter Copyright (c) 2023
       </Box>
       <Snackbar
@@ -55,46 +57,38 @@ function App() {
       </Snackbar>
       <Paper
         sx={{
-          display: { md: "none", xs: "grid"  },
+          display: { md: "none", xs: "grid" },
           position: "fixed",
           bottom: 0,
           left: 0,
           right: 0,
-          textAlign: "center",
-          marginTop: "auto",
         }}
         elevation={3}
-        
       >
         <BottomNavigation value={value} onChange={handleChange}>
-          <Link to="/" className="link">
-            <BottomNavigationAction
-              label="Home"
-              value="home"
-              icon={<HomeIcon />}
-            />
-          </Link>
-          <Link to="/write" className="link">
-            <BottomNavigationAction
-              label="Draft"
-              value="draft"
-              icon={<EditNoteIcon />}
-            />
-          </Link>
-          <Link to="/chat" className="link">
-            <BottomNavigationAction
-              label="Chat"
-              value="chat"
-              icon={<ChatIcon />}
-            />
-          </Link>
-          <Link to="/communities" className="link">
-            <BottomNavigationAction
-              label="Communities"
-              value="communities"
-              icon={<ForumIcon />}
-            />
-          </Link>
+          <BottomNavigationAction
+            label="Home"
+            value=""
+            icon={<HomeIcon />}
+          ></BottomNavigationAction>
+
+          <BottomNavigationAction
+            label="Draft"
+            value="write"
+            icon={<EditNoteIcon />}
+          />
+
+          <BottomNavigationAction
+            label="Chat"
+            value="chat"
+            icon={<ChatIcon />}
+          />
+
+          <BottomNavigationAction
+            label="Communities"
+            value="communities"
+            icon={<ForumIcon />}
+          />
         </BottomNavigation>
       </Paper>
     </>
