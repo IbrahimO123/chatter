@@ -30,9 +30,9 @@ import { addArticletoDatabase } from "../Utilities/AddData";
 
 export const WriteArticle = () => {
   const dispatch = useDispatch();
-  const { anArticle } = useSelector((state: RootState) => state.articles);
+  const { anArticle } = useSelector((state: RootState) => state.session.articles);
   const aUser = useSelector((state: RootState) => state.users.aUser);
-  const others = useSelector((state: RootState) => state.others);
+  const others = useSelector((state: RootState) => state.session.others);
   const { email, firstname, lastname } = aUser;
   const { categories, title, text } = anArticle;
   const handleCategory = (e: SelectChangeEvent<typeof Tags>) => {
@@ -114,7 +114,7 @@ export const WriteArticle = () => {
               elevation={8}
               sx={{ marginBottom: "5px", padding: "0 5px 5px 5px" }}
             >
-              <Typography sx={{ padding: "5px" }} variant="h4" component="h6">
+              <Typography sx={{ padding: "5px" }} variant="h5" component="h6">
                 Title
               </Typography>
               <TextField
@@ -137,7 +137,9 @@ export const WriteArticle = () => {
                   sx={{ margin: "5px" }}
                   variant="contained"
                   disabled={
-                    text.length < 200 ? true : false || title.length === 0
+                    text.length < 200
+                      ? true
+                      : false || title.length === 0 || categories.length === 0
                   }
                   size="small"
                   endIcon={<PublishIcon />}
@@ -149,7 +151,9 @@ export const WriteArticle = () => {
                   color="warning"
                   variant="contained"
                   disabled={
-                    text.length < 200 ? true : false || title.length === 0
+                    text.length < 200
+                      ? true
+                      : false || title.length === 0 || categories.length === 0
                   }
                   size="small"
                   endIcon={<SaveIcon />}
@@ -163,7 +167,9 @@ export const WriteArticle = () => {
                 value={categories}
                 multiple
                 sx={{ width: { xs: "50vw", md: "25vw" } }}
-                disabled={text.length < 200 ? true : false && title}
+                disabled={
+                  text.length < 200 ? true : false || title.length === 0
+                }
                 onChange={handleCategory}
                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                 renderValue={(selected) => {
