@@ -2,6 +2,7 @@ export type Article = {
   text: string;
   title: string;
   timeCreated: string;
+  dateCreated: string;
   authorName: string;
   authorEmail: string;
   likes: number;

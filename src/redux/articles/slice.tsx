@@ -10,6 +10,8 @@ const initialState: AppArticle = {
       authorEmail: "",
       authorName: "",
       timeCreated: new Date().toLocaleTimeString(),
+      dateCreated: new Date().toLocaleDateString(),
+
       likes: 0,
       comments: {
         numberOfComments: 0,
@@ -26,6 +28,7 @@ const initialState: AppArticle = {
     authorEmail: "",
     authorName: "",
     timeCreated: new Date().toLocaleTimeString(),
+    dateCreated: new Date().toLocaleDateString(),
     likes: 0,
     comments: {
       numberOfComments: 0,
