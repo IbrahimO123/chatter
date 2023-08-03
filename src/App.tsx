@@ -22,6 +22,8 @@ import ForumIcon from "@mui/icons-material/Forum";
 
 function App() {
   const others = useSelector((state: RootState) => state.session.others);
+  const aUser = useSelector((state: RootState) => state.users.aUser);
+  const { isLoggedIn } = aUser;
   const navigate = useNavigate();
   const { open, message, severity } = others;
   const dispatch = useDispatch();
@@ -42,8 +44,8 @@ function App() {
     <>
       <AppNav />
       <Routers />
-      <Box sx={{ textAlign: "center" }} p={4}>
-        Chatter Copyright (c) 2023
+      <Box sx={{ textAlign: "center" }} p={2}>
+        Chatter Copyright &copy; 2023
       </Box>
       <Snackbar
         onClose={handleSnackbarClose}
@@ -65,6 +67,7 @@ function App() {
         }}
         elevation={3}
       >
+      {  isLoggedIn ?
         <BottomNavigation value={value} onChange={handleChange}>
           <BottomNavigationAction
             label="Home"
@@ -90,6 +93,7 @@ function App() {
             icon={<ForumIcon />}
           />
         </BottomNavigation>
+        : null }
       </Paper>
     </>
   );
