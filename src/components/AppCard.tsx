@@ -6,11 +6,13 @@ import {
   CardActions,
   Button,
   CardMedia,
+  IconButton,
   Avatar,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { Post } from "../redux/posts/model";
 
@@ -27,6 +29,19 @@ export const AppCard = (cpost: Post) => {
       <CardHeader
         avatar={<Avatar src={cpost.id % 2 ? womanImage2 : womanImage} />}
         title="Heading of the post"
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        subheader={
+          <small>
+            
+            <Typography variant="caption">
+              {new Date().toLocaleTimeString()}
+            </Typography>
+          </small>
+        }
       ></CardHeader>
       <CardContent>
         <CardMedia
@@ -40,9 +55,6 @@ export const AppCard = (cpost: Post) => {
         <Button endIcon={<ThumbUpOutlinedIcon />}>Like</Button>
         <Button endIcon={<AddCommentOutlinedIcon />}>Comment</Button>
         <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
-        <Typography variant="caption" sx={{ float: "right" }}>
-          {new Date().toLocaleTimeString()}
-        </Typography>
       </CardActions>
     </Card>
   );
