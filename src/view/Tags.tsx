@@ -6,7 +6,7 @@ import {
   Badge,
 } from "@mui/material";
 import { Tags } from "../Utilities/support";
-import TagIcon from "@mui/icons-material/Tag";
+
 
 export const TagsPage = () => {
   return (
