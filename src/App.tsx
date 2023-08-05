@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Routers } from "./routes/routers";
 import { AppNav } from "./components/AppNav";
 import "./assets/styles/main.css";
@@ -50,7 +50,7 @@ function App() {
       <Snackbar
         onClose={handleSnackbarClose}
         open={open}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         autoHideDuration={4000}
       >
         <Alert variant="filled" severity={severity}>
@@ -67,33 +67,33 @@ function App() {
         }}
         elevation={3}
       >
-      {  isLoggedIn ?
-        <BottomNavigation value={value} onChange={handleChange}>
-          <BottomNavigationAction
-            label="Home"
-            value=""
-            icon={<HomeIcon />}
-          ></BottomNavigationAction>
+        {isLoggedIn ? (
+          <BottomNavigation value={value} onChange={handleChange}>
+            <BottomNavigationAction
+              label="Home"
+              value=""
+              icon={<HomeIcon />}
+            ></BottomNavigationAction>
 
-          <BottomNavigationAction
-            label="Draft"
-            value="write"
-            icon={<EditNoteIcon />}
-          />
+            <BottomNavigationAction
+              label="Draft"
+              value="write"
+              icon={<EditNoteIcon />}
+            />
 
-          <BottomNavigationAction
-            label="Chat"
-            value="chat"
-            icon={<ChatIcon />}
-          />
+            <BottomNavigationAction
+              label="Chat"
+              value="chat"
+              icon={<ChatIcon />}
+            />
 
-          <BottomNavigationAction
-            label="Communities"
-            value="communities"
-            icon={<ForumIcon />}
-          />
-        </BottomNavigation>
-        : null }
+            <BottomNavigationAction
+              label="Communities"
+              value="communities"
+              icon={<ForumIcon />}
+            />
+          </BottomNavigation>
+        ) : null}
       </Paper>
     </>
   );
