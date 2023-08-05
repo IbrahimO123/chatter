@@ -27,10 +27,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateOtherState } from "../redux/Others/slice";
 import EditorMarkdown from "../components/Editors";
 import { addArticletoDatabase } from "../Utilities/AddData";
+import {
+  collection,
+  onSnapshot,
+  where,
+  query,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../config/firebase";
 
 export const WriteArticle = () => {
   const dispatch = useDispatch();
-  const { anArticle } = useSelector((state: RootState) => state.session.articles);
+  const { anArticle } = useSelector(
+    (state: RootState) => state.session.articles
+  );
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const others = useSelector((state: RootState) => state.session.others);
   const { email, firstname, lastname } = aUser;
@@ -65,7 +76,7 @@ export const WriteArticle = () => {
     return;
   };
   const saveArticle = async () => {
-    const res = await addArticletoDatabase(anArticle, email);
+    const res = await addArticletoDatabase(anArticle, title);
     console.log(res);
     return;
   };
