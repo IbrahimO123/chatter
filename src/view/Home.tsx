@@ -24,6 +24,14 @@ export const Home = () => {
 
   const { allPosts } = posts;
 
+  const fetchArticles = async () => {
+    try {
+
+    }catch (err: any) {
+      console.error("Error: ", err.code);
+    }
+  }
+
   const fetchUserPost = async () => {
     try {
       const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
