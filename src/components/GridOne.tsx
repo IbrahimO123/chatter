@@ -7,6 +7,9 @@ import {
   Box,
   Typography,
   Button,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
@@ -19,6 +22,9 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import HelpIcon from "@mui/icons-material/Help";
+import InfoIcon from "@mui/icons-material/Info";
+
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useDispatch } from "react-redux";
@@ -90,12 +96,28 @@ export const GridOne = () => {
             </IconButton>
             Bookmarks
           </MenuItem>
-          <MenuItem>
-            <IconButton>
+          <Accordion elevation={0}>
+            <AccordionSummary>
               <ExpandMoreIcon />
-            </IconButton>
-            More
-          </MenuItem>
+              More
+            </AccordionSummary>
+            <AccordionDetails>
+              <MenuList>
+                <MenuItem>
+                  <IconButton>
+                    <HelpIcon />
+                  </IconButton>
+                  Help
+                </MenuItem>
+                <MenuItem>
+                  <IconButton>
+                    <InfoIcon />
+                  </IconButton>
+                  About
+                </MenuItem>
+              </MenuList>
+            </AccordionDetails>
+          </Accordion>
         </MenuList>
         <Divider></Divider>
         <Box component="div" p={2}>
@@ -114,7 +136,9 @@ export const GridOne = () => {
               <MenuItem>&#35;Technology</MenuItem>
               <MenuItem>&#35;Machine Learning</MenuItem>
               <MenuItem>&#35;Politics</MenuItem>
-              <MenuItem>See all</MenuItem>
+              <Link className="link" to="/tags" >
+              <MenuItem >See all</MenuItem>
+              </Link>
             </MenuList>
             <Divider></Divider>
             <Box>
