@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -11,7 +11,12 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  signInWithEmailAndPassword,
+  setPersistence,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth } from "../config/firebase";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -25,17 +30,26 @@ import { loginSchema } from "../config/joi";
 import { updateOtherState } from "../redux/Others/slice";
 import { linkStyle } from "../Utilities/support";
 import { gridStyle } from "../Utilities/support";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Login = () => {
+  const [user, load, error] = useAuthState(auth);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  },[user,navigate]);
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
   };
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const others = useSelector((state: RootState) => state.session.others);
+  const others = useSelector((state: RootState) => state.others);
   const { loading } = others;
-  const navigate = useNavigate();
+  
 
   const handleLoginDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
@@ -65,6 +79,7 @@ export const Login = () => {
       try {
         if (value) {
           const { email, password } = value;
+          await setPersistence(auth, browserLocalPersistence);
           await signInWithEmailAndPassword(auth, email, password);
         }
       } catch (err: any) {
@@ -145,6 +160,18 @@ export const Login = () => {
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  if (load)
+    return (
+      <>
+        <LinearProgress color="secondary" />;
+      </>
+    );
+  if (error)
+    return (
+      <>
+        <Typography color="error">{error.message}</Typography>;
+      </>
+    );
   return (
     <Box sx={gridStyle}>
       <form onSubmit={handleLogin}>
