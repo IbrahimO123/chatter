@@ -20,12 +20,6 @@ form {
     border-radius: 3px;
 }
 
-.tags {
-    background-image: url("../images/circular-saw.svg");
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
 .left,
 .right {
     display: inline-block;
