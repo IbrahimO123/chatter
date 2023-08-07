@@ -65,8 +65,15 @@ export const WriteArticle = () => {
     return;
   };
   const saveArticle = async () => {
-    const res = await addArticletoDatabase(anArticle, title);
-    console.log(res);
+    await addArticletoDatabase(anArticle, title);
+    dispatch(
+      updateOtherState({
+        ...others,
+        severity: "success",
+        open: true,
+        message: "article added successfully",
+      })
+    );
     return;
   };
 
