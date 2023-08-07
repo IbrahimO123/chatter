@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Routers } from "./routes/routers";
 import { AppNav } from "./components/AppNav";
 import "./assets/styles/main.css";
@@ -19,11 +19,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ChatIcon from "@mui/icons-material/Chat";
 import ForumIcon from "@mui/icons-material/Forum";
+import { auth } from "./config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
-  const others = useSelector((state: RootState) => state.session.others);
-  const aUser = useSelector((state: RootState) => state.users.aUser);
-  const { isLoggedIn } = aUser;
+  const others = useSelector((state: RootState) => state.others);
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const { open, message, severity } = others;
   const dispatch = useDispatch();
@@ -44,14 +45,16 @@ function App() {
     <>
       <AppNav />
       <Routers />
-      <Box sx={{ textAlign: "center" }} p={2}>
-        Chatter Copyright &copy; 2023
-      </Box>
+      {user?.uid ? (
+        <Box sx={{ textAlign: "center" }} p={2}>
+          Chatter Copyright &copy; 2023
+        </Box>
+      ) : null}
       <Snackbar
         onClose={handleSnackbarClose}
         open={open}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={4000}
+        autoHideDuration={2000}
       >
         <Alert variant="filled" severity={severity}>
           {message}
@@ -67,7 +70,7 @@ function App() {
         }}
         elevation={3}
       >
-        {isLoggedIn ? (
+        {user?.uid ? (
           <BottomNavigation value={value} onChange={handleChange}>
             <BottomNavigationAction
               label="Home"

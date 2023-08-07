@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import CircularSawSvg from "../assets/images/circular-saw.svg";
@@ -22,6 +22,8 @@ import CreateIcon from "@mui/icons-material/Create";
 
 import { RootState } from "../redux/store";
 import { GridOne } from "./GridOne";
+import { auth } from "../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,12 +67,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);
+  const [user] = useAuthState(auth);
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
   };
   const menuId = "primary-search-account-menu";
   const { aUser } = useSelector((state: RootState) => state.users);
-  const { isLoggedIn, isRegistered, isAuthorised } = aUser;
+  const { isRegistered, isAuthorised } = aUser;
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -87,16 +90,18 @@ export const AppNav = () => {
               color="inherit"
               onClick={toggleDrawer}
             >
-              {isLoggedIn && isRegistered && <MenuIcon />}
+              {user?.uid && <MenuIcon />}
             </IconButton>
-            <Drawer
-              sx={{ display: { xs: "flex", md: "none" } }}
-              anchor="left"
-              open={isLoggedIn && isRegistered && open}
-              onClose={toggleDrawer}
-            >
-              <GridOne />
-            </Drawer>
+            {user?.uid ? (
+              <Drawer
+                sx={{ display: { xs: "flex", md: "none" } }}
+                anchor="left"
+                open={open}
+                onClose={toggleDrawer}
+              >
+                <GridOne />
+              </Drawer>
+            ) : null}
           </Box>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
             <img
@@ -128,7 +133,7 @@ export const AppNav = () => {
             />
           </Search>
           <Box>
-            {isLoggedIn && isRegistered && isAuthorised ? (
+            {user?.uid ? (
               <div>
                 <Box sx={{ display: { xs: "none", md: "flex" } }}>
                   <Link className="link" to="/write">
@@ -171,7 +176,7 @@ export const AppNav = () => {
                   </IconButton>
                 </Box>
               </div>
-            ) : isRegistered ? (
+            ) : isRegistered && isAuthorised ? (
               <Box>
                 <IconButton>
                   <Link
