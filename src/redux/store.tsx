@@ -22,7 +22,7 @@ import {
 const persistConfig = {
   key: "session",
   storage: storageSession,
-  blacklist: ["articles", "users", "chats", "posts", "others"],
+  blacklist: ["users", "chats", "posts", "others"],
   transforms: [
     encryptTransform({
       secretKey:
