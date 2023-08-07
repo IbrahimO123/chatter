@@ -1,9 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { RootState } from "../redux/store";
-import { useSelector } from "react-redux";
+import { auth } from "../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const PrivateRoute = () => {
-  const user = useSelector((state: RootState) => state.users.aUser);
-  const { isRegistered, isAuthorised, isLoggedIn } = user;
-  return isRegistered && isAuthorised && isLoggedIn  ? <Outlet /> : <Navigate to="/login" />;
+  const [user] = useAuthState(auth);
+  return user?.uid ? <Outlet /> : <Navigate to="/login" />;
 };
