@@ -38,20 +38,34 @@ export const Login = () => {
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const getLoggedInUser = async () => {
     if (user) {
-      dispatch(
-        updateAUser({
-          ...aUser,
-          confirmPassword: "",
-          password: "",
-          isLoggedIn: true,
-        })
-      );
+      if (user.email !== null) {
+        const res = await getData(user.email);
+        if (res?.data() !== null) {
+          dispatch(
+            updateAUser({
+              ...aUser,
+              firstname: res?.data()?.firstname,
+              lastname: res?.data()?.lastname,
+              phoneNumber: res?.data()?.phoneNumber,
+              email: res?.data()?.email,
+              isLoggedIn: true,
+            })
+          );
+        }
+      }
       navigate("/", { replace: true });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, navigate]);
+  };
+
+  useEffect(
+    () => {
+      getLoggedInUser();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [user, navigate]
+  );
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
   };
@@ -88,7 +102,7 @@ export const Login = () => {
       try {
         if (value) {
           const { email, password } = value;
-          await setPersistence(auth, browserLocalPersistence);
+
           await signInWithEmailAndPassword(auth, email, password);
         }
       } catch (err: any) {
