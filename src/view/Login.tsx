@@ -176,7 +176,7 @@ export const Login = () => {
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loader ? true : false}
         >
-          <CircularProgress color="error" />
+          <CircularProgress sx={{ color: "#311b92" }} />
         </Backdrop>
       </Box>
     );
