@@ -10,12 +10,13 @@ import {
   Button,
   LinearProgress,
   Typography,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import {
   browserLocalPersistence,
   signInWithEmailAndPassword,
   setPersistence,
-  onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -33,14 +34,24 @@ import { gridStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Login = () => {
-  const [user, load, error] = useAuthState(auth);
+  const [user, loader, error] = useAuthState(auth);
+  const aUser = useSelector((state: RootState) => state.users.aUser);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (user) {
+      dispatch(
+        updateAUser({
+          ...aUser,
+          confirmPassword: "",
+          password: "",
+          isLoggedIn: true,
+        })
+      );
       navigate("/", { replace: true });
     }
-  },[user,navigate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, navigate]);
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
   };
@@ -49,13 +60,11 @@ export const Login = () => {
   const dispatch = useDispatch();
   const others = useSelector((state: RootState) => state.others);
   const { loading } = others;
-  
 
   const handleLoginDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
   };
 
-  const aUser = useSelector((state: RootState) => state.users.aUser);
   const { email, password } = aUser;
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -160,11 +169,16 @@ export const Login = () => {
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  if (load)
+  if (loader)
     return (
-      <>
-        <LinearProgress color="secondary" />;
-      </>
+      <Box>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader ? true : false}
+        >
+          <CircularProgress color="error" />
+        </Backdrop>
+      </Box>
     );
   if (error)
     return (
