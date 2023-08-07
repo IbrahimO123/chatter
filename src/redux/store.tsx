@@ -5,7 +5,6 @@ import { userSlice } from "./user/slice";
 import { otherSlice } from "./Others/slice";
 import { articleSlice } from "./articles/slice";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import storage from "redux-persist/lib/storage";
 import storageSession from "redux-persist/lib/storage/session";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
@@ -21,24 +20,9 @@ import {
 } from "redux-persist";
 
 const persistConfig = {
-  key: "root",
-  storage: storage,
-  blacklist: ["others", "articles", "session"],
-  transforms: [
-    encryptTransform({
-      secretKey:
-        process.env.REACT_APP_SECRET_KEY ||
-        "scgsxvsndbcfgffshdvbcgscxfhvbxccfygacsr",
-      onError: (err) => {
-        console.log("err", err);
-      },
-    }),
-  ],
-};
-
-const persistSessionConfig = {
   key: "session",
   storage: storageSession,
+  blacklist: ["articles", "users", "chats", "posts", "others"],
   transforms: [
     encryptTransform({
       secretKey:
@@ -54,16 +38,12 @@ const persistSessionConfig = {
 export const sessionReducer = combineReducers({
   others: otherSlice.reducer,
   articles: articleSlice.reducer,
-});
-
-export const rootReducers = combineReducers({
   chats: chatPhotosSlice.reducer,
   posts: postSlice.reducer,
   users: userSlice.reducer,
-  session: persistReducer(persistSessionConfig, sessionReducer),
 });
 
-const persistReducers = persistReducer(persistConfig, rootReducers);
+const persistReducers = persistReducer(persistConfig, sessionReducer);
 
 export const store = configureStore({
   reducer: persistReducers,
