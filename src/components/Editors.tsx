@@ -15,7 +15,7 @@ type EditorChange = {
 
 const EditorMarkdown = () => {
   const dispatch = useDispatch();
-  const anArticle = useSelector((state: RootState) => state.session.articles.anArticle);
+  const anArticle = useSelector((state: RootState) => state.articles.anArticle);
   const {text} = anArticle;
 
   const handleEditorChange = ({ html, text }: EditorChange) => {
