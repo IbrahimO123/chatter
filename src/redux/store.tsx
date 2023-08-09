@@ -25,9 +25,7 @@ const persistConfig = {
   blacklist: ["users", "chats", "posts", "others"],
   transforms: [
     encryptTransform({
-      secretKey:
-        process.env.REACT_APP_SECRET_KEY ||
-        "scgsxvsndbcfgffshdvbcgscxfhvbxccfygacsr",
+      secretKey: process.env.REACT_APP_SECRET_KEY! ,
       onError: (err) => {
         console.log("err", err);
       },
