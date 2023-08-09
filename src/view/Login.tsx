@@ -201,7 +201,7 @@ export const Login = () => {
       </>
     );
   return (
-    <Box sx={gridStyle}>
+    <Box sx={{...gridStyle}} >
       <form onSubmit={handleLogin}>
         <Typography color="white" p={1} component="p" variant="h6">
           Login

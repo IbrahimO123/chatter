@@ -1,4 +1,4 @@
-import { useState } from "react";
+import{ useState } from "react";
 import { Link } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import CircularSawSvg from "../assets/images/circular-saw.svg";
@@ -79,7 +79,7 @@ export const AppNav = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#311b92" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#6a1b9a" }}>
         <Toolbar>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
