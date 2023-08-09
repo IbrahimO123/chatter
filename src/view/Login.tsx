@@ -13,11 +13,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import {
-  browserLocalPersistence,
-  signInWithEmailAndPassword,
-  setPersistence,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -51,6 +47,8 @@ export const Login = () => {
               phoneNumber: res?.data()?.phoneNumber,
               email: res?.data()?.email,
               isLoggedIn: true,
+              isRegistered: res?.data()?.isRegistered,
+              isAuthorised: res?.data()?.isAuthorised
             })
           );
         }
@@ -66,6 +64,7 @@ export const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, navigate]
   );
+
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
   };
@@ -80,6 +79,7 @@ export const Login = () => {
   };
 
   const { email, password } = aUser;
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrMessage("");
@@ -188,7 +188,7 @@ export const Login = () => {
       <Box>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={loader ? true : false}
+          open={loader}
         >
           <CircularProgress sx={{ color: "#311b92" }} />
         </Backdrop>
