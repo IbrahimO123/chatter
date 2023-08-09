@@ -16,10 +16,10 @@ type EditorChange = {
 const EditorMarkdown = () => {
   const dispatch = useDispatch();
   const anArticle = useSelector((state: RootState) => state.articles.anArticle);
-  const {text} = anArticle;
+  const { text } = anArticle;
 
   const handleEditorChange = ({ html, text }: EditorChange) => {
-    dispatch(updateArticle({ ...anArticle, text: text }));
+    dispatch(updateArticle({ ...anArticle, text, html }));
   };
 
   return (
