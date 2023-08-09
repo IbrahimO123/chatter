@@ -7,6 +7,7 @@ const initialState: AppArticle = {
     {
       text: "",
       title: "",
+      html: "",
       authorEmail: "",
       authorName: "",
       timeCreated: new Date().toLocaleTimeString(),
@@ -20,11 +21,13 @@ const initialState: AppArticle = {
       categories: [],
       repost: 0,
       readOnly: true,
+      coverImage: "",
     },
   ],
   anArticle: {
     text: "",
     title: "",
+    html: "",
     authorEmail: "",
     authorName: "",
     timeCreated: new Date().toLocaleTimeString(),
@@ -37,6 +40,7 @@ const initialState: AppArticle = {
     categories: [],
     repost: 0,
     readOnly: true,
+    coverImage: "",
   },
 };
 

@@ -1,5 +1,6 @@
 export type Article = {
   text: string;
+  html: string;
   title: string;
   timeCreated: string;
   dateCreated: string;
@@ -13,6 +14,7 @@ export type Article = {
   categories: Array<string>;
   repost: number;
   readOnly: boolean;
+  coverImage: string;
 };
 
 export type AppArticle = {
