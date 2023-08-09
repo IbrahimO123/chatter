@@ -250,7 +250,7 @@ export const SignUp = () => {
             autoComplete=""
           ></TextField>
         </div>
-        <p style={{ color: "red", fontSize: "11px" }}>
+        <p style={{ color: "red"}}>
           <small>{errMessage ? errMessage : null}</small>
         </p>
         <div className="signup">
