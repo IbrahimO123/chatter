@@ -6,7 +6,7 @@ export const linkStyle = {
 export const gridStyle = {
   display: "grid",
   placeContent: "center",
-  height: "80vh",
+  height: "87vh",
 };
 
 export const Tags = [
