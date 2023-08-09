@@ -10,7 +10,7 @@ export const addToDatabase = async (data: User, email: string) => {
     return res;
   } catch (e: any) {
     console.error(e.message);
-    return "failed...";
+    return "failed";
   }
 };
 
