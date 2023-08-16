@@ -1,6 +1,6 @@
-import{ useState } from "react";
-import { Link } from "react-router-dom";
-import { styled, alpha } from "@mui/material/styles";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import CircularSawSvg from "../assets/images/circular-saw.svg";
 import { useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  InputBase,
   Badge,
   Drawer,
 } from "@mui/material";
@@ -19,54 +18,21 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
+import { Draft } from "./Draft";
 
 import { RootState } from "../redux/store";
 import { GridOne } from "./GridOne";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import {
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+} from "../Utilities/support";
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   const [user] = useAuthState(auth);
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
@@ -99,7 +65,7 @@ export const AppNav = () => {
                 open={open}
                 onClose={toggleDrawer}
               >
-                <GridOne />
+                {pathname === "/write" ? <Draft /> : <GridOne />}
               </Drawer>
             ) : null}
           </Box>
