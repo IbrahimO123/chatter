@@ -31,7 +31,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { getData } from "../Utilities/ReadData";
+import { getData } from "../Utilities/GetUserData";
 
 export const SignUp = () => {
   const { aUser } = useSelector((state: RootState) => state.users);
@@ -250,7 +250,7 @@ export const SignUp = () => {
             autoComplete=""
           ></TextField>
         </div>
-        <p style={{ color: "red"}}>
+        <p style={{ color: "red" }}>
           <small>{errMessage ? errMessage : null}</small>
         </p>
         <div className="signup">

@@ -21,7 +21,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { comparePassword } from "../Utilities/securePassword";
-import { getData } from "../Utilities/ReadData";
+import { getData } from "../Utilities/GetUserData";
 import { updateAUser } from "../redux/user/slice";
 import { loginSchema } from "../config/joi";
 import { updateOtherState } from "../redux/Others/slice";
@@ -48,7 +48,7 @@ export const Login = () => {
               email: res?.data()?.email,
               isLoggedIn: true,
               isRegistered: res?.data()?.isRegistered,
-              isAuthorised: res?.data()?.isAuthorised
+              isAuthorised: res?.data()?.isAuthorised,
             })
           );
         }
@@ -201,7 +201,7 @@ export const Login = () => {
       </>
     );
   return (
-    <Box sx={{...gridStyle}} >
+    <Box sx={{ ...gridStyle }}>
       <form onSubmit={handleLogin}>
         <Typography color="white" p={1} component="p" variant="h6">
           Login
