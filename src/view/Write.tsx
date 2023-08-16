@@ -1,4 +1,4 @@
-//import { useEffect } from "react";
+import parse from "html-react-parser";
 import {
   Box,
   Typography,
@@ -6,44 +6,49 @@ import {
   Paper,
   Select,
   Button,
-  IconButton,
   MenuItem,
   FormHelperText,
   SelectChangeEvent,
   TextField,
   Chip,
   OutlinedInput,
+  Container,
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import PublishIcon from "@mui/icons-material/Publish";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { Tags } from "../Utilities/support";
 
 import { RootState } from "../redux/store";
 import { updateArticle } from "../redux/articles/slice";
 import { useSelector, useDispatch } from "react-redux";
+import { Draft } from "../components/Draft";
 
 import { updateOtherState } from "../redux/Others/slice";
 import EditorMarkdown from "../components/Editors";
 import { addArticletoDatabase } from "../Utilities/AddData";
 import { useState } from "react";
 import { UploadImage } from "../Utilities/UploadImage";
+import { MobileView } from "../Utilities/support";
+import { mdParser } from "../components/Editors";
+import { RetrieveAArticleOnce } from "../Utilities/RetrieveArticle";
+import { updateSaveArticle } from "../redux/articles/slice";
 
 export const WriteArticle = () => {
   const dispatch = useDispatch();
   const { anArticle } = useSelector((state: RootState) => state.articles);
+  const save = useSelector((state: RootState) => state.saveArticles);
+  const { heading, heading2 } = save;
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const others = useSelector((state: RootState) => state.others);
   const { email, firstname, lastname } = aUser;
-  const { categories, title, text } = anArticle;
+  const { categories, title, text, subtitle, coverImage } = anArticle;
   const [selectedImage, setSelectedImage] = useState<File>();
+  const [saveButton, setSaveButton] = useState(false);
 
   const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedImage(e.target!.files![0]);
-    if (selectedImage === undefined) {
-      console.log("No selected image");
-    }
   };
 
   const handleCategory = (e: SelectChangeEvent<typeof Tags>) => {
@@ -76,9 +81,24 @@ export const WriteArticle = () => {
     return;
   };
   const saveArticle = async () => {
+    setSaveButton((prev) => !prev);
     const photoUrl = await UploadImage(selectedImage, title);
     await addArticletoDatabase({ ...anArticle, coverImage: photoUrl }, title);
-    console.log(anArticle);
+    const querySnapshot = await RetrieveAArticleOnce(title);
+    const result = heading.find((item: string) => item === title);
+    querySnapshot.forEach((doc) => {
+      if (result === undefined)
+        return dispatch(
+          updateSaveArticle({
+            ...save,
+            heading: [...heading, doc.data().title],
+            heading2: [...heading2, doc.data().subtitle],
+            email,
+            name: `${firstname} ${lastname}`,
+          })
+        );
+    });
+
     dispatch(
       updateOtherState({
         ...others,
@@ -87,7 +107,7 @@ export const WriteArticle = () => {
         message: "article added successfully",
       })
     );
-    return;
+    return setSaveButton((prev) => !prev);;
   };
 
   const handleArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,10 +120,7 @@ export const WriteArticle = () => {
       })
     );
   };
-  // useEffect(() => {
-  //   console.log("The article : ", anArticle);
-  //   console.log("What is the title: ", title);
-  // }, [text]);
+
   return (
     <Box sx={{ margin: { xs: "10px", md: "5px" } }}>
       <Typography textAlign="center" component="h1" variant="h6" m={1}>
@@ -118,34 +135,57 @@ export const WriteArticle = () => {
               height: "80vh",
               marginLeft: "10px",
               display: { md: "grid", xs: "none" },
+              placeContent: "start",
+              textAlign: "center",
             }}
           >
-            <Typography component="h1" variant="h6" p={1}>
-              <IconButton>
-                <EditNoteIcon />
-              </IconButton>
-              Articles
-            </Typography>
+            <Draft />
           </Paper>
         </Grid>
-        <Grid item md={9.5}>
-          <Box>
-            <Box sx={{ marginBottom: "10px" }}>
-              <Typography sx={{ padding: "5px" }} variant="h5" component="h6">
-                Title
-              </Typography>
-              <TextField
-                placeholder="Write the title here...."
-                sx={{ width: "50vw" }}
-                name="title"
-                type="text"
-                value={title}
-                variant="standard"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                onChange={handleArticle}
-              ></TextField>
+        <Grid item md={9.6} xs={12}>
+          <Paper elevation={4} sx={{ padding: "10px" }}>
+            <Box
+              sx={{
+                marginBottom: "10px",
+                display: { md: "flex", xs: "block" },
+                justifyContent: "space-between",
+              }}
+            >
+              <Box>
+                <Typography sx={{ padding: "5px" }} variant="h5" component="h6">
+                  Title
+                </Typography>
+                <TextField
+                  placeholder="Write the title here...."
+                  sx={{ width: { md: "25vw", xs: "50vw" } }}
+                  name="title"
+                  type="text"
+                  value={title}
+                  variant="standard"
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                  onChange={handleArticle}
+                ></TextField>
+              </Box>
+
+              <Box>
+                <Typography sx={{ padding: "5px" }} variant="h5" component="h6">
+                  Subtitle
+                </Typography>
+                <TextField
+                  placeholder="What is the subtitle of your article...."
+                  sx={{ width: { md: "25vw", xs: "50vw" } }}
+                  name="subtitle"
+                  type="text"
+                  value={subtitle}
+                  variant="standard"
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                  onChange={handleArticle}
+                ></TextField>
+              </Box>
             </Box>
 
             <Box sx={{ display: { xs: "block", md: "flex" } }}>
@@ -169,7 +209,6 @@ export const WriteArticle = () => {
                   multiple
                   sx={{
                     width: { xs: "50vw", md: "25vw" },
-                    
                   }}
                   disabled={
                     text.length < 200 ? true : false || title.length === 0
@@ -213,7 +252,7 @@ export const WriteArticle = () => {
                 </Box>
               </Box>
             </Box>
-          </Box>
+          </Paper>
 
           <Paper sx={{ marginTop: "15px" }} elevation={4}>
             <EditorMarkdown />
@@ -241,9 +280,10 @@ export const WriteArticle = () => {
               >
                 Publish
               </Button>
-              <Button
+              <LoadingButton
                 color="warning"
                 variant="contained"
+                loading={saveButton}
                 disabled={
                   text.length < 200
                     ? true
@@ -253,15 +293,52 @@ export const WriteArticle = () => {
                       selectedImage === undefined
                 }
                 size="small"
+                loadingPosition="end"
                 endIcon={<SaveIcon />}
                 onClick={saveArticle}
               >
-                Save
-              </Button>
+                <span>Save</span>
+              </LoadingButton>
             </Box>
           </Box>
         </Grid>
       </Grid>
+      <Container sx={{ textAlign: "center", backgroundColor: "#fff" }}>
+        <Typography p={3} textAlign="center" component="h1" variant="h6">
+          Preview
+        </Typography>
+
+        <Typography m={3} component="h1" variant="h4">
+          {title}
+        </Typography>
+        <Box>
+          <img
+            src={coverImage}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              height: MobileView() ? "15em" : "22em",
+            }}
+            alt={title}
+          ></img>
+        </Box>
+        <Typography component="h1" variant="h6">
+          {subtitle}
+        </Typography>
+        <Typography p={3} component="div" textAlign="left">
+          {parse(mdParser.render(text))}
+        </Typography>
+        <Box component="div" p={3} textAlign="left">
+          {categories.map((category: string) => (
+            <Chip
+              key={category}
+              sx={{ margin: "10px" }}
+              color="warning"
+              label={category}
+            />
+          ))}
+        </Box>
+      </Container>
     </Box>
   );
 };
