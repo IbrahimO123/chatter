@@ -28,13 +28,22 @@ import { Post } from "../redux/posts/model";
 
 import womanImage from "../assets/images/woman.avif";
 import womanImage2 from "../assets/images/woman2.avif";
+import { useNavigate } from "react-router-dom";
 
 const actionStyle = {
   display: "flex",
   justifyContent: "space-around",
 };
 
+export const menuStyle = {
+  fontSize: "12px",
+};
 export const AppCard = (cpost: Post) => {
+  const navigate = useNavigate();
+
+  const blogPost = () => {
+    navigate("/blogs/com");
+  };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -71,23 +80,23 @@ export const AppCard = (cpost: Post) => {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <MenuItem sx={{ fontSize: "12px" }} onClick={handleClose}>
+              <MenuItem sx={menuStyle} onClick={handleClose}>
                 <BookmarkAddIcon />
                 Save
               </MenuItem>
-              <MenuItem sx={{ fontSize: "12px" }} onClick={handleClose}>
+              <MenuItem sx={menuStyle} onClick={handleClose}>
                 {" "}
                 <HideSourceIcon /> Hide
               </MenuItem>
-              <MenuItem sx={{ fontSize: "12px" }} onClick={handleClose}>
+              <MenuItem sx={menuStyle} onClick={handleClose}>
                 {" "}
                 <ReportIcon /> Report
               </MenuItem>
-              <MenuItem sx={{ fontSize: "12px" }} onClick={handleClose}>
+              <MenuItem sx={menuStyle} onClick={handleClose}>
                 {" "}
                 <CopyAllSharpIcon /> Copy link
               </MenuItem>
-              <MenuItem sx={{ fontSize: "12px" }} onClick={handleClose}>
+              <MenuItem sx={menuStyle} onClick={handleClose}>
                 {" "}
                 <TuneSharpIcon /> Manage your feed
               </MenuItem>
@@ -102,7 +111,7 @@ export const AppCard = (cpost: Post) => {
           </small>
         }
       ></CardHeader>
-      <CardContent>
+      <CardContent onClick={blogPost}>
         <CardMedia
           sx={{ height: 350 }}
           image={cpost.id % 2 ? womanImage : womanImage2}
@@ -111,7 +120,12 @@ export const AppCard = (cpost: Post) => {
         <Typography variant="body2">{cpost.body}</Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
-        <Button endIcon={<ThumbUpOutlinedIcon />}>Like</Button>
+        <Button
+          onClick={() => console.log("button Clicked")}
+          endIcon={<ThumbUpOutlinedIcon />}
+        >
+          Like
+        </Button>
         <Button endIcon={<AddCommentOutlinedIcon />}>Comment</Button>
         <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
       </CardActions>
