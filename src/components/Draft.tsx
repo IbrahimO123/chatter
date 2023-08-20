@@ -13,18 +13,23 @@ import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import { style } from "../Utilities/support";
 import { RetrieveAArticleOnce } from "../Utilities/RetrieveArticle";
 import { useDispatch } from "react-redux";
-import { updateArticle } from "../redux/articles/slice";
+import { updateArticle, updateSaveArticle } from "../redux/articles/slice";
 import { updateOtherState } from "../redux/Others/slice";
+import { style } from "./../Utilities/support";
 
-export const Draft = () => {
+type DraftProps = {
+  applyStyle?: boolean;
+};
+
+export const Draft = ({ applyStyle = false }: DraftProps) => {
   const dispatch = useDispatch();
-  const { heading } = useSelector((state: RootState) => state.saveArticles);
+  const saveArticles = useSelector((state: RootState) => state.saveArticles);
+  const { heading } = saveArticles;
   const { anArticle } = useSelector((state: RootState) => state.articles);
   const others = useSelector((state: RootState) => state.others);
-  const { title, } = anArticle;
+  const { title } = anArticle;
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalAnswer, setModalAnswer] = useState(false);
@@ -32,12 +37,12 @@ export const Draft = () => {
     setOpenModal(true);
   };
 
-  useEffect(() => {
-    if (modalAnswer) {
-      handleDelete();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalAnswer]);
+  //   useEffect(() => {
+  //     if (modalAnswer) {
+  //       handleDelete();
+  //     }
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, [modalAnswer]);
 
   const handleModalClose = () => {
     setOpenModal(false);
@@ -46,8 +51,17 @@ export const Draft = () => {
     setModalMessage("Are you sure you want to delete this draft?");
     handleModalOpen();
   };
-  const handleDelete = async () => {
-    console.log("delete draft");
+  const handleDelete = (index: number) => {
+    console.log("delete draft", saveArticles);
+    console.log("Index", index);
+
+    dispatch(
+      updateSaveArticle({
+        ...saveArticles,
+        heading: [heading.splice()],
+        heading2: [heading.splice()],
+      })
+    );
     handleModalClose();
     setModalAnswer(false);
   };
@@ -76,7 +90,7 @@ export const Draft = () => {
     });
   };
   return (
-    <Box>
+    <Box sx={applyStyle ? { minWidth: "40vw" } : null}>
       <Typography component="h1" variant="h6" p={1}>
         <IconButton>
           <EditNoteIcon />
@@ -101,27 +115,33 @@ export const Draft = () => {
             <IconButton onClick={() => handleDeleteMsg(index)}>
               <DeleteForeverIcon />
             </IconButton>
+            <Modal
+              open={openModal}
+              onClose={handleModalClose}
+              aria-labelledby="delete article"
+              aria-describedby="delete drafted article"
+              color="error"
+            >
+              <Box sx={{ ...style, width: { md: 300, xs: 200 } }}>
+                <Typography>{modalMessage}</Typography>
+                <Box p={1} display="flex" justifyContent="space-around">
+                  <Button
+                    onClick={() => {
+                      setModalAnswer(true);
+                      handleDelete(index);
+                    }}
+                    color="error"
+                  >
+                    Yes
+                  </Button>
+                  <Button onClick={handleModalClose} sx={{ color: "#9e9e9e" }}>
+                    No
+                  </Button>
+                </Box>
+              </Box>
+            </Modal>
           </MenuItem>
         ))}
-        <Modal
-          open={openModal}
-          onClose={handleModalClose}
-          aria-labelledby="delete article"
-          aria-describedby="delete drafted article"
-          color="error"
-        >
-          <Box sx={{ ...style, width: { md: 300, xs: 200 } }}>
-            <Typography>{modalMessage}</Typography>
-            <Box p={1} display="flex" justifyContent="space-around">
-              <Button onClick={() => setModalAnswer(true)} color="error">
-                Yes
-              </Button>
-              <Button onClick={handleModalClose} sx={{ color: "#9e9e9e" }}>
-                No
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
       </MenuList>
     </Box>
   );

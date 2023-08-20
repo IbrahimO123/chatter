@@ -65,7 +65,7 @@ export const AppNav = () => {
                 open={open}
                 onClose={toggleDrawer}
               >
-                {pathname === "/write" ? <Draft /> : <GridOne />}
+                {pathname === "/write" ? <Draft applyStyle={true} /> : <GridOne />}
               </Drawer>
             ) : null}
           </Box>
