@@ -107,7 +107,7 @@ export const WriteArticle = () => {
         message: "article added successfully",
       })
     );
-    return setSaveButton((prev) => !prev);;
+    return setSaveButton((prev) => !prev);
   };
 
   const handleArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +120,7 @@ export const WriteArticle = () => {
       })
     );
   };
-
+  
   return (
     <Box sx={{ margin: { xs: "10px", md: "5px" } }}>
       <Typography textAlign="center" component="h1" variant="h6" m={1}>
