@@ -104,7 +104,7 @@ export const WriteArticle = () => {
         ...others,
         severity: "success",
         open: true,
-        message: "article added successfully",
+        message: "Article added successfully",
       })
     );
     return setSaveButton((prev) => !prev);
