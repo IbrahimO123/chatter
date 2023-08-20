@@ -4,7 +4,7 @@ import { styled, alpha } from "@mui/material/styles";
 
 export const linkStyle = {
   textDecoration: "none",
-  color: "#76ff03",
+  color: "#000",
 };
 
 export const gridStyle = {
@@ -14,6 +14,7 @@ export const gridStyle = {
 };
 
 export const Tags = [
+  "Automation",
   "Technology",
   "Development",
   "Education",
@@ -30,6 +31,9 @@ export const Tags = [
   "Politics",
   "Software",
   "Economics",
+  "Computer Science",
+  "Javascript",
+  "React"
 ];
 
 export const MobileView = () => {
