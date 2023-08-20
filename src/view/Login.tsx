@@ -190,7 +190,7 @@ export const Login = () => {
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loader}
         >
-          <CircularProgress sx={{ color: "#311b92" }} />
+          <CircularProgress sx={{ color: "#00c853" }} />
         </Backdrop>
       </Box>
     );
@@ -254,7 +254,7 @@ export const Login = () => {
           {errMessage && <small>{errMessage}</small>}
         </p>
         <div>
-          <Button type="submit" variant="outlined">
+          <Button color="primary" type="submit" variant="contained">
             Login
           </Button>
           <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
