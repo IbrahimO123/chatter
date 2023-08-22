@@ -1,5 +1,7 @@
 import { Container, Typography, Box } from "@mui/material";
 import { MobileView } from "../Utilities/support";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 type BlogProps = {
   title: string;
@@ -7,7 +9,11 @@ type BlogProps = {
   coverImage: string;
   text: string;
 };
+
 export const Blog = ({ title, subtitle, coverImage, text }: BlogProps) => {
+  useEffect(() => {
+    document.title = "Chatter | Blog";
+  }, []);
   return (
     <Container sx={{ textAlign: "center" }}>
       <Typography m={2} component="h1" variant="h4">
