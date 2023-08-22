@@ -16,6 +16,7 @@ import { About } from "../components/About";
 import { GridThree } from "../components/GridThree";
 import { updateOtherState } from "../redux/Others/slice";
 
+
 export const Home = () => {
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ export const Home = () => {
     }
   };
   useEffect(() => {
+    document.title = "Chatter | Home";
     fetchUserPost();
     dispatch(updateOtherState({ ...others, loading: false }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
