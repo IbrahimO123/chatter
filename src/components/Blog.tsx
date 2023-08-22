@@ -1,6 +1,5 @@
 import { Container, Typography, Box } from "@mui/material";
 import { MobileView } from "../Utilities/support";
-import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 
 type BlogProps = {
