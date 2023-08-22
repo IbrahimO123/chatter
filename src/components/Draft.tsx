@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import {
   MenuList,
   MenuItem,
@@ -29,7 +29,7 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
   const { heading } = saveArticles;
   const { anArticle } = useSelector((state: RootState) => state.articles);
   const others = useSelector((state: RootState) => state.others);
-  const { title } = anArticle;
+
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalAnswer, setModalAnswer] = useState(false);
@@ -52,9 +52,7 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
     handleModalOpen();
   };
   const handleDelete = (index: number) => {
-    console.log("delete draft", saveArticles);
     console.log("Index", index);
-
     dispatch(
       updateSaveArticle({
         ...saveArticles,
@@ -68,25 +66,34 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
 
   const handleReloadDraft = async (index: number) => {
     const querySnapshot = await RetrieveAArticleOnce(heading[index]);
-    const result = heading.find((item: string) => item === title);
     querySnapshot.forEach((doc) => {
-      console.log("what data are you", doc.data());
-      if (result !== undefined)
+      if (doc.data()) {
         dispatch(
           updateArticle({
             ...anArticle,
             ...doc.data(),
           })
         );
-      return dispatch(
-        updateOtherState({
-          ...others,
-          open: true,
-          message: "Article loaded successfully",
-          severity: "success",
-          loading: false,
-        })
-      );
+        return dispatch(
+          updateOtherState({
+            ...others,
+            open: true,
+            message: "Article loaded successfully",
+            severity: "success",
+            loading: false,
+          })
+        );
+      } else {
+        return dispatch(
+          updateOtherState({
+            ...others,
+            open: true,
+            message: "Article not found",
+            severity: "error",
+            loading: false,
+          })
+        );
+      }
     });
   };
   return (
@@ -98,20 +105,25 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
         Articles
       </Typography>
       <MenuList>
-        {heading.map((title: string, index: number) => (
-          <MenuItem
-            onDoubleClick={() => handleReloadDraft(index)}
-            sx={{ padding: "10px", fontSize: "12px" }}
-            key={index}
-          >
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter
-                  .typeString(`${index + 1}. ${title.substring(0, 20)}....`)
-                  .deleteChars(1)
-                  .start();
-              }}
-            />
+        {heading.map((saveTitle: string, index: number) => (
+          <MenuItem sx={{ padding: "10px", fontSize: "12px" }} key={index}>
+            <Typography
+              component="div"
+              fontSize={15}
+              onDoubleClick={() => handleReloadDraft(index)}
+            >
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString(
+                      `${index + 1}. ${saveTitle?.substring(0, 20)}....`
+                    )
+                    .deleteChars(1)
+                    .start();
+                }}
+              />
+            </Typography>
+
             <IconButton onClick={() => handleDeleteMsg(index)}>
               <DeleteForeverIcon />
             </IconButton>
