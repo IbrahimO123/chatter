@@ -1,4 +1,5 @@
 import parse from "html-react-parser";
+
 import {
   Box,
   Typography,
@@ -17,6 +18,7 @@ import {
 import SaveIcon from "@mui/icons-material/Save";
 import PublishIcon from "@mui/icons-material/Publish";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useEffect } from "react";
 
 import { Tags } from "../Utilities/support";
 
@@ -80,6 +82,30 @@ export const WriteArticle = () => {
     }
     return;
   };
+
+  const handleNewPost = () => {
+    dispatch(
+      updateArticle({
+        ...anArticle,
+        title: "",
+        subtitle: "",
+        text: "",
+        html: "",
+        timeCreated: new Date().toLocaleTimeString(),
+        dateCreated: new Date().toLocaleDateString(),
+        likes: 0,
+        comments: {
+          numberOfComments: 0,
+          text: [],
+        },
+        categories: [],
+        repost: 0,
+        readOnly: true,
+        coverImage: "",
+        published: false,
+      })
+    );
+  };
   const saveArticle = async () => {
     setSaveButton((prev) => !prev);
     const photoUrl = await UploadImage(selectedImage, title);
@@ -120,7 +146,11 @@ export const WriteArticle = () => {
       })
     );
   };
-  
+
+  useEffect(() => {
+    document.title = "Chatter | Write";
+  }, []);
+
   return (
     <Box sx={{ margin: { xs: "10px", md: "5px" } }}>
       <Typography textAlign="center" component="h1" variant="h6" m={1}>
@@ -188,7 +218,15 @@ export const WriteArticle = () => {
               </Box>
             </Box>
 
-            <Box sx={{ display: { xs: "block", md: "flex" } }}>
+            <Box
+              sx={{
+                display: {
+                  xs: "block",
+                  md: "flex",
+                  justifyContent: "space-between",
+                },
+              }}
+            >
               <Box>
                 <TextField
                   sx={{ marginRight: "10px" }}
@@ -250,6 +288,16 @@ export const WriteArticle = () => {
                     select maximum of two tags
                   </small>
                 </Box>
+              </Box>
+
+              <Box sx={{}} mt={5} mr={3}>
+                <Button
+                  onClick={handleNewPost}
+                  color="error"
+                  variant="contained"
+                >
+                  New Post
+                </Button>
               </Box>
             </Box>
           </Paper>
