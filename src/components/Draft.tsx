@@ -97,7 +97,7 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
     });
   };
   return (
-    <Box sx={applyStyle ? { minWidth: "50vw" } : null}>
+    <Box sx={applyStyle ? { minWidth: "55vw" } : null}>
       <Typography component="h1" variant="h6" p={1}>
         <IconButton>
           <EditNoteIcon />
