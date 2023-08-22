@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 import {
   Box,
   IconButton,
@@ -28,6 +29,7 @@ import { updateOtherState } from "../redux/Others/slice";
 import { linkStyle } from "../Utilities/support";
 import { gridStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
+
 
 export const Login = () => {
   const [user, loader, error] = useAuthState(auth);
@@ -59,6 +61,7 @@ export const Login = () => {
 
   useEffect(
     () => {
+      document.title = "Chatter | Login";
       getLoggedInUser();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import {
   updateUserAsync,
   updateAUserPassword,
@@ -32,6 +33,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { getData } from "../Utilities/GetUserData";
+
 
 export const SignUp = () => {
   const { aUser } = useSelector((state: RootState) => state.users);
@@ -127,9 +129,11 @@ export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  useEffect(() => {document.title = "Chatter | Sign Up";},[])
 
   return (
     <Box sx={{ ...gridStyle, marginTop: { xs: "9rem", md: "0em" } }}>
+     
       <form id="form" onSubmit={handleSignUp}>
         <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
