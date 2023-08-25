@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-
 import {
   Box,
   IconButton,
@@ -30,7 +29,6 @@ import { linkStyle } from "../Utilities/support";
 import { gridStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-
 export const Login = () => {
   const [user, loader, error] = useAuthState(auth);
   const aUser = useSelector((state: RootState) => state.users.aUser);
@@ -38,8 +36,8 @@ export const Login = () => {
 
   const getLoggedInUser = async () => {
     if (user) {
-      if (user.email !== null) {
-        const res = await getData(user.email);
+      if (user.uid !== null) {
+        const res = await getData(user.email!);
         if (res?.data() !== null) {
           dispatch(
             updateAUser({
@@ -53,9 +51,9 @@ export const Login = () => {
               isAuthorised: res?.data()?.isAuthorised,
             })
           );
+          navigate("/", { replace: true });
         }
       }
-      navigate("/", { replace: true });
     }
   };
 
