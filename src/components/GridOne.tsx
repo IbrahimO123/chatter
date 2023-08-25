@@ -33,12 +33,18 @@ import { RootState } from "../redux/store";
 import { updateOtherState } from "../redux/Others/slice";
 import { updateAUser } from "../redux/user/slice";
 import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const GridOne = () => {
   const navigate = useNavigate();
+  const [user, load, error] = useAuthState(auth);
   const dispatch = useDispatch();
   const others = useSelector((state: RootState) => state.others);
   const aUser = useSelector((state: RootState) => state.users.aUser);
+
+  const handleSignIn = () => {
+    navigate("/login", { replace: true });
+  };
 
   const handleSignOut = async () => {
     try {
@@ -136,37 +142,47 @@ export const GridOne = () => {
               <MenuItem>&#35;Technology</MenuItem>
               <MenuItem>&#35;Machine Learning</MenuItem>
               <MenuItem>&#35;Politics</MenuItem>
-              <Link className="link" to="/tags" >
-              <MenuItem >See all</MenuItem>
+              <Link className="link" to="/tags">
+                <MenuItem>See all</MenuItem>
               </Link>
             </MenuList>
             <Divider></Divider>
-            <Box>
-              <Typography variant="subtitle2" ml={-10} mt={2}>
-                Personal
-              </Typography>
-              <MenuList>
-                <MenuItem>
-                  <AccountCircleOutlinedIcon sx={{ marginRight: "7px" }} />
-                  Account
-                </MenuItem>
-                <MenuItem>
-                  <SettingsOutlinedIcon sx={{ marginRight: "7px" }} /> Settings
-                </MenuItem>
-                <MenuItem>
-                  {" "}
-                  <NotificationsNoneOutlinedIcon sx={{ marginRight: "7px" }} />
-                  Notifications
-                </MenuItem>
-                <Button
-                  sx={{ margin: "10px", color: "#d50000" }}
-                  variant="text"
-                  onClick={handleSignOut}
-                >
-                  Logout
-                </Button>
-              </MenuList>
-            </Box>
+            {user?.uid ? (
+              <Box>
+                <Typography variant="subtitle2" mt={2}>
+                  Personal
+                </Typography>
+                <MenuList>
+                  <MenuItem>
+                    <AccountCircleOutlinedIcon sx={{ marginRight: "7px" }} />
+                    Account
+                  </MenuItem>
+                  <MenuItem>
+                    <SettingsOutlinedIcon sx={{ marginRight: "7px" }} />{" "}
+                    Settings
+                  </MenuItem>
+                  <MenuItem>
+                    {" "}
+                    <NotificationsNoneOutlinedIcon
+                      sx={{ marginRight: "7px" }}
+                    />
+                    Notifications
+                  </MenuItem>
+
+                  <Button
+                    sx={{ margin: "10px", color: "#d50000" }}
+                    variant="text"
+                    onClick={handleSignOut}
+                  >
+                    Logout
+                  </Button>
+                </MenuList>
+              </Box>
+            ) : (
+            <Button  color="warning" onClick={handleSignIn}>
+              Sign In
+            </Button>
+            )}
           </Box>
         </Box>
       </Paper>
