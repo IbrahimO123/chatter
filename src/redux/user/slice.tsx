@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { AppUser, User } from "./model";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { hashPassword } from "../../Utilities/securePassword";
-import { addToDatabase } from "../../Utilities/AddData";
+import { addToDatabase } from "../../Utilities/AddDrafts";
 
 const initialState: AppUser = {
   allUsers: [

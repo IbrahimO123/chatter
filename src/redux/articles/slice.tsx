@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AppArticle } from "./model";
-import { SaveArticle } from "./model";
+import { Draft } from "./model";
 
 const initialState: AppArticle = {
   allArticles: [
@@ -49,11 +49,34 @@ const initialState: AppArticle = {
   },
 };
 
-const saveArticleIntialState: SaveArticle = {
-  email: "",
-  name: "",
-  heading: [],
-  heading2: [],
+const saveDraftsIntialState: Draft = {
+  drafts: [
+    {
+      id: "",
+      data: [
+        {
+          text: "",
+          title: "",
+          subtitle: "",
+          html: "",
+          authorEmail: "",
+          authorName: "",
+          timeCreated: new Date().toLocaleTimeString(),
+          dateCreated: new Date().toLocaleDateString(),
+          likes: 0,
+          comments: {
+            numberOfComments: 0,
+            text: [],
+          },
+          categories: [],
+          repost: 0,
+          readOnly: true,
+          coverImage: "",
+          published: false,
+        },
+      ],
+    },
+  ],
 };
 
 export const articleSlice = createSlice({
@@ -69,11 +92,11 @@ export const articleSlice = createSlice({
   },
 });
 
-export const saveArticleSlice = createSlice({
-  name: "save_article",
-  initialState: saveArticleIntialState,
+export const saveDraftsSlice = createSlice({
+  name: "save_drafts",
+  initialState: saveDraftsIntialState,
   reducers: {
-    updateSaveArticle(state, action: PayloadAction<SaveArticle>) {
+    updateSaveDrafts(state, action: PayloadAction<Draft>) {
       return {
         ...state,
         ...action.payload,
@@ -84,4 +107,4 @@ export const saveArticleSlice = createSlice({
 
 export const { updateArticle } = articleSlice.actions;
 
-export const { updateSaveArticle } = saveArticleSlice.actions;
+export const { updateSaveDrafts } = saveDraftsSlice.actions;
