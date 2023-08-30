@@ -29,25 +29,46 @@ import { Draft } from "../components/Draft";
 
 import { updateOtherState } from "../redux/Others/slice";
 import EditorMarkdown from "../components/Editors";
-import { addArticletoDatabase } from "../Utilities/AddData";
+import { addDraftToDatabase } from "../Utilities/AddDrafts";
 import { useState } from "react";
 import { UploadImage } from "../Utilities/UploadImage";
 import { MobileView } from "../Utilities/support";
 import { mdParser } from "../components/Editors";
-import { RetrieveAArticleOnce } from "../Utilities/RetrieveArticle";
-import { updateSaveArticle } from "../redux/articles/slice";
+import { RetrieveDrafts } from "../Utilities/RetrieveDrafts";
+import { updateSaveDrafts } from "../redux/articles/slice";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
+import { PublishArticle } from "../Utilities/PublishArticle";
 
 export const WriteArticle = () => {
   const dispatch = useDispatch();
+  const [user] = useAuthState(auth);
   const { anArticle } = useSelector((state: RootState) => state.articles);
-  const save = useSelector((state: RootState) => state.saveArticles);
-  const { heading, heading2 } = save;
+  const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const others = useSelector((state: RootState) => state.others);
   const { email, firstname, lastname } = aUser;
   const { categories, title, text, subtitle, coverImage } = anArticle;
   const [selectedImage, setSelectedImage] = useState<File>();
   const [saveButton, setSaveButton] = useState(false);
+  const [publishButton, setPublishButton] = useState(false);
+
+  const fetchDraft = async () => {
+    const draftsData = await RetrieveDrafts(user?.uid);
+    if (draftsData) {
+      dispatch(
+        updateSaveDrafts({
+          ...saveDrafts,
+          drafts: [...draftsData],
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchDraft();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedImage(e.target!.files![0]);
@@ -106,34 +127,27 @@ export const WriteArticle = () => {
       })
     );
   };
-  const saveArticle = async () => {
-    setSaveButton((prev) => !prev);
-    const photoUrl = await UploadImage(selectedImage, title);
-    await addArticletoDatabase({ ...anArticle, coverImage: photoUrl }, title);
-    const querySnapshot = await RetrieveAArticleOnce(title);
-    const result = heading.find((item: string) => item === title);
-    querySnapshot.forEach((doc) => {
-      if (result === undefined)
-        return dispatch(
-          updateSaveArticle({
-            ...save,
-            heading: [...heading, doc.data().title],
-            heading2: [...heading2, doc.data().subtitle],
-            email,
-            name: `${firstname} ${lastname}`,
-          })
-        );
-    });
-
-    dispatch(
-      updateOtherState({
-        ...others,
-        severity: "success",
-        open: true,
-        message: "Article added successfully",
-      })
-    );
-    return setSaveButton((prev) => !prev);
+  const saveDraft = async () => {
+    try {
+      setSaveButton((prev) => !prev);
+      const photoUrl = await UploadImage(selectedImage, title);
+      await addDraftToDatabase(
+        { ...anArticle, coverImage: photoUrl },
+        user?.uid
+      );
+      dispatch(
+        updateOtherState({
+          ...others,
+          severity: "success",
+          open: true,
+          message: "Article added successfully",
+        })
+      );
+      setSaveButton((prev) => !prev);
+      return fetchDraft();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,6 +159,29 @@ export const WriteArticle = () => {
         authorName: `${firstname} ${lastname}`,
       })
     );
+  };
+  const handlePublish = async () => {
+    try {
+      setPublishButton((prev) => !prev);
+      const photoUrl = await UploadImage(selectedImage, title);
+      await PublishArticle(
+        { ...anArticle, coverImage: photoUrl, published: true },
+        user?.uid
+      );
+      dispatch(
+        updateOtherState({
+          ...others,
+          severity: "success",
+          open: true,
+          message: "Article published successfully",
+        })
+      );
+      handleNewPost();
+      setSelectedImage(undefined);
+      setPublishButton((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -262,7 +299,10 @@ export const WriteArticle = () => {
                     return (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
-                          <Chip key={value} label={value} />
+                          <Chip
+                            key={value}
+                            label={value.toLowerCase().trim()}
+                          />
                         ))}
                       </Box>
                     );
@@ -274,9 +314,9 @@ export const WriteArticle = () => {
                   <MenuItem disabled value="">
                     <em>Select the Category</em>
                   </MenuItem>
-                  {Tags.map((tag) => (
+                  {Tags.sort()?.map?.((tag: string) => (
                     <MenuItem value={tag} key={tag}>
-                      {tag}
+                      {tag.toLowerCase().trim()}
                     </MenuItem>
                   ))}
                 </Select>
@@ -311,9 +351,10 @@ export const WriteArticle = () => {
 
           <Box m={2} component="div">
             <Box pb={1}>
-              <Button
+              <LoadingButton
                 sx={{ margin: "5px" }}
                 variant="contained"
+                loading={publishButton}
                 disabled={
                   text.length < 200
                     ? true
@@ -323,11 +364,13 @@ export const WriteArticle = () => {
                       selectedImage === undefined
                 }
                 size="small"
+                loadingPosition="end"
                 endIcon={<PublishIcon />}
                 color="success"
+                onClick={handlePublish}
               >
                 Publish
-              </Button>
+              </LoadingButton>
               <LoadingButton
                 color="warning"
                 variant="contained"
@@ -343,7 +386,7 @@ export const WriteArticle = () => {
                 size="small"
                 loadingPosition="end"
                 endIcon={<SaveIcon />}
-                onClick={saveArticle}
+                onClick={saveDraft}
               >
                 <span>Save</span>
               </LoadingButton>
