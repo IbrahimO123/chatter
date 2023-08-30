@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import {
   MenuList,
   MenuItem,
@@ -13,65 +13,83 @@ import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import { RetrieveAArticleOnce } from "../Utilities/RetrieveArticle";
+import {
+  RetrieveDrafts,
+  RetrieveSingleDraft,
+} from "../Utilities/RetrieveDrafts";
 import { useDispatch } from "react-redux";
-import { updateArticle, updateSaveArticle } from "../redux/articles/slice";
+import { updateArticle, updateSaveDrafts } from "../redux/articles/slice";
 import { updateOtherState } from "../redux/Others/slice";
 import { style } from "./../Utilities/support";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
+import { DeleteDraft } from "../Utilities/DeleteDraft";
+import { DeleteImage } from "../Utilities/DeleteImage";
 type DraftProps = {
   applyStyle?: boolean;
 };
 
 export const Draft = ({ applyStyle = false }: DraftProps) => {
+  const [selectedDraft, setselectedDraft] = useState(null);
+  const [user] = useAuthState(auth);
   const dispatch = useDispatch();
-  const saveArticles = useSelector((state: RootState) => state.saveArticles);
-  const { heading } = saveArticles;
+  const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
+  const { drafts } = saveDrafts;
   const { anArticle } = useSelector((state: RootState) => state.articles);
   const others = useSelector((state: RootState) => state.others);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [modalAnswer, setModalAnswer] = useState(false);
+
   const handleModalOpen = () => {
     setOpenModal(true);
   };
-
-  //   useEffect(() => {
-  //     if (modalAnswer) {
-  //       handleDelete();
-  //     }
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [modalAnswer]);
-
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
     setOpenModal(false);
   };
-  const handleDeleteMsg = async (index: number) => {
+  const handleDeleteMsg = (draft: any) => {
     setModalMessage("Are you sure you want to delete this draft?");
+    setselectedDraft(draft);
     handleModalOpen();
   };
-  const handleDelete = (index: number) => {
-    console.log("Index", index);
-    dispatch(
-      updateSaveArticle({
-        ...saveArticles,
-        heading: [heading.splice()],
-        heading2: [heading.splice()],
-      })
-    );
-    handleModalClose();
-    setModalAnswer(false);
+
+  const fetchDraft = async () => {
+    const draftsData = await RetrieveDrafts(user?.uid);
+    if (draftsData) {
+      dispatch(
+        updateSaveDrafts({
+          ...saveDrafts,
+          drafts: [...draftsData],
+        })
+      );
+    }
   };
 
-  const handleReloadDraft = async (index: number) => {
-    const querySnapshot = await RetrieveAArticleOnce(heading[index]);
-    querySnapshot.forEach((doc) => {
-      if (doc.data()) {
+  const handleDelete = (draft: any) => {
+    DeleteDraft(user?.uid, draft?.id);
+    DeleteImage(draft?.data?.title);
+    fetchDraft();
+    handleModalClose();
+
+    dispatch(
+      updateOtherState({
+        ...others,
+        open: true,
+        message: "Article deleted successfully",
+        severity: "success",
+        loading: false,
+      })
+    );
+  };
+
+  const handleReloadDraft = async (index: string) => {
+    const draft = await RetrieveSingleDraft(user?.uid, index);
+    draft.map((doc: any) => {
+      if (doc.data) {
         dispatch(
           updateArticle({
             ...anArticle,
-            ...doc.data(),
+            ...doc.data,
           })
         );
         return dispatch(
@@ -105,55 +123,56 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
         Articles
       </Typography>
       <MenuList>
-        {heading.map((saveTitle: string, index: number) => (
-          <MenuItem sx={{ padding: "10px", fontSize: "12px" }} key={index}>
-            <Typography
-              component="div"
-              fontSize={15}
-              onDoubleClick={() => handleReloadDraft(index)}
-            >
-              <Typewriter
-                onInit={(typewriter) => {
-                  typewriter
-                    .typeString(
-                      `${index + 1}. ${saveTitle?.substring(0, 20)}....`
-                    )
-                    .deleteChars(1)
-                    .start();
-                }}
-              />
-            </Typography>
+        {drafts &&
+          drafts.map((draft: any, index: number) => (
+            <MenuItem sx={{ padding: "10px", fontSize: "12px" }} key={draft.id}>
+              <Typography
+                component="div"
+                fontSize={15}
+                onClick={() => handleReloadDraft(draft.id)}
+              >
+                <Typewriter
+                  onInit={(typewriter) => {
+                    typewriter
+                      .typeString(
+                        ` ${draft?.data?.title?.substring(
+                          0,
+                          20
+                        )}....`
+                      )
+                      .deleteChars(1)
+                      .start();
+                  }}
+                />
+              </Typography>
 
-            <IconButton onClick={() => handleDeleteMsg(index)}>
-              <DeleteForeverIcon />
-            </IconButton>
-            <Modal
-              open={openModal}
-              onClose={handleModalClose}
-              aria-labelledby="delete article"
-              aria-describedby="delete drafted article"
-              color="error"
-            >
-              <Box sx={{ ...style, width: { md: 300, xs: 200 } }}>
-                <Typography>{modalMessage}</Typography>
-                <Box p={1} display="flex" justifyContent="space-around">
-                  <Button
-                    onClick={() => {
-                      setModalAnswer(true);
-                      handleDelete(index);
-                    }}
-                    color="error"
-                  >
-                    Yes
-                  </Button>
-                  <Button onClick={handleModalClose} sx={{ color: "#9e9e9e" }}>
-                    No
-                  </Button>
-                </Box>
-              </Box>
-            </Modal>
-          </MenuItem>
-        ))}
+              <IconButton onClick={() => handleDeleteMsg(draft)}>
+                <DeleteForeverIcon />
+              </IconButton>
+            </MenuItem>
+          ))}
+        <Modal
+          open={openModal}
+          onClose={handleModalClose}
+          aria-labelledby="delete article"
+          aria-describedby="delete drafted article"
+          color="error"
+        >
+          <Box sx={{ ...style, width: { md: 300, xs: 200 } }}>
+            <Typography>{modalMessage}</Typography>
+            <Box p={1} display="flex" justifyContent="space-around">
+              <Button
+                onClick={() => handleDelete(selectedDraft!)}
+                color="error"
+              >
+                Yes
+              </Button>
+              <Button onClick={handleModalClose} sx={{ color: "#9e9e9e" }}>
+                No
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
       </MenuList>
     </Box>
   );
