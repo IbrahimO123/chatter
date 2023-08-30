@@ -37,7 +37,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export const GridOne = () => {
   const navigate = useNavigate();
-  const [user, load, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const dispatch = useDispatch();
   const others = useSelector((state: RootState) => state.others);
   const aUser = useSelector((state: RootState) => state.users.aUser);
@@ -179,9 +179,9 @@ export const GridOne = () => {
                 </MenuList>
               </Box>
             ) : (
-            <Button  color="warning" onClick={handleSignIn}>
-              Sign In
-            </Button>
+              <Button color="warning" onClick={handleSignIn}>
+                Sign In
+              </Button>
             )}
           </Box>
         </Box>
