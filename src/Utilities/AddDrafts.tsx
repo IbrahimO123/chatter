@@ -14,10 +14,15 @@ export const addToDatabase = async (data: User, email: string) => {
   }
 };
 
-export const addArticletoDatabase = async (data: Article, email: string) => {
+export const addDraftToDatabase = async (
+  data: Article,
+  uid: any
+) => {
   try {
-    const collectionRef = collection(db, "articles");
-    const res = await setDoc(doc(collectionRef, email), data);
+ 
+    const collectionRef = collection(db, "articles", uid, "drafts");
+    const res = await setDoc(doc(collectionRef), data);
+   
     return res;
   } catch (e: any) {
     console.error(e.message);

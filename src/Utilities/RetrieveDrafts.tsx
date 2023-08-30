@@ -10,6 +10,7 @@ import {
   query,
   where,
   getDocs,
+  getDocsFromServer,
 } from "firebase/firestore";
 
 export const RetrieveAllArticleOnce = async () => {
@@ -48,4 +49,32 @@ export const RetrieveAArticleCont = async (title: string) => {
   } else if (error) {
     return "Error";
   } else return value;
+};
+
+export const RetrieveDrafts = async (uid: any) => {
+  const draftSnapShot = await getDocsFromServer(
+    collection(db, "articles", uid, "drafts")
+  );
+  let userDrafts: any = [];
+  if (draftSnapShot) {
+    draftSnapShot.forEach((doc) => {
+      userDrafts.push({ id: doc.id, data: doc.data() });
+    });
+  }
+  return userDrafts;
+};
+
+export const RetrieveSingleDraft = async (uid: any, draftId: string) => {
+  const draftSnapShot = await getDocsFromServer(
+    collection(db, "articles", uid, "drafts")
+  );
+  let singleDraft: any = [];
+  if (draftSnapShot) {
+    draftSnapShot.forEach((doc) => {
+      if (doc.id === draftId) {
+        singleDraft.push({ id: doc.id, data: doc.data() });
+      }
+    });
+  }
+  return singleDraft;
 };
