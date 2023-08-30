@@ -105,27 +105,31 @@ export const WriteArticle = () => {
   };
 
   const handleNewPost = () => {
-    dispatch(
-      updateArticle({
-        ...anArticle,
-        title: "",
-        subtitle: "",
-        text: "",
-        html: "",
-        timeCreated: new Date().toLocaleTimeString(),
-        dateCreated: new Date().toLocaleDateString(),
-        likes: 0,
-        comments: {
-          numberOfComments: 0,
-          text: [],
-        },
-        categories: [],
-        repost: 0,
-        readOnly: true,
-        coverImage: "",
-        published: false,
-      })
-    );
+    try {
+      dispatch(
+        updateArticle({
+          ...anArticle,
+          title: "",
+          subtitle: "",
+          text: "",
+          html: "",
+          timeCreated: new Date().toLocaleTimeString(),
+          dateCreated: new Date().toLocaleDateString(),
+          likes: 0,
+          comments: {
+            numberOfComments: 0,
+            text: [],
+          },
+          categories: [],
+          repost: 0,
+          readOnly: true,
+          coverImage: "",
+          published: false,
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
   const saveDraft = async () => {
     try {
