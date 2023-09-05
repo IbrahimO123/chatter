@@ -30,8 +30,8 @@ export const Home = () => {
       const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
       const data = await res.data;
       dispatch(getAllPosts(data.slice(0, 10)));
-      const articles = await getAllArticles();
-      console.log(articles);
+     // const articles = await getAllArticles();
+      //console.log(articles);
     } catch (err: any) {
       console.error("Error: ", err.code);
     }
