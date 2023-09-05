@@ -1,7 +1,6 @@
 import { useMediaQuery, useTheme, InputBase } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-
 export const linkStyle = {
   textDecoration: "none",
   color: "#000",
@@ -45,7 +44,10 @@ export const formatDate = (date: string | Date) => {
   return formattedDate;
 };
 
-export const getTimeDifferenceString = (timeDifference: number): string => {
+export const getTimeDifferenceString = (date: string): string => {
+  const postTime = new Date(date).getTime();
+  const currentTime = new Date().getTime();
+  const timeDifference = Number(currentTime - postTime);
   const seconds = Math.floor(timeDifference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -80,7 +82,7 @@ export const getTimeDifferenceString = (timeDifference: number): string => {
   }
 };
 
-export const greetings = (): string => {
+export const greetingsUser = (): string => {
   const date = new Date();
   const hour = date.getHours();
   let greeting = "";
@@ -797,8 +799,6 @@ export const style = {
   textAlign: "center",
 };
 
-
-
 export const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -815,7 +815,6 @@ export const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -825,7 +824,6 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",

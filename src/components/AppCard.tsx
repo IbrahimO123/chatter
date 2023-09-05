@@ -23,8 +23,11 @@ import HideSourceIcon from "@mui/icons-material/HideSource";
 import ReportIcon from "@mui/icons-material/Report";
 import CopyAllSharpIcon from "@mui/icons-material/CopyAllSharp";
 import TuneSharpIcon from "@mui/icons-material/TuneSharp";
+import { calculateReadingTime } from "../Utilities/support";
+import { getTimeDifferenceString } from "../Utilities/support";
 
-import { Post } from "../redux/posts/model";
+// import { Post } from "../redux/posts/model";
+// import { Article } from "../redux/articles/model";
 
 import womanImage from "../assets/images/woman.avif";
 import womanImage2 from "../assets/images/woman2.avif";
@@ -38,9 +41,8 @@ const actionStyle = {
 export const menuStyle = {
   fontSize: "12px",
 };
-export const AppCard = (cpost: Post) => {
+export const AppCard = (cpost: any) => {
   const navigate = useNavigate();
-
   const blogPost = () => {
     navigate("/blogs/com");
   };
@@ -56,7 +58,7 @@ export const AppCard = (cpost: Post) => {
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
         avatar={<Avatar src={cpost.id % 2 ? womanImage2 : womanImage} />}
-        title="Heading of the post"
+        title={cpost.title}
         action={
           <>
             <IconButton
@@ -104,9 +106,14 @@ export const AppCard = (cpost: Post) => {
           </>
         }
         subheader={
-          <small>
+          <small style={{fontWeight:"bolder"}} >
             <Typography variant="caption">
-              {new Date().toLocaleTimeString()}
+              {cpost.dateCreated
+                ? getTimeDifferenceString(cpost.dateCreated)
+                : getTimeDifferenceString("8/07/2023")}
+            </Typography>
+            <Typography variant="caption" m={2}>
+              {calculateReadingTime(cpost.title)} mins read
             </Typography>
           </small>
         }
@@ -114,10 +121,18 @@ export const AppCard = (cpost: Post) => {
       <CardContent onClick={blogPost}>
         <CardMedia
           sx={{ height: 350 }}
-          image={cpost.id % 2 ? womanImage : womanImage2}
+          image={
+            cpost.id % 2
+              ? womanImage
+              : cpost.coverImage
+              ? cpost.coverImage
+              : womanImage2
+          }
           title="woman holding phone exicted"
         ></CardMedia>
-        <Typography variant="body2">{cpost.body}</Typography>
+        <Typography m={2} variant="body2">
+          {cpost.body || `${cpost.text?.substring(0, 200)}....`}
+        </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
         <Button

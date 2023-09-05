@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, Grid } from "@mui/material";
 
 import { GridOne } from "../components/GridOne";
@@ -20,6 +21,7 @@ import { getAllArticles } from "../Utilities/RetrieveAllArticles";
 
 export const Home = () => {
   const dispatch = useDispatch();
+  const [feed, setFeed] = useState<any>([]);
 
   const posts = useSelector((state: RootState) => state.posts);
   const others = useSelector((state: RootState) => state.others);
@@ -30,8 +32,8 @@ export const Home = () => {
       const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
       const data = await res.data;
       dispatch(getAllPosts(data.slice(0, 10)));
-     // const articles = await getAllArticles();
-      //console.log(articles);
+      const result = await getAllArticles();
+      setFeed(result.articles);
     } catch (err: any) {
       console.error("Error: ", err.code);
     }
@@ -62,6 +64,15 @@ export const Home = () => {
             <Box>
               {allPosts && allPosts.length > 0 ? (
                 allPosts.map((post: Post) => (
+                  <AppCard {...post} key={post.title} />
+                ))
+              ) : (
+                <small>No posts</small>
+              )}
+            </Box>
+            <Box>
+              {feed && feed.length > 0 ? (
+                feed.map((post: any) => (
                   <AppCard {...post} key={post.title} />
                 ))
               ) : (
