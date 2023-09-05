@@ -54,14 +54,18 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
   };
 
   const fetchDraft = async () => {
-    const draftsData = await RetrieveDrafts(user?.uid);
-    if (draftsData) {
-      dispatch(
-        updateSaveDrafts({
-          ...saveDrafts,
-          drafts: [...draftsData],
-        })
-      );
+    try {
+      const draftsData = await RetrieveDrafts(user?.uid);
+      if (draftsData) {
+        dispatch(
+          updateSaveDrafts({
+            ...saveDrafts,
+            drafts: [...draftsData],
+          })
+        );
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -70,7 +74,6 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
     DeleteImage(draft?.data?.title);
     fetchDraft();
     handleModalClose();
-
     dispatch(
       updateOtherState({
         ...others,
@@ -131,24 +134,27 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
                 fontSize={15}
                 onClick={() => handleReloadDraft(draft.id)}
               >
-                <Typewriter
-                  onInit={(typewriter) => {
-                    typewriter
-                      .typeString(
-                        ` ${draft?.data?.title?.substring(
-                          0,
-                          20
-                        )}....`
-                      )
-                      .deleteChars(1)
-                      .start();
-                  }}
-                />
+                {draft.data.title !== undefined ? (
+                  <Typewriter
+                    onInit={(typewriter) => {
+                      typewriter
+                        .typeString(
+                          ` ${draft?.data?.title?.substring(0, 20)}....`
+                        )
+                        .deleteChars(1)
+                        .start();
+                    }}
+                  />
+                ) : (
+                  null
+                )}
               </Typography>
 
-              <IconButton onClick={() => handleDeleteMsg(draft)}>
-                <DeleteForeverIcon />
-              </IconButton>
+              {draft?.data?.title && (
+                <IconButton onClick={() => handleDeleteMsg(draft)}>
+                  <DeleteForeverIcon />
+                </IconButton>
+              )}
             </MenuItem>
           ))}
         <Modal

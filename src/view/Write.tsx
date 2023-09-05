@@ -54,14 +54,18 @@ export const WriteArticle = () => {
   const [publishButton, setPublishButton] = useState(false);
 
   const fetchDraft = async () => {
-    const draftsData = await RetrieveDrafts(user?.uid);
-    if (draftsData) {
-      dispatch(
-        updateSaveDrafts({
-          ...saveDrafts,
-          drafts: [...draftsData],
-        })
-      );
+    try {
+      const draftsData = await RetrieveDrafts(user?.uid);
+      if (draftsData) {
+        dispatch(
+          updateSaveDrafts({
+            ...saveDrafts,
+            drafts: [...draftsData],
+          })
+        );
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
