@@ -6,6 +6,13 @@ import ReportIcon from "@mui/icons-material/Report";
 import CopyAllSharpIcon from "@mui/icons-material/CopyAllSharp";
 import TuneSharpIcon from "@mui/icons-material/TuneSharp";
 
+
+export const AccountMenu = [
+  {
+    value:"My "
+  }
+]
+
 export const ManagePostMore = [
   {
     value: "Bookmark",
