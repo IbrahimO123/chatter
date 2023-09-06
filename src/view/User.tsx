@@ -7,6 +7,7 @@ const User = () => {
   const [user] = useAuthState(auth);
   useEffect(() => {
     console.log("User", user);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Container>
