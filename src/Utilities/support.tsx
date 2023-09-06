@@ -1,5 +1,33 @@
 import { useMediaQuery, useTheme, InputBase } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import HideSourceIcon from "@mui/icons-material/HideSource";
+import ReportIcon from "@mui/icons-material/Report";
+import CopyAllSharpIcon from "@mui/icons-material/CopyAllSharp";
+import TuneSharpIcon from "@mui/icons-material/TuneSharp";
+
+export const ManagePostMore = [
+  {
+    value: "Bookmark",
+    logo: <BookmarkAddIcon />,
+  },
+  {
+    value: "Hide",
+    logo: <HideSourceIcon />,
+  },
+  {
+    value: "Report",
+    logo: <ReportIcon />,
+  },
+  {
+    value: "Copy link",
+    logo: <CopyAllSharpIcon />,
+  },
+  {
+    value: "Manage your feed",
+    logo: <TuneSharpIcon />,
+  },
+];
 
 export const linkStyle = {
   textDecoration: "none",
