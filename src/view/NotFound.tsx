@@ -15,7 +15,7 @@ const NotFound = () => {
     >
       <Container maxWidth="md">
         <Grid container  gap={2} >
-          <Grid xs={12} md={5}>
+          <Grid item xs={12} md={5}>
             <Typography variant="h1">404</Typography>
             <Typography variant="h6">
               The page you’re looking for doesn’t exist.
@@ -28,7 +28,7 @@ const NotFound = () => {
               Back Home
             </Button>
           </Grid>
-          <Grid  xs={12} md={5} >
+          <Grid item  xs={12} md={5} >
             <img
               src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg"
               alt=""
