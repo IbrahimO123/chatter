@@ -56,18 +56,20 @@ export const AppNav = () => {
               color="inherit"
               onClick={toggleDrawer}
             >
-              {user?.uid && <MenuIcon />}
+              <MenuIcon />
             </IconButton>
-            {user?.uid ? (
-              <Drawer
-                sx={{ display: { xs: "flex", md: "none" } }}
-                anchor="left"
-                open={open}
-                onClose={toggleDrawer}
-              >
-                {pathname === "/write" ? <Draft applyStyle={true} /> : <GridOne />}
-              </Drawer>
-            ) : null}
+            <Drawer
+              sx={{ display: { xs: "flex", md: "none" } }}
+              anchor="left"
+              open={open}
+              onClose={toggleDrawer}
+            >
+              {pathname === "/write" ? (
+                <Draft applyStyle={true} />
+              ) : (
+                <GridOne />
+              )}
+            </Drawer>
           </Box>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
             <img
@@ -146,7 +148,11 @@ export const AppNav = () => {
               <Box>
                 <IconButton>
                   <Link
-                    style={{ color: "#fff", textDecoration: "none", fontSize: 19 }}
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: 19,
+                    }}
                     to="/login"
                   >
                     Login
@@ -157,8 +163,11 @@ export const AppNav = () => {
               <Box>
                 <IconButton>
                   <Link
-                    style={{ color: "#fff", textDecoration: "none", fontSize: 19 }}
-                  
+                    style={{
+                      color: "#fff",
+                      textDecoration: "none",
+                      fontSize: 19,
+                    }}
                     to="/signup"
                   >
                     Join
