@@ -133,8 +133,8 @@ const SignUp = () => {
   }, []);
 
   return (
-    <Box sx={{ ...gridStyle, marginTop: { xs: "9rem", md: "0em" } }}>
-      <form id="form" onSubmit={handleSignUp}>
+    <Box sx={{ ...gridStyle, backgroundColor:"#4caf50", height:"100vh" }}>
+      <form id="form"  onSubmit={handleSignUp}>
         <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
         </Typography>
@@ -258,7 +258,7 @@ const SignUp = () => {
           <small>{errMessage ? errMessage : null}</small>
         </p>
         <div className="signup">
-          <Button type="submit" variant="outlined">
+          <Button type="submit" variant="contained">
             Sign Up
           </Button>
           <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
@@ -266,9 +266,9 @@ const SignUp = () => {
           </Box>
           <p>
             <Typography className="caption" variant="caption">
-              Already have an account?{" "}
+              Already have an account?
               <Link style={linkStyle} to="/login">
-                Login
+                 {" "}Login
               </Link>
             </Typography>
           </p>

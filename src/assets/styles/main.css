@@ -2,16 +2,13 @@ form {
     width: 25vw;
     text-align: center;
     height: 100%;
-    padding: 1em 2em;
-    background-color: #4caf50;
     border-radius: 3px;
 
 }
 
 #form {
     width: 35vw;
-    margin-top: 10px;
-    padding: 0
+
 }
 
 .input {

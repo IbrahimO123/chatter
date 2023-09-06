@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import {
   Box,
   IconButton,
@@ -26,6 +25,7 @@ import { updateOtherState } from "../redux/Others/slice";
 import { linkStyle } from "../Utilities/support";
 import { gridStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithGoogle } from "../config/firebase/functions";
 
 const Login = () => {
   const [user] = useAuthState(auth);
@@ -183,7 +183,7 @@ const Login = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    <Box sx={{ ...gridStyle }}>
+    <Box sx={{ ...gridStyle, backgroundColor: "#4caf50" }}>
       <form onSubmit={handleLogin}>
         <Typography color="white" p={1} component="p" variant="h6">
           Login
@@ -247,10 +247,27 @@ const Login = () => {
         <Typography className="caption" variant="caption">
           Don't have an account?{" "}
           <Link style={linkStyle} to="/signup">
-            Sign Up
+            Sign-up
           </Link>
         </Typography>
       </form>
+      <Box textAlign="center" color="white">
+        <p>Sign in with Google </p>
+
+        <Button
+          onClick={signInWithGoogle}
+          sx={{ backgroundColor: "#fff", color:"#000" }}
+          variant="contained"
+          startIcon={
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+              alt="Google Sign In"
+            />
+          }
+        >
+          Sign In
+        </Button>
+      </Box>
     </Box>
   );
 };
