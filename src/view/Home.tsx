@@ -33,7 +33,11 @@ const Home = () => {
       const data = await res.data;
       dispatch(getAllPosts(data.slice(0, 10)));
       const result = await getAllArticles();
-      setFeed(result.articles);
+      const sortedArticles = result.articles.sort(
+        (a: any, b: any) =>
+          new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+      );
+      setFeed(sortedArticles);
     } catch (err: any) {
       console.error("Error: ", err.code);
     }
