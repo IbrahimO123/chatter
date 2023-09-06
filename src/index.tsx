@@ -22,8 +22,8 @@ export const Loader = () => {
   return (
     <Hourglass
       visible={true}
-      height="80"
-      width="80"
+      height="50"
+      width="50"
       ariaLabel="hourglass-loading"
       wrapperStyle={loaderStyle}
       colors={["#4caf50", "#C2B280"]}
