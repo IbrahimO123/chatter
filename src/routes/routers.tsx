@@ -1,11 +1,13 @@
+import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home } from "../view/Home";
-import { Login } from "../view/Login";
-import { SignUp } from "../view/SignUp";
-import { PrivateRoute } from "../components/PrivateRoute";
-import { WriteArticle } from "../view/Write";
-import { TagsPage } from "../view/Tags";
-import { Blog } from "../components/Blog";
+
+const Home = lazy(() => import("../view/Home"));
+const Login = lazy(() => import("../view/Login"));
+const SignUp = lazy(() => import("../view/SignUp"));
+const WriteArticle = lazy(() => import("../view/Write"));
+const TagsPage = lazy(() => import("../view/Tags"));
+const Blog = lazy(() => import("../components/Blog"));
+const PrivateRoute = lazy(() => import("../components/PrivateRoute"));
 
 export const Routers = () => {
   return (

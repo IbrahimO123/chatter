@@ -34,8 +34,7 @@ import {
 } from "firebase/auth";
 import { getData } from "../Utilities/GetUserData";
 
-
-export const SignUp = () => {
+const SignUp = () => {
   const { aUser } = useSelector((state: RootState) => state.users);
   const others = useSelector((state: RootState) => state.others);
   const { loading } = others;
@@ -129,11 +128,12 @@ export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  useEffect(() => {document.title = "Chatter | Sign Up";},[])
+  useEffect(() => {
+    document.title = "Chatter | Sign Up";
+  }, []);
 
   return (
     <Box sx={{ ...gridStyle, marginTop: { xs: "9rem", md: "0em" } }}>
-     
       <form id="form" onSubmit={handleSignUp}>
         <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
@@ -277,3 +277,5 @@ export const SignUp = () => {
     </Box>
   );
 };
+
+export default SignUp;

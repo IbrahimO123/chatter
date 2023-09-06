@@ -143,7 +143,7 @@ export const GridOne = () => {
               <MenuItem>&#35;Machine Learning</MenuItem>
               <MenuItem>&#35;Politics</MenuItem>
               <Link className="link" to="/tags">
-                <MenuItem>See all</MenuItem>
+                <MenuItem>See all tags</MenuItem>
               </Link>
             </MenuList>
             <Divider></Divider>

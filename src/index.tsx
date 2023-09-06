@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -8,6 +8,28 @@ import { store, persistor } from "./redux/store";
 import { BrowserRouter as Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { HelmetProvider } from "react-helmet-async";
+import { Hourglass } from "react-loader-spinner";
+
+export const Loader = () => {
+  const loaderStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    padding: "10px",
+    
+  };
+  return (
+    <Hourglass
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="hourglass-loading"
+      wrapperStyle={loaderStyle}
+      colors={["#4caf50", "#C2B280"]}
+    />
+  );
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,9 +39,11 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <HelmetProvider>
-          <Router>
-            <App />
-          </Router>
+          <Suspense fallback={<Loader />}>
+            <Router>
+              <App />
+            </Router>
+          </Suspense>
         </HelmetProvider>
       </PersistGate>
     </Provider>

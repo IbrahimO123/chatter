@@ -19,7 +19,7 @@ import { GridThree } from "../components/GridThree";
 import { updateOtherState } from "../redux/Others/slice";
 import { getAllArticles } from "../Utilities/RetrieveAllArticles";
 
-export const Home = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const [feed, setFeed] = useState<any>([]);
 
@@ -72,9 +72,7 @@ export const Home = () => {
             </Box>
             <Box>
               {feed && feed.length > 0 ? (
-                feed.map((post: any) => (
-                  <AppCard {...post} key={post.title} />
-                ))
+                feed.map((post: any) => <AppCard {...post} key={post.title} />)
               ) : (
                 <small>No posts</small>
               )}
@@ -89,3 +87,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

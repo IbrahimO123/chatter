@@ -40,7 +40,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { PublishArticle } from "../Utilities/PublishArticle";
 
-export const WriteArticle = () => {
+const WriteArticle = () => {
   const dispatch = useDispatch();
   const [user] = useAuthState(auth);
   const { anArticle } = useSelector((state: RootState) => state.articles);
@@ -441,3 +441,5 @@ export const WriteArticle = () => {
     </Box>
   );
 };
+
+export default WriteArticle;

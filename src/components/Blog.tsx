@@ -8,8 +8,7 @@ type BlogProps = {
   coverImage: string;
   text: string;
 };
-
-export const Blog = ({ title, subtitle, coverImage, text }: BlogProps) => {
+const Blog = ({ title, subtitle, coverImage, text }: BlogProps) => {
   useEffect(() => {
     document.title = "Chatter | Blog";
   }, []);
@@ -38,3 +37,5 @@ export const Blog = ({ title, subtitle, coverImage, text }: BlogProps) => {
     </Container>
   );
 };
+
+export default Blog;

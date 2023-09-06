@@ -8,7 +8,7 @@ import {
 import { Tags } from "../Utilities/support";
 import { useEffect } from "react";
 
-export const TagsPage = () => {
+const TagsPage = () => {
   useEffect(() => {
     document.title = "Chatter | Tags";
   }, []);
@@ -28,3 +28,5 @@ export const TagsPage = () => {
     </Container>
   );
 };
+
+export default TagsPage;
