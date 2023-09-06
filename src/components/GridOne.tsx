@@ -42,6 +42,9 @@ export const GridOne = () => {
   const others = useSelector((state: RootState) => state.others);
   const aUser = useSelector((state: RootState) => state.users.aUser);
 
+  const handleRoute = (route: string) => {
+    navigate(`${route}`);
+  };
   const handleSignIn = () => {
     navigate("/login", { replace: true });
   };
@@ -67,22 +70,18 @@ export const GridOne = () => {
     <Box>
       <Paper elevation={8} sx={{ padding: "0px 1px" }}>
         <MenuList>
-          <Link to="/" className="link">
-            <MenuItem>
-              <IconButton>
-                <HomeIcon />
-              </IconButton>
-              Home
-            </MenuItem>
-          </Link>
-          <Link to="/write" className="link">
-            <MenuItem>
-              <IconButton>
-                <EditNoteIcon />
-              </IconButton>
-              Draft
-            </MenuItem>
-          </Link>
+          <MenuItem onClick={() => handleRoute("/")}>
+            <IconButton>
+              <HomeIcon />
+            </IconButton>
+            Home
+          </MenuItem>
+          <MenuItem onClick={() => handleRoute("/write")}>
+            <IconButton>
+              <EditNoteIcon />
+            </IconButton>
+            Draft
+          </MenuItem>
           <MenuItem>
             <IconButton>
               <ChatIcon />
@@ -152,15 +151,15 @@ export const GridOne = () => {
                   Personal
                 </Typography>
                 <MenuList>
-                  <MenuItem>
+                  <MenuItem onClick={() => handleRoute("/user/account")}>
                     <AccountCircleOutlinedIcon sx={{ marginRight: "7px" }} />
                     Account
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={() => handleRoute("/user/settings")}>
                     <SettingsOutlinedIcon sx={{ marginRight: "7px" }} />{" "}
                     Settings
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={() => handleRoute("/user/notifications")}>
                     {" "}
                     <NotificationsNoneOutlinedIcon
                       sx={{ marginRight: "7px" }}
