@@ -58,7 +58,6 @@ export const GridOne = () => {
         })
       );
       dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
-      navigate("/login", { replace: true });
       return;
     } catch (e: any) {
       console.error(e.message);
