@@ -18,7 +18,7 @@ export const Routers = () => {
       <Route path="/" element={<Home />}></Route>
       <Route element={<PrivateRoute />}>
         <Route path="/write" element={<WriteArticle />}></Route>
-        <Route path="/user" element={<User />}></Route>
+        <Route path="/user/account" element={<User />}></Route>
       </Route>
       <Route path="/tags" element={<TagsPage />}></Route>
       <Route
