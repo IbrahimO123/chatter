@@ -9,23 +9,16 @@ import {
   CardMedia,
   IconButton,
   Avatar,
-  Menu,
-  MenuItem,
-  Fade,
 } from "@mui/material";
 
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import HideSourceIcon from "@mui/icons-material/HideSource";
-import ReportIcon from "@mui/icons-material/Report";
-import CopyAllSharpIcon from "@mui/icons-material/CopyAllSharp";
-import TuneSharpIcon from "@mui/icons-material/TuneSharp";
 import { calculateReadingTime } from "../Utilities/support";
 import { getTimeDifferenceString } from "../Utilities/support";
-
+import { ManagePostMore } from "../Utilities/support";
+import { MenuComponent } from "./MenuComponent";
 // import { Post } from "../redux/posts/model";
 // import { Article } from "../redux/articles/model";
 
@@ -71,42 +64,16 @@ export const AppCard = (cpost: any) => {
             >
               <MoreVertIcon />
             </IconButton>
-            <Menu
-              sx={{ left: 0, right: 5 }}
-              id="fade-menu"
-              MenuListProps={{
-                "aria-labelledby": "fade-button",
-              }}
-              anchorEl={anchorEl}
+            <MenuComponent
               open={open}
-              onClose={handleClose}
-              TransitionComponent={Fade}
-            >
-              <MenuItem sx={menuStyle} onClick={handleClose}>
-                <BookmarkAddIcon />
-                Save
-              </MenuItem>
-              <MenuItem sx={menuStyle} onClick={handleClose}>
-                {" "}
-                <HideSourceIcon /> Hide
-              </MenuItem>
-              <MenuItem sx={menuStyle} onClick={handleClose}>
-                {" "}
-                <ReportIcon /> Report
-              </MenuItem>
-              <MenuItem sx={menuStyle} onClick={handleClose}>
-                {" "}
-                <CopyAllSharpIcon /> Copy link
-              </MenuItem>
-              <MenuItem sx={menuStyle} onClick={handleClose}>
-                {" "}
-                <TuneSharpIcon /> Manage your feed
-              </MenuItem>
-            </Menu>
+              handleClose={handleClose}
+              data={ManagePostMore}
+              anchorEl={anchorEl}
+            />
           </>
         }
         subheader={
-          <small style={{fontWeight:"bolder"}} >
+          <small style={{ fontWeight: "bolder" }}>
             <Typography variant="caption">
               {cpost.dateCreated
                 ? getTimeDifferenceString(cpost.dateCreated)
@@ -130,7 +97,7 @@ export const AppCard = (cpost: any) => {
           }
           title="woman holding phone exicted"
         ></CardMedia>
-        <Typography m={2} variant="body2">
+        <Typography mt={2} variant="body2">
           {cpost.body || `${cpost.text?.substring(0, 200)}....`}
         </Typography>
       </CardContent>
