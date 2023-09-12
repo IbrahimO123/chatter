@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { signInWithRedirect, GoogleAuthProvider} from "firebase/auth";
 import { auth } from ".";
 
 export const signInWithGoogle = async () => {
@@ -6,7 +6,7 @@ export const signInWithGoogle = async () => {
   let result;
   let error;
   try {
-    result = await signInWithPopup(auth, provider);
+    result = await signInWithRedirect(auth, provider);
     // const credential = GoogleAuthProvider.credentialFromResult(result);
     // if (credential?.accessToken !== null) {
     //   const user = result.user;
