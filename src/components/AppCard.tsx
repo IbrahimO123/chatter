@@ -22,8 +22,6 @@ import { MenuComponent } from "./MenuComponent";
 // import { Post } from "../redux/posts/model";
 // import { Article } from "../redux/articles/model";
 
-import womanImage from "../assets/images/woman.avif";
-import womanImage2 from "../assets/images/woman2.avif";
 import { useNavigate } from "react-router-dom";
 
 const actionStyle = {
@@ -50,7 +48,7 @@ export const AppCard = (cpost: any) => {
   return (
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
-        avatar={<Avatar src={cpost.id % 2 ? womanImage2 : womanImage} />}
+        avatar={<Avatar src=""/>}
         title={<h3>{cpost.title.toUpperCase()}</h3>}
         action={
           <>
@@ -75,9 +73,7 @@ export const AppCard = (cpost: any) => {
         subheader={
           <small style={{ fontWeight: "bolder" }}>
             <Typography variant="caption">
-              {cpost.dateCreated
-                ? getTimeDifferenceString(cpost.dateCreated)
-                : getTimeDifferenceString("8/07/2023")}
+              {getTimeDifferenceString(cpost.dateCreated)}    
             </Typography>
             <Typography variant="caption" m={2}>
               {calculateReadingTime(cpost.title)} mins read
@@ -88,17 +84,11 @@ export const AppCard = (cpost: any) => {
       <CardContent onClick={blogPost}>
         <CardMedia
           sx={{ height: 350 }}
-          image={
-            cpost.id % 2
-              ? womanImage
-              : cpost.coverImage
-              ? cpost.coverImage
-              : womanImage2
-          }
+          image={cpost.coverImage}
           title={cpost.title}
         ></CardMedia>
         <Typography mt={2} variant="body2">
-          {cpost.body || `${cpost.text?.substring(0, 200)}....`}
+          {`${cpost.text?.substring(0, 200)}....`}
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
