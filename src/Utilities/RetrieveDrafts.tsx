@@ -4,14 +4,7 @@ import {
   useCollectionDataOnce,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
-import {
-  collection,
-  doc,
-  query,
-  where,
-  getDocs,
-  getDocsFromServer,
-} from "firebase/firestore";
+import { collection, doc, query, where, getDocs } from "firebase/firestore";
 
 export const RetrieveAllArticleOnce = async () => {
   const [value, loading, error] = useCollectionDataOnce(
@@ -52,7 +45,7 @@ export const RetrieveAArticleCont = async (title: string) => {
 };
 
 export const RetrieveDrafts = async (uid: any) => {
-  const draftSnapShot = await getDocsFromServer(
+  const draftSnapShot = await getDocs(
     collection(db, "articles", uid, "drafts")
   );
   let userDrafts: any = [];
@@ -65,7 +58,7 @@ export const RetrieveDrafts = async (uid: any) => {
 };
 
 export const RetrieveSingleDraft = async (uid: any, draftId: string) => {
-  const draftSnapShot = await getDocsFromServer(
+  const draftSnapShot = await getDocs(
     collection(db, "articles", uid, "drafts")
   );
   let singleDraft: any = [];

@@ -1,10 +1,10 @@
 import { db } from "../config/firebase";
-import { collectionGroup, getDocsFromServer } from "firebase/firestore";
+import { collectionGroup, getDocs } from "firebase/firestore";
 
 export const getAllArticles = async () => {
   try {
     const articlesRef = collectionGroup(db, "articles");
-    const snapshot = await getDocsFromServer(articlesRef);
+    const snapshot = await getDocs(articlesRef);
     const articles = snapshot.docs.map((doc) =>
       // console.log("doc.id", doc.id),
       ({
