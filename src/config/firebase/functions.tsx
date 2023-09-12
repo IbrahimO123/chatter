@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import { auth } from ".";
 
 export const signInWithGoogle = async () => {
@@ -15,9 +15,6 @@ export const signInWithGoogle = async () => {
   } catch (err) {
     error = err
     console.error(err);
-    if (err === "auth/account-exists-with-different-credential") {
-      return "user already exists";
-    }
   }
   return {
     result,

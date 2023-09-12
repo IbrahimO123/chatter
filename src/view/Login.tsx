@@ -57,7 +57,6 @@ const Login = () => {
 
   useEffect(
     () => {
-      
       getLoggedInUser();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +79,17 @@ const Login = () => {
   const { email, password } = aUser;
 
   const handleGoogleSignIn = async () => {
-    await signInWithGoogle();
+    try {
+      const value = await signInWithGoogle();
+      const { result, error } = value;
+      if (error) {
+        return navigate("/login", { replace: true });
+      } else {
+        return result;
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -159,7 +168,7 @@ const Login = () => {
                     isLoggedIn: true,
                   })
                 );
-                setTimeout(() => navigate("/", { replace: true }), 500);
+                navigate("/", { replace: true })
                 return;
               } else {
                 dispatch(
