@@ -12,9 +12,6 @@ import {
 } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
-
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { comparePassword } from "../Utilities/securePassword";
@@ -22,10 +19,13 @@ import { getData } from "../Utilities/GetUserData";
 import { updateAUser } from "../redux/user/slice";
 import { loginSchema } from "../config/joi";
 import { updateOtherState } from "../redux/Others/slice";
-import { linkStyle } from "../Utilities/support";
-import { gridStyle } from "../Utilities/support";
+import { gridStyle, linkStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithGoogle } from "../config/firebase/functions";
+import { MetaTags } from "../components/MetaTag";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const [user] = useAuthState(auth);
@@ -57,7 +57,7 @@ const Login = () => {
 
   useEffect(
     () => {
-      document.title = "Chatter | Login";
+      
       getLoggedInUser();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,6 +78,10 @@ const Login = () => {
   };
 
   const { email, password } = aUser;
+
+  const handleGoogleSignIn = async () => {
+    await signInWithGoogle();
+  };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -183,92 +187,106 @@ const Login = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    <Box sx={{ ...gridStyle, backgroundColor: "#4caf50" }}>
-      <form onSubmit={handleLogin}>
-        <Typography color="white" p={1} component="p" variant="h6">
-          Login
-        </Typography>
-        <div style={{ margin: "10px" }}>
-          <InputLabel className="label" htmlFor="email">
-            Email:
-          </InputLabel>
-          <TextField
-            sx={fieldStyle}
-            variant="filled"
-            className="input"
-            name="email"
-            onChange={handleLoginDetails}
-            required
-            id="email"
-            value={email}
-            type="email"
-            placeholder="Your email address"
-          ></TextField>
-        </div>
-        <div>
-          <InputLabel className="label" htmlFor="password">
-            Password:
-          </InputLabel>
-          <TextField
-            variant="filled"
-            className="input"
-            autoComplete=""
-            name="password"
-            onChange={handleLoginDetails}
-            value={password}
-            sx={fieldStyle}
-            required
-            id="password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword}>
-                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            placeholder="Your password"
-            type={showPassword ? "text" : "password"}
-          ></TextField>
-        </div>
-        <p style={{ color: "red" }}>
-          {errMessage && <small>{errMessage}</small>}
-        </p>
-        <div>
-          <Button color="primary" type="submit" variant="contained">
+    <>
+      <MetaTags
+        description="Login in page, user can use email and password or use google sign-in method with popup"
+        title="Chatter | Login"
+        PageTitle="Login Page, login in the application"
+        typeOfPlatform="website"
+        url="/login"
+        href="/login"
+      />
+      <Box sx={{ ...gridStyle, backgroundColor: "#4caf50" }}>
+        <form onSubmit={handleLogin}>
+          <Typography color="white" p={1} component="p" variant="h6">
             Login
+          </Typography>
+          <div style={{ margin: "10px" }}>
+            <InputLabel className="label" htmlFor="email">
+              Email:
+            </InputLabel>
+            <TextField
+              sx={fieldStyle}
+              variant="filled"
+              className="input"
+              name="email"
+              onChange={handleLoginDetails}
+              required
+              id="email"
+              value={email}
+              type="email"
+              placeholder="Your email address"
+            ></TextField>
+          </div>
+          <div>
+            <InputLabel className="label" htmlFor="password">
+              Password:
+            </InputLabel>
+            <TextField
+              variant="filled"
+              className="input"
+              autoComplete=""
+              name="password"
+              onChange={handleLoginDetails}
+              value={password}
+              sx={fieldStyle}
+              required
+              id="password"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleClickShowPassword}>
+                      {showPassword ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              placeholder="Your password"
+              type={showPassword ? "text" : "password"}
+            ></TextField>
+          </div>
+          <p style={{ color: "red" }}>
+            {errMessage && <small>{errMessage}</small>}
+          </p>
+          <div>
+            <Button color="primary" type="submit" variant="contained">
+              Login
+            </Button>
+            <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
+              {loading && <LinearProgress color="success" />}
+            </Box>
+          </div>
+
+          <Typography className="caption" variant="caption">
+            Don't have an account?{" "}
+            <Link style={linkStyle} to="/signup">
+              Sign-up
+            </Link>
+          </Typography>
+        </form>
+        <Box textAlign="center" color="white">
+          <p>Sign in with Google </p>
+
+          <Button
+            onClick={handleGoogleSignIn}
+            sx={{ backgroundColor: "#fff", color: "#000" }}
+            variant="contained"
+            startIcon={
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                alt="Google Sign In"
+              />
+            }
+          >
+            Sign In
           </Button>
-          <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
-            {loading && <LinearProgress color="success" />}
-          </Box>
-        </div>
-
-        <Typography className="caption" variant="caption">
-          Don't have an account?{" "}
-          <Link style={linkStyle} to="/signup">
-            Sign-up
-          </Link>
-        </Typography>
-      </form>
-      <Box textAlign="center" color="white">
-        <p>Sign in with Google </p>
-
-        <Button
-          onClick={signInWithGoogle}
-          sx={{ backgroundColor: "#fff", color:"#000" }}
-          variant="contained"
-          startIcon={
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-              alt="Google Sign In"
-            />
-          }
-        >
-          Sign In
-        </Button>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

@@ -133,7 +133,7 @@ const SignUp = () => {
   }, []);
 
   return (
-    <Box sx={{ ...gridStyle, backgroundColor:"#4caf50", height:"100vh" }}>
+    <Box sx={{ ...gridStyle, backgroundColor:"#4caf50", height:"100vh",  }}>
       <form id="form"  onSubmit={handleSignUp}>
         <Typography color="white" p={1} component="p" variant="h6">
           Sign Up
