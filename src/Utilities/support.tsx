@@ -5,13 +5,34 @@ import HideSourceIcon from "@mui/icons-material/HideSource";
 import ReportIcon from "@mui/icons-material/Report";
 import CopyAllSharpIcon from "@mui/icons-material/CopyAllSharp";
 import TuneSharpIcon from "@mui/icons-material/TuneSharp";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import FeedIcon from "@mui/icons-material/Feed";
+import ArticleIcon from "@mui/icons-material/Article";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const AccountMenu = [
   {
-    value:"My "
-  }
-]
+    value: "Profile",
+    logo: <AccountCircleIcon />,
+  },
+  {
+    value: "My Feeds",
+    logo: <FeedIcon />,
+  },
+  {
+    value: "My Articles",
+    logo: <ArticleIcon />,
+  },
+  {
+    value: "Bookmarks",
+    logo: <BookmarkIcon />,
+  },
+  {
+    value: "Logout",
+    logo: <LogoutIcon />,
+  },
+];
 
 export const ManagePostMore = [
   {
