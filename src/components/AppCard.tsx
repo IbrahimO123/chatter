@@ -37,7 +37,7 @@ export const menuStyle = {
 export const AppCard = (cpost: any) => {
   const navigate = useNavigate();
   const blogPost = () => {
-    navigate("/blogs/com");
+    navigate(`/articles/single/${cpost.id}`);
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -51,7 +51,7 @@ export const AppCard = (cpost: any) => {
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
         avatar={<Avatar src={cpost.id % 2 ? womanImage2 : womanImage} />}
-        title={cpost.title}
+        title={<h3>{cpost.title.toUpperCase()}</h3>}
         action={
           <>
             <IconButton
@@ -95,7 +95,7 @@ export const AppCard = (cpost: any) => {
               ? cpost.coverImage
               : womanImage2
           }
-          title="woman holding phone exicted"
+          title={cpost.title}
         ></CardMedia>
         <Typography mt={2} variant="body2">
           {cpost.body || `${cpost.text?.substring(0, 200)}....`}
