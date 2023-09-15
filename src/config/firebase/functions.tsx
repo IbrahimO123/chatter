@@ -1,13 +1,11 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from ".";
 
 export const signInWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth();
-
   let result;
   let error;
   try {
-   result = await signInWithPopup(auth, provider);
+    result = await signInWithPopup(auth, provider);
   } catch (err) {
     error = err;
     console.error(err);
