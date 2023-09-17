@@ -17,6 +17,7 @@ export type Article = {
   readOnly: boolean;
   coverImage: string;
   published: boolean;
+  profileImageUrl: string;
 };
 
 export type AppArticle = {
@@ -48,6 +49,7 @@ export type Draft = {
           readOnly: boolean;
           coverImage: string;
           published: boolean;
+          profileImageUrl: string
         }
       ];
     }

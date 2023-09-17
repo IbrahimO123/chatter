@@ -18,6 +18,7 @@ const initialState: AppUser = {
       isRegistered: false,
       dateCreated: new Date().toLocaleDateString(),
       timeCreated: new Date().toLocaleTimeString(),
+      profileImageUrl: "",
     },
   ],
   aUser: {
@@ -32,6 +33,7 @@ const initialState: AppUser = {
     isRegistered: false,
     dateCreated: new Date().toLocaleDateString(),
     timeCreated: new Date().toLocaleTimeString(),
+    profileImageUrl: "",
   },
 };
 

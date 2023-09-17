@@ -10,6 +10,7 @@ export type User = {
   isRegistered: boolean;
   dateCreated: string;
   timeCreated: string;
+  profileImageUrl: string;
 };
 
 export type AppUser = {

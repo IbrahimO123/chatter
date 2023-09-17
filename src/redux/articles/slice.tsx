@@ -25,6 +25,7 @@ const initialState: AppArticle = {
       readOnly: true,
       coverImage: "",
       published: false,
+      profileImageUrl: "",
     },
   ],
   anArticle: {
@@ -46,6 +47,7 @@ const initialState: AppArticle = {
     readOnly: true,
     coverImage: "",
     published: false,
+    profileImageUrl: "",
   },
 };
 
@@ -73,6 +75,7 @@ const saveDraftsIntialState: Draft = {
           readOnly: true,
           coverImage: "",
           published: false,
+          profileImageUrl: "",
         },
       ],
     },
