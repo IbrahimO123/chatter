@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CircularSawSvg from "../assets/images/circular-saw.svg";
-import { useSelector } from "react-redux";
 import {
   AppBar,
   Box,
@@ -19,8 +17,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
 import { Draft } from "./Draft";
-
-import { RootState } from "../redux/store";
 import { GridOne } from "./GridOne";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -32,16 +28,18 @@ import {
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [user] = useAuthState(auth);
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
   };
   const menuId = "primary-search-account-menu";
-  const { aUser } = useSelector((state: RootState) => state.users);
-  const { isRegistered, isAuthorised } = aUser;
-
   const mobileMenuId = "primary-search-account-menu-mobile";
+
+  const handleUserProfileRoute = (vent: React.MouseEvent<HTMLElement>) => {
+    navigate("/user/profile");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -119,7 +117,7 @@ export const AppNav = () => {
                     aria-label="show 4 new mails"
                     color="inherit"
                   >
-                    <Badge badgeContent={4} color="error">
+                    <Badge badgeContent={0} color="error">
                       <MailIcon />
                     </Badge>
                   </IconButton>
@@ -128,7 +126,7 @@ export const AppNav = () => {
                     aria-label="show 17 new notifications"
                     color="inherit"
                   >
-                    <Badge badgeContent={17} color="error">
+                    <Badge badgeContent={0} color="error">
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
@@ -139,12 +137,13 @@ export const AppNav = () => {
                     aria-controls={menuId}
                     aria-haspopup="true"
                     color="inherit"
+                    onClick={handleUserProfileRoute}
                   >
                     <AccountCircle />
                   </IconButton>
                 </Box>
               </div>
-            ) : isRegistered && isAuthorised ? (
+            ) : (
               <Box>
                 <IconButton>
                   <Link
@@ -156,21 +155,6 @@ export const AppNav = () => {
                     to="/login"
                   >
                     Login
-                  </Link>
-                </IconButton>
-              </Box>
-            ) : (
-              <Box>
-                <IconButton>
-                  <Link
-                    style={{
-                      color: "#fff",
-                      textDecoration: "none",
-                      fontSize: 19,
-                    }}
-                    to="/signup"
-                  >
-                    Join
                   </Link>
                 </IconButton>
               </Box>

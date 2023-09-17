@@ -45,11 +45,14 @@ export const AppCard = (cpost: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  // const handleMenuAction = (route: string) => {
+  //   navigate(`${route}`);
+  // };
   return (
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
-        avatar={<Avatar src=""/>}
-        title={<h3>{cpost.title.toUpperCase()}</h3>}
+        avatar={<Avatar onClick={blogPost} src="" />}
+        title={<h3 onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
         action={
           <>
             <IconButton
@@ -71,9 +74,9 @@ export const AppCard = (cpost: any) => {
           </>
         }
         subheader={
-          <small style={{ fontWeight: "bolder" }}>
+          <small onClick={blogPost} style={{ fontWeight: "bolder" }}>
             <Typography variant="caption">
-              {getTimeDifferenceString(cpost.dateCreated)}    
+              {getTimeDifferenceString(cpost.dateCreated)}
             </Typography>
             <Typography variant="caption" m={2}>
               {calculateReadingTime(cpost.title)} mins read

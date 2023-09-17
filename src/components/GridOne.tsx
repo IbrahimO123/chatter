@@ -82,13 +82,13 @@ export const GridOne = () => {
             </IconButton>
             Draft
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => handleRoute("/chat")} >
             <IconButton>
               <ChatIcon />
             </IconButton>
             Chat
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={()=>handleRoute("/communities")} >
             <IconButton>
               <ForumIcon />
             </IconButton>
@@ -151,7 +151,7 @@ export const GridOne = () => {
                   Personal
                 </Typography>
                 <MenuList>
-                  <MenuItem onClick={() => handleRoute("/user/account")}>
+                  <MenuItem onClick={() => handleRoute("/user/profile")}>
                     <AccountCircleOutlinedIcon sx={{ marginRight: "7px" }} />
                     Account
                   </MenuItem>
