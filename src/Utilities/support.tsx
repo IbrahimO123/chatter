@@ -15,22 +15,27 @@ export const AccountMenu = [
   {
     value: "Profile",
     logo: <AccountCircleIcon />,
+    link: "/user/profile",
   },
   {
     value: "My Feeds",
     logo: <FeedIcon />,
+    link: "/user/feeds",
   },
   {
     value: "My Articles",
     logo: <ArticleIcon />,
+    link: "/user/articles",
   },
   {
     value: "Bookmarks",
     logo: <BookmarkIcon />,
+    link: "/user/bookmarks",
   },
   {
     value: "Logout",
     logo: <LogoutIcon />,
+    link: "/user/logout",
   },
 ];
 
@@ -38,6 +43,7 @@ export const ManagePostMore = [
   {
     value: "Bookmark",
     logo: <BookmarkAddIcon />,
+    
   },
   {
     value: "Hide",
@@ -95,7 +101,6 @@ export const formatDate = (date: string | Date) => {
   const month = newDate.toLocaleString("default", { month: "long" });
   const day = newDate.toLocaleString("default", { day: "numeric" });
   const year = newDate.toLocaleString("default", { year: "numeric" });
-
   const formattedDate = `${month} ${day}, ${year}`;
   return formattedDate;
 };

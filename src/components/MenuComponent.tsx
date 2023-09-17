@@ -1,11 +1,12 @@
-import { Menu, MenuItem, Fade } from "@mui/material";
-
+import { Menu, MenuItem, Fade, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 type MenuProps = {
   handleClose: () => void;
   open: boolean;
   data: {
     value: string;
     logo: any;
+    link?: any;
   }[];
   anchorEl: null | HTMLElement;
   action?: () => void;
@@ -18,9 +19,13 @@ export const MenuComponent = ({
   data,
   action,
 }: MenuProps) => {
+  const navigate = useNavigate();
+  const handleMenuRoute = (route: string) => {
+    navigate(`${route}`);
+  };
   return (
     <Menu
-      sx={{ left: 0, right: 5, padding:"0" }}
+      sx={{ left: 0, right: 5, padding: "0" }}
       id="fade-menu"
       MenuListProps={{
         "aria-labelledby": "fade-button",
@@ -31,8 +36,11 @@ export const MenuComponent = ({
       TransitionComponent={Fade}
     >
       {data.map((item, index) => (
-        <MenuItem sx={{fontSize:"13px"}} onClick={action} key={index}>
-          {item.logo} {item.value}
+        <MenuItem key={index} onClick={() => handleMenuRoute(item.link)}>
+          {item.logo}
+          <Typography sx={{ fontSize: "13px" }} ml={1}>
+            {item.value}
+          </Typography>
         </MenuItem>
       ))}
     </Menu>
