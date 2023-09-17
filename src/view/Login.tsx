@@ -31,7 +31,6 @@ const Login = () => {
   const [user] = useAuthState(auth);
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const navigate = useNavigate();
-
   const getLoggedInUser = async () => {
     if (user) {
       if (user.uid !== null) {
