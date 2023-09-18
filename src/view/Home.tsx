@@ -55,7 +55,7 @@ const Home = () => {
               {feed && feed.length > 0 ? (
                 feed.map((post: any) => <AppCard {...post} key={post.title} />)
               ) : (
-                <Typography textAlign="center" component="h3" variant="subtitle2" >No posts to display</Typography>
+                <Typography textAlign="center" component="h3" variant="subtitle2" >Please wait... while we check for posts to display</Typography>
               )}
             </Box>
           </Grid>
