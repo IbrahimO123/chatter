@@ -166,7 +166,6 @@ export const gridStyle = {
 };
 
 export const Tags = [
-  "Automation",
   "Technology",
   "Development",
   "Education",
@@ -176,7 +175,6 @@ export const Tags = [
   "Network",
   "Programs",
   "Policies",
-  "Machine Learning",
   "Artifical Intelligence",
   "Art",
   "Science",
@@ -211,7 +209,6 @@ export const Tags = [
   "virtual reality",
   "augmented reality",
   "machine learning",
-  "artificial intelligence",
   "blockchain",
   "cryptocurrency",
   "space exploration",
