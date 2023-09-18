@@ -150,7 +150,7 @@ export const AppNav = () => {
                     style={{
                       color: "#fff",
                       textDecoration: "none",
-                      fontSize: 19,
+                      fontSize: 16,
                     }}
                     to="/login"
                   >
