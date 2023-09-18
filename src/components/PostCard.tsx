@@ -1,4 +1,4 @@
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box , Chip} from "@mui/material";
 import { MobileView } from "../Utilities/support";
 
 export const PostCard = (post: any) => {
@@ -22,13 +22,15 @@ export const PostCard = (post: any) => {
         ></img>
       </Box>
       <Typography textAlign="left">{post.text}</Typography>
-      <Box textAlign="left" mt={1}>
-        <Typography mr={2} color="primary" component="span">
-          &#x23;{post?.categories[0]}
-        </Typography>
-        <Typography color="primary" component="span">
-          &#x23;{post?.categories[1]}
-        </Typography>
+      <Box component="div" p={3} textAlign="left">
+        {post.categories.map((category: string) => (
+          <Chip
+            key={category}
+            sx={{ margin: "10px" }}
+            color="warning"
+            label={category}
+          />
+        ))}
       </Box>
     </Container>
   );
