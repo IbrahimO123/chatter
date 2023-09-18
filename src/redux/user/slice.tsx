@@ -19,6 +19,9 @@ const initialState: AppUser = {
       dateCreated: new Date().toLocaleDateString(),
       timeCreated: new Date().toLocaleTimeString(),
       profileImageUrl: "",
+      facebookHandle: "",
+      twitterHandle: "",
+      linkedInHandle: "",
     },
   ],
   aUser: {
@@ -34,6 +37,9 @@ const initialState: AppUser = {
     dateCreated: new Date().toLocaleDateString(),
     timeCreated: new Date().toLocaleTimeString(),
     profileImageUrl: "",
+    facebookHandle: "",
+    twitterHandle: "",
+    linkedInHandle: "",
   },
 };
 

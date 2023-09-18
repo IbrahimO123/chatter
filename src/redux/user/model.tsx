@@ -11,6 +11,9 @@ export type User = {
   dateCreated: string;
   timeCreated: string;
   profileImageUrl: string;
+  facebookHandle: string;
+  twitterHandle: string;
+  linkedInHandle: string;
 };
 
 export type AppUser = {
