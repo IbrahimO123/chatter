@@ -10,22 +10,48 @@ import {
   Stack,
 } from "@mui/material";
 
-export const UserPage = () => {
+type UserProps = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: number;
+  password: string;
+  confirmPassword: string;
+  profileImageUrl: string;
+  facebookHandle: string;
+  twitterHandle: string;
+  linkedInHandle: string;
+  dateCreated: string;
+};
+
+export const UserPage = ({
+  firstname,
+  lastname,
+  email,
+  phoneNumber,
+  password,
+  confirmPassword,
+  profileImageUrl,
+  facebookHandle,
+  twitterHandle,
+  linkedInHandle,
+  dateCreated,
+}: UserProps) => {
   return (
-    <>
-      <Grid m={2} container gap={2} textAlign="center">
-        <Grid item xs={12} md={3} spacing={3}>
-          <Paper elevation={6} sx={{ padding: "10px", height: "350px" }}>
+    <Box>
+      <Grid container gap={2} m={2}>
+        <Grid item xs={11} md={3}>
+          <Paper elevation={0} sx={{ padding: "10px" }}>
             <Box>
               <Avatar
                 sx={{
-                  width: "150px",
-                  height: "150px",
+                  width: "100px",
+                  height: "100px",
                   border: "50%",
                   objectFit: "cover",
                   margin: "5px",
                 }}
-                src=""
+                src={profileImageUrl}
               ></Avatar>
               <TextField
                 type="file"
@@ -50,13 +76,22 @@ export const UserPage = () => {
                 Maximum upload size is 1MB
               </Typography>
               <Typography component="p" variant="caption" m={1}>
-                Member since: Date
+                Member since: {dateCreated || ""}
               </Typography>
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Paper elevation={6} sx={{ padding: "5px", height: "500px" }}>
+        <Grid item xs={11} md={8}>
+          <Paper
+            elevation={0}
+            sx={{
+              padding: "5px",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              justifyItems: "center",
+            }}
+          >
             <Typography component="p" variant="h6">
               Edit Profile
             </Typography>
@@ -64,48 +99,75 @@ export const UserPage = () => {
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
+                m={1}
               >
-                <p>
+                <div>
                   <InputLabel>Firstname</InputLabel>
-                  <TextField type="text" placeholder="firstname"></TextField>
-                </p>
-                <p>
+                  <TextField
+                    name="firstname"
+                    value={firstname}
+                    type="text"
+                    placeholder="firstname"
+                  ></TextField>
+                </div>
+                <div>
                   <InputLabel>Lastname</InputLabel>
-                  <TextField type="text" placeholder="lastname"></TextField>
-                </p>
+                  <TextField
+                    name="lastname"
+                    value={lastname}
+                    type="text"
+                    placeholder="lastname"
+                  ></TextField>
+                </div>
               </Stack>
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
+                m={1}
               >
-                <p>
+                <div>
                   <InputLabel>Password</InputLabel>
-                  <TextField type="password" placeholder="password"></TextField>
-                </p>
-                <p>
+                  <TextField
+                    name="password"
+                    value={password}
+                    type="password"
+                    placeholder="password"
+                  ></TextField>
+                </div>
+                <div>
                   <InputLabel>Confirm Password</InputLabel>
                   <TextField
                     type="password"
                     placeholder="confrim Password"
+                    name="confirmPassword"
+                    value={confirmPassword}
                   ></TextField>
-                </p>
+                </div>
               </Stack>
 
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
+                m={1}
               >
-                <p>
+                <div>
                   <InputLabel>Email</InputLabel>
-                  <TextField type="email" placeholder="email"></TextField>
-                </p>
-                <p>
+                  <TextField
+                    type="email"
+                    value={email}
+                    name="email"
+                    placeholder="email"
+                  ></TextField>
+                </div>
+                <div>
                   <InputLabel>Phone Number</InputLabel>
                   <TextField
                     type="number"
+                    name="phoneNumber"
+                    value={phoneNumber}
                     placeholder="phone number"
                   ></TextField>
-                </p>
+                </div>
               </Stack>
             </Box>
 
@@ -117,8 +179,21 @@ export const UserPage = () => {
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
               >
-                <TextField placeholder="facebook"></TextField>
-                <TextField placeholder="twitter"></TextField>
+                <TextField
+                  name="facebookHandle"
+                  value={facebookHandle}
+                  placeholder="facebook"
+                ></TextField>
+                <TextField
+                  name="twitterHandle"
+                  value={twitterHandle}
+                  placeholder="twitter"
+                ></TextField>
+                <TextField
+                  name="linkedInHandle"
+                  value={linkedInHandle}
+                  placeholder="linkedIn"
+                ></TextField>
               </Stack>
             </Box>
             <Button
@@ -132,6 +207,6 @@ export const UserPage = () => {
           </Paper>
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };

@@ -1,18 +1,20 @@
-import { Container } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { useEffect } from "react";
 import { UserPage } from "../components/UserPage";
 import { useNavigate } from "react-router-dom";
 import { MetaTags } from "../components/MetaTag";
-
+import { RootState } from "../redux/store";
+import { useSelector } from "react-redux";
 
 const User = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const aUser = useSelector((state: RootState) => state.users.aUser);
+  
   // const [profile, setProfile] = useState([user])
   useEffect(() => {
-    console.log("User", user);
+    
     if (user === null) {
       navigate("/login", { replace: true });
     }
@@ -28,9 +30,9 @@ const User = () => {
         url="/user/profile"
         href="/user/profile"
       ></MetaTags>
-      <Container>
-        <UserPage />
-      </Container>
+      <>
+        <UserPage {...aUser} />
+      </>
     </>
   );
 };
