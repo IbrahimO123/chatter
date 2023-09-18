@@ -8,7 +8,11 @@ import {
   Button,
   TextField,
   Stack,
+  InputAdornment,
 } from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 type UserProps = {
   firstname: string;
@@ -39,7 +43,7 @@ export const UserPage = ({
 }: UserProps) => {
   return (
     <Box>
-      <Grid container gap={2} m={2}>
+      <Grid container gap={2} mt={2} ml={2}>
         <Grid item xs={11} md={3}>
           <Paper elevation={0} sx={{ padding: "10px" }}>
             <Box>
@@ -69,10 +73,11 @@ export const UserPage = ({
                 component="p"
                 m={1}
                 p={1}
-                sx={{ border: "1px solid grey" }}
+                sx={{ border: "0.5px solid grey" }}
+                color="grey"
                 variant="caption"
               >
-                Upload a new avatar, large size will be resize automatically
+                Upload a new avatar, large size will be resize automatically.
                 Maximum upload size is 1MB
               </Typography>
               <Typography component="p" variant="caption" m={1}>
@@ -183,16 +188,37 @@ export const UserPage = ({
                   name="facebookHandle"
                   value={facebookHandle}
                   placeholder="facebook"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FacebookIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
                 ></TextField>
                 <TextField
                   name="twitterHandle"
                   value={twitterHandle}
                   placeholder="twitter"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <TwitterIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
                 ></TextField>
                 <TextField
                   name="linkedInHandle"
                   value={linkedInHandle}
                   placeholder="linkedIn"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LinkedInIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                  }}
                 ></TextField>
               </Stack>
             </Box>
