@@ -46,6 +46,12 @@ const Login = () => {
               isLoggedIn: true,
               isRegistered: res?.data()?.isRegistered,
               isAuthorised: res?.data()?.isAuthorised,
+              dateCreated: res?.data()?.dateCreated,
+              timeCreated: res?.data()?.timeCreated,
+              profileImageUrl: res?.data()?.profileImageUrl,
+              facebookHandle: res?.data()?.facebookHandle,
+              twitterHandle: res?.data()?.twitterHandle,
+              linkedInHandle: res?.data()?.linkedInHandle,
             })
           );
           navigate("/", { replace: true });
@@ -167,7 +173,7 @@ const Login = () => {
                     isLoggedIn: true,
                   })
                 );
-                navigate("/", { replace: true })
+                navigate("/", { replace: true });
                 return;
               } else {
                 dispatch(

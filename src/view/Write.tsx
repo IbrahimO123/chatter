@@ -52,6 +52,7 @@ const WriteArticle = () => {
   const [selectedImage, setSelectedImage] = useState<File>();
   const [saveButton, setSaveButton] = useState(false);
   const [publishButton, setPublishButton] = useState(false);
+  
 
   const fetchDraft = async () => {
     try {
@@ -322,8 +323,8 @@ const WriteArticle = () => {
                   <MenuItem disabled value="">
                     <em>Select the Category</em>
                   </MenuItem>
-                  {Tags.sort()?.map?.((tag: string) => (
-                    <MenuItem value={tag} key={tag}>
+                  {Tags.sort()?.map?.((tag: string, index) => (
+                    <MenuItem value={tag} key={index}>
                       {tag.toLowerCase().trim()}
                     </MenuItem>
                   ))}
