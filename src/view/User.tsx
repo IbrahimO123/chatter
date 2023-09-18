@@ -6,17 +6,22 @@ import { useNavigate } from "react-router-dom";
 import { MetaTags } from "../components/MetaTag";
 import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
+import { getLoggedInUser } from "../Utilities/GetUserData";
+import { useDispatch } from "react-redux";
+import { updateAUser } from "../redux/user/slice";
 
 const User = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const aUser = useSelector((state: RootState) => state.users.aUser);
-  
+  const dispatch = useDispatch();
+
   // const [profile, setProfile] = useState([user])
   useEffect(() => {
-    
     if (user === null) {
       navigate("/login", { replace: true });
+    } else {
+      getLoggedInUser({ user, dispatch, updateAUser, aUser });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
