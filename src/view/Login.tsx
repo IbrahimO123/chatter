@@ -23,6 +23,7 @@ import { gridStyle, linkStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithGoogle } from "../config/firebase/functions";
 import { MetaTags } from "../components/MetaTag";
+import { getLoggedInUser } from "../Utilities/GetUserData";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -31,38 +32,26 @@ const Login = () => {
   const [user] = useAuthState(auth);
   const aUser = useSelector((state: RootState) => state.users.aUser);
   const navigate = useNavigate();
-  const getLoggedInUser = async () => {
-    if (user) {
-      if (user.uid !== null) {
-        const res = await getData(user.email!);
-        if (res?.data() !== null) {
-          dispatch(
-            updateAUser({
-              ...aUser,
-              firstname: res?.data()?.firstname,
-              lastname: res?.data()?.lastname,
-              phoneNumber: res?.data()?.phoneNumber,
-              email: res?.data()?.email,
-              isLoggedIn: true,
-              isRegistered: res?.data()?.isRegistered,
-              isAuthorised: res?.data()?.isAuthorised,
-              dateCreated: res?.data()?.dateCreated,
-              timeCreated: res?.data()?.timeCreated,
-              profileImageUrl: res?.data()?.profileImageUrl,
-              facebookHandle: res?.data()?.facebookHandle,
-              twitterHandle: res?.data()?.twitterHandle,
-              linkedInHandle: res?.data()?.linkedInHandle,
-            })
-          );
-          navigate("/", { replace: true });
-        }
-      }
-    }
-  };
+  const [errMessage, setErrMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const others = useSelector((state: RootState) => state.others);
+  const { loading } = others;
 
   useEffect(
     () => {
-      getLoggedInUser();
+      const fetchUser = async () => {
+        const response = await getLoggedInUser({
+          user,
+          dispatch,
+          updateAUser,
+          aUser,
+        });
+        if (response) {
+          navigate("/", { replace: true });
+        }
+      };
+      fetchUser();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, navigate]
@@ -71,11 +60,6 @@ const Login = () => {
   const fieldStyle = {
     width: { xs: "80%", md: "80%" },
   };
-  const [errMessage, setErrMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
-  const others = useSelector((state: RootState) => state.others);
-  const { loading } = others;
 
   const handleLoginDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
