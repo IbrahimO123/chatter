@@ -51,8 +51,9 @@ export const AppCard = (cpost: any) => {
   return (
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
+        sx={{ margin: 0, paddingBottom:0 }}
         avatar={<Avatar onClick={blogPost} src="" />}
-        title={<h3 onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
+        title={<h3 style={{lineHeight:0}} onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
         action={
           <>
             <IconButton
@@ -74,11 +75,12 @@ export const AppCard = (cpost: any) => {
           </>
         }
         subheader={
-          <small onClick={blogPost} style={{ fontWeight: "bolder" }}>
-            <Typography variant="caption">
+          <small onClick={blogPost} style={{lineHeight:0}}>
+            <Typography component="span" variant="caption">
               {getTimeDifferenceString(cpost.dateCreated)}
             </Typography>
-            <Typography variant="caption" m={2}>
+            .
+            <Typography component="span" variant="caption" ml={1}>
               {calculateReadingTime(cpost.title)} mins read
             </Typography>
           </small>
