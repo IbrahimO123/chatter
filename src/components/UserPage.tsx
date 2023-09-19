@@ -42,9 +42,9 @@ export const UserPage = ({
   dateCreated,
 }: UserProps) => {
   return (
-    <Box>
-      <Grid container gap={2} mt={2} ml={2}>
-        <Grid item xs={11} md={3}>
+    <Box p={2}>
+      <Grid container spacing={2} >
+        <Grid item xs={12} md={3}>
           <Paper elevation={0} sx={{ padding: "10px" }}>
             <Box>
               <Avatar
@@ -86,7 +86,7 @@ export const UserPage = ({
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={11} md={8}>
+        <Grid item xs={12} md={8}>
           <Paper
             elevation={0}
             sx={{
