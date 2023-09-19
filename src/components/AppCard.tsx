@@ -53,7 +53,7 @@ export const AppCard = (cpost: any) => {
       <CardHeader
         sx={{ margin: 0, paddingBottom:0 }}
         avatar={<Avatar onClick={blogPost} src="" />}
-        title={<h3 style={{lineHeight:0}} onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
+        title={<h3 style={{wordWrap:"break-word"}} onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
         action={
           <>
             <IconButton
