@@ -26,6 +26,7 @@ type UserProps = {
   twitterHandle: string;
   linkedInHandle: string;
   dateCreated: string;
+  handleUserUpdate: () => void;
 };
 
 export const UserPage = ({
@@ -40,10 +41,11 @@ export const UserPage = ({
   twitterHandle,
   linkedInHandle,
   dateCreated,
+  handleUserUpdate,
 }: UserProps) => {
   return (
     <Box p={2}>
-      <Grid container spacing={2} >
+      <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
           <Paper elevation={0} sx={{ padding: "10px" }}>
             <Box>
@@ -100,7 +102,7 @@ export const UserPage = ({
             <Typography component="p" variant="h6">
               Edit Profile
             </Typography>
-            <Box>
+            <Box component="form" >
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -137,6 +139,7 @@ export const UserPage = ({
                     value={password}
                     type="password"
                     placeholder="password"
+                    autoComplete="on"
                   ></TextField>
                 </div>
                 <div>
@@ -146,6 +149,7 @@ export const UserPage = ({
                     placeholder="confrim Password"
                     name="confirmPassword"
                     value={confirmPassword}
+                    autoComplete="on"
                   ></TextField>
                 </div>
               </Stack>
