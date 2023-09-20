@@ -67,7 +67,7 @@ export const AppNav = () => {
               open={open}
               onClose={toggleDrawer}
             >
-              <Box onClick={toggleDrawer} >
+              <Box onClick={toggleDrawer}>
                 {pathname === "/write" ? (
                   <Draft applyStyle={true} />
                 ) : (
@@ -152,7 +152,7 @@ export const AppNav = () => {
               </div>
             ) : (
               <Box>
-                <IconButton>
+                <IconButton disableRipple>
                   <Link
                     style={{
                       color: "#fff",
