@@ -6,26 +6,34 @@ import {
   Badge,
 } from "@mui/material";
 import { Tags } from "../Utilities/support";
-import { useEffect } from "react";
+import { MetaTags } from "../components/MetaTag";
 
 const TagsPage = () => {
-  useEffect(() => {
-    document.title = "Chatter | Tags";
-  }, []);
+
   return (
-    <Container className="tags">
-      <Typography mt={3}>Tags</Typography>
-      <MenuList>
-        {Tags &&
-          Tags.map((tags, index) => (
-            <MenuItem key={index}>
-              <Badge color="info" badgeContent={1}>
-                #{tags}
-              </Badge>
-            </MenuItem>
-          ))}
-      </MenuList>
-    </Container>
+    <>
+      <MetaTags
+        description="Tags page, user can view the trending tags and click on them to see the article trending"
+        title="Chatter | Tags"
+        PageTitle="Tags Pag for the application"
+        typeOfPlatform="website"
+        url="/tags"
+        href="/tags"
+      />
+      <Container className="tags">
+        <Typography mt={3}>Tags</Typography>
+        <MenuList>
+          {Tags &&
+            Tags.map((tags, index) => (
+              <MenuItem key={index}>
+                <Badge color="info" badgeContent={1}>
+                  #{tags}
+                </Badge>
+              </MenuItem>
+            ))}
+        </MenuList>
+      </Container>
+    </>
   );
 };
 
