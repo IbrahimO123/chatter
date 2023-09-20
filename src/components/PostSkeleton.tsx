@@ -1,4 +1,4 @@
-import { Box, Skeleton, Paper } from "@mui/material";
+import { Skeleton, Paper, Container } from "@mui/material";
 export const PostSkeleton = () => {
   return (
     <Paper
@@ -10,30 +10,17 @@ export const PostSkeleton = () => {
         margin: "12px",
       }}
     >
-      <Box textAlign="center">
+      <Container>
         <Skeleton variant="text" sx={{ fontSize: "2.5rem", margin: "5px" }} />
         <Skeleton variant="text" sx={{ fontSize: "2.5rem", margin: "5px" }} />
+        <Skeleton variant="rounded" height={300} sx={{ margin: "5px" }} />
         <Skeleton
-          variant="rounded"
-          width={1120}
-          height={300}
-          sx={{ margin: "5px" }}
-        />
-
-        <Skeleton
-          animation="wave"
           variant="rectangular"
-          width={1120}
           height={800}
           sx={{ margin: "5px", marginBottom: "5px" }}
         />
-        <Skeleton
-          variant="rounded"
-          width={300}
-          height={40}
-          sx={{ margin: "5px" }}
-        />
-      </Box>
+        <Skeleton variant="rounded" height={40} sx={{ margin: "5px" }} />
+      </Container>
     </Paper>
   );
 };
