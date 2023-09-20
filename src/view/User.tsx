@@ -8,7 +8,6 @@ import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import { getLoggedInUser } from "../Utilities/GetUserData";
 import { useDispatch } from "react-redux";
-import { updateAUser } from "../redux/user/slice";
 
 const User = () => {
   const [user] = useAuthState(auth);
@@ -21,7 +20,7 @@ const User = () => {
     if (user === null) {
       navigate("/login", { replace: true });
     } else {
-      getLoggedInUser({ user, dispatch, updateAUser, aUser });
+      getLoggedInUser({ user, dispatch, aUser });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
