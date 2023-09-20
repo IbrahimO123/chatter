@@ -1,7 +1,24 @@
-import { Container, Typography, Box, Paper, Chip } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Paper,
+  Chip,
+  useScrollTrigger,
+  Zoom,
+  Fab,
+} from "@mui/material";
 import { MobileView } from "../Utilities/support";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { useCallback } from "react";
 
 export const PostCard = (post: any) => {
+  const trigger = useScrollTrigger({
+    threshold: 500,
+  });
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <Paper elevation={0}>
       <Container sx={{ textAlign: "center" }}>
@@ -33,6 +50,26 @@ export const PostCard = (post: any) => {
             />
           ))}
         </Box>
+        <Zoom in={trigger}>
+          <Box
+            role="presentation"
+            // Place the button in the bottom right corner.
+            sx={{
+              position: "fixed",
+              bottom: 32,
+              right: 32,
+              zIndex: 1,
+            }}
+          >
+            <Fab
+              onClick={scrollToTop}   
+              size="large"
+              aria-label="Scroll back to top"
+            >
+              <KeyboardArrowUpIcon />
+            </Fab>
+          </Box>
+        </Zoom>
       </Container>
     </Paper>
   );
