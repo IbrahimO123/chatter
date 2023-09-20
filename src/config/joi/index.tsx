@@ -47,6 +47,10 @@ export const schema = Joi.object({
   isAuthorised: Joi.boolean().required(),
   isLoggedIn: Joi.boolean().required(),
   isRegistered: Joi.boolean().required(),
+  profileImageUrl: Joi.string().allow("", null),
+  facebookHandle: Joi.string().allow("", null),
+  twitterHandle: Joi.string().allow("", null),
+  linkedInHandle: Joi.string().allow("", null),
 });
 
 export const loginSchema = Joi.object({
