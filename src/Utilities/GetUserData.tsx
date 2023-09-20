@@ -1,5 +1,6 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { updateAUser } from "../redux/user/slice";
 
 export const getData = async (email: string) => {
   try {
@@ -15,7 +16,6 @@ export const getData = async (email: string) => {
 export const getLoggedInUser = async ({
   user,
   dispatch,
-  updateAUser,
   aUser,
 }: any) => {
   if (user) {
