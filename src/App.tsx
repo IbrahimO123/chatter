@@ -21,6 +21,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import ForumIcon from "@mui/icons-material/Forum";
 import { auth } from "./config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const others = useSelector((state: RootState) => state.others);
@@ -43,61 +44,63 @@ function App() {
 
   return (
     <>
-      <AppNav />
-      <Routers />
-      {user?.uid ? (
-        <Box sx={{ textAlign: "center" }} p={2}>
-          Chatter Copyright &copy; 2023
-        </Box>
-      ) : null}
-      <Snackbar
-        onClose={handleSnackbarClose}
-        open={open}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={2000}
-      >
-        <Alert variant="filled" severity={severity}>
-          {message}
-        </Alert>
-      </Snackbar>
-      <Paper
-        sx={{
-          display: { md: "none", xs: "grid" },
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-        elevation={3}
-      >
+      <ScrollToTop>
+        <AppNav />
+        <Routers />
         {user?.uid ? (
-          <BottomNavigation value={value} onChange={handleChange}>
-            <BottomNavigationAction
-              label="Home"
-              value=""
-              icon={<HomeIcon />}
-            ></BottomNavigationAction>
-
-            <BottomNavigationAction
-              label="Draft"
-              value="write"
-              icon={<EditNoteIcon />}
-            />
-
-            <BottomNavigationAction
-              label="Chat"
-              value="chat"
-              icon={<ChatIcon />}
-            />
-
-            <BottomNavigationAction
-              label="Communities"
-              value="communities"
-              icon={<ForumIcon />}
-            />
-          </BottomNavigation>
+          <Box sx={{ textAlign: "center" }} p={2}>
+            Chatter Copyright &copy; 2023
+          </Box>
         ) : null}
-      </Paper>
+        <Snackbar
+          onClose={handleSnackbarClose}
+          open={open}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          autoHideDuration={1500}
+        >
+          <Alert variant="filled" severity={severity}>
+            {message}
+          </Alert>
+        </Snackbar>
+        <Paper
+          sx={{
+            display: { md: "none", xs: "grid" },
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}
+          elevation={3}
+        >
+          {user?.uid ? (
+            <BottomNavigation value={value} onChange={handleChange}>
+              <BottomNavigationAction
+                label="Home"
+                value=""
+                icon={<HomeIcon />}
+              ></BottomNavigationAction>
+
+              <BottomNavigationAction
+                label="Draft"
+                value="write"
+                icon={<EditNoteIcon />}
+              />
+
+              <BottomNavigationAction
+                label="Chat"
+                value="chat"
+                icon={<ChatIcon />}
+              />
+
+              <BottomNavigationAction
+                label="Communities"
+                value="communities"
+                icon={<ForumIcon />}
+              />
+            </BottomNavigation>
+          ) : null}
+        </Paper>
+      </ScrollToTop>
     </>
   );
 }
