@@ -10,20 +10,16 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-import { comparePassword } from "../Utilities/securePassword";
-import { getData } from "../Utilities/GetUserData";
 import { updateAUser } from "../redux/user/slice";
-import { loginSchema } from "../config/joi";
-import { updateOtherState } from "../redux/Others/slice";
 import { gridStyle, linkStyle } from "../Utilities/support";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithGoogle } from "../config/firebase/functions";
 import { MetaTags } from "../components/MetaTag";
 import { getLoggedInUser } from "../Utilities/GetUserData";
+import { LoginUser } from "../Utilities/LoginUser";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -38,20 +34,20 @@ const Login = () => {
   const others = useSelector((state: RootState) => state.others);
   const { loading } = others;
 
+  const handleFetchUser = async () => {
+    try {
+      const response = await getLoggedInUser({ user, dispatch, aUser });
+      if (response) {
+        navigate("/", { replace: true });
+      }
+    } catch (err) {
+      console.error("Error fetching user", err);
+    }
+  };
+
   useEffect(
     () => {
-      const fetchUser = async () => {
-        const response = await getLoggedInUser({
-          user,
-          dispatch,
-          updateAUser,
-          aUser,
-        });
-        if (response) {
-          navigate("/", { replace: true });
-        }
-      };
-      fetchUser();
+      handleFetchUser();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, navigate]
@@ -77,109 +73,24 @@ const Login = () => {
         return result;
       }
     } catch (err) {
-      console.error(err);
+      console.error("Error siging in user with google sign in method", err);
     }
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setErrMessage("");
-    dispatch(
-      updateOtherState({
-        ...others,
-        loading: true,
-      })
-    );
-    const { error, value } = loginSchema.validate({ email, password });
-    if (error) {
-      dispatch(
-        updateOtherState({
-          ...others,
-          loading: false,
-        })
-      );
-      return setErrMessage(error.message);
-    } else {
-      try {
-        if (value) {
-          const { email, password } = value;
-
-          await signInWithEmailAndPassword(auth, email, password);
-        }
-      } catch (err: any) {
-        if (err.code === "auth/user-not-found") {
-          dispatch(
-            updateOtherState({
-              ...others,
-              loading: false,
-            })
-          );
-          return setErrMessage("Not yet registered");
-        } else if (err.code === "auth/wrong-password") {
-          dispatch(
-            updateOtherState({
-              ...others,
-              loading: false,
-            })
-          );
-          return setErrMessage("Incorrect email or password");
-        }
-      }
-      if (email) {
-        getData(email).then((res) => {
-          if (res?.data() === undefined) {
-            dispatch(
-              updateOtherState({
-                ...others,
-                loading: false,
-              })
-            );
-            return setErrMessage("Invalid email or password");
-          } else {
-            comparePassword(password, res.data()?.password).then((value) => {
-              if (value) {
-                setErrMessage("");
-                dispatch(
-                  updateOtherState({
-                    ...others,
-                    open: true,
-                    message: "Login successful",
-                    severity: "success",
-                    loading: true,
-                  })
-                );
-                dispatch(
-                  updateAUser({
-                    ...aUser,
-                    ...res.data(),
-                    confirmPassword: "",
-                    password: "",
-                    isLoggedIn: true,
-                  })
-                );
-                navigate("/", { replace: true });
-                return;
-              } else {
-                dispatch(
-                  updateOtherState({
-                    ...others,
-                    loading: false,
-                  })
-                );
-                return setErrMessage("Invalid email or password");
-              }
-            });
-          }
-        });
-      } else {
-        dispatch(
-          updateOtherState({
-            ...others,
-            loading: false,
-          })
-        );
-        return setErrMessage("Email or Password is incorrect");
-      }
+    try {
+      e.preventDefault();
+      await LoginUser({
+        dispatch,
+        setErrMessage,
+        aUser,
+        email,
+        password,
+        others,
+        navigate,
+      });
+    } catch (err) {
+      console.error("Error login", err);
     }
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
