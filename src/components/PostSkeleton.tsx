@@ -3,7 +3,12 @@ export const PostSkeleton = () => {
   return (
     <Paper
       elevation={0}
-      sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        margin: "12px",
+      }}
     >
       <Box textAlign="center">
         <Skeleton variant="text" sx={{ fontSize: "2.5rem", margin: "5px" }} />
