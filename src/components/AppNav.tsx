@@ -31,9 +31,13 @@ export const AppNav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [user] = useAuthState(auth);
+  // const toggleDrawer = () => {
+  //   setOpen((prev) => !prev);
+  // };
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
   };
+
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -52,6 +56,7 @@ export const AppNav = () => {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               color="inherit"
+              // onClick={toggleDrawer}
               onClick={toggleDrawer}
             >
               <MenuIcon />
@@ -62,11 +67,13 @@ export const AppNav = () => {
               open={open}
               onClose={toggleDrawer}
             >
-              {pathname === "/write" ? (
-                <Draft applyStyle={true} />
-              ) : (
-                <GridOne />
-              )}
+              <Box onClick={toggleDrawer} >
+                {pathname === "/write" ? (
+                  <Draft applyStyle={true} />
+                ) : (
+                  <GridOne />
+                )}
+              </Box>
             </Drawer>
           </Box>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
