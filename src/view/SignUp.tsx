@@ -14,6 +14,7 @@ import {
   Box,
   LinearProgress,
   Typography,
+  Stack,
 } from "@mui/material";
 import { gridStyle, linkStyle } from "../Utilities/support";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -60,146 +61,163 @@ const SignUp = () => {
         url="/signup"
         href="/signup"
       />
-      <Box sx={{ ...gridStyle, backgroundColor: "#4caf50", height: "100vh" }}>
-        <form id="form" onSubmit={handleSignUp}>
+      <Box sx={gridStyle}>
+        <form  id="form" onSubmit={handleSignUp}>
           <Typography color="white" p={1} component="p" variant="h6">
             Sign Up
           </Typography>
-          <div className="left">
-            <InputLabel className="label" htmlFor="firstname">
-              Firstname:
-            </InputLabel>
-            <TextField
-              required
-              id="firstname"
-              name="firstname"
-              type="text"
-              value={firstname}
-              onChange={handleUserChange}
-              variant="filled"
-              placeholder="Your firstname"
-              className="input"
-            ></TextField>
-            <FormHelperText color="red"></FormHelperText>
-          </div>
-          <div className="right">
-            <InputLabel className="label" htmlFor="lastname">
-              Lastname:
-            </InputLabel>
-            <TextField
-              required
-              id="lastname"
-              name="lastname"
-              type="text"
-              value={lastname}
-              onChange={handleUserChange}
-              variant="filled"
-              placeholder="Your lastname"
-              className="input"
-            ></TextField>
-          </div>
-          <div className="left">
-            <InputLabel className="label" htmlFor="email">
-              Email:
-            </InputLabel>
-            <TextField
-              id="email"
-              value={email}
-              name="email"
-              variant="filled"
-              onChange={handleUserChange}
-              className="input"
-              placeholder="Your email"
-              type="email"
-            ></TextField>
-          </div>
-          <div className="right">
-            <InputLabel className="label" htmlFor="phoneNumber">
-              Phone number:
-            </InputLabel>
-            <TextField
-              id="phoneNumber"
-              type="tel"
-              name="phoneNumber"
-              value={phoneNumber}
-              onChange={handleUserChange}
-              variant="filled"
-              placeholder="Your phone number"
-              className="input"
-            ></TextField>
-          </div>
-
-          <div className="left">
-            <InputLabel className="label" htmlFor="password">
-              Password:
-            </InputLabel>
-            <TextField
-              required
-              id="password"
-              name="password"
-              value={password}
-              type={showPassword ? "text" : "password"}
-              onChange={handleUserChange}
-              variant="filled"
-              placeholder="Your password"
-              className="input"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowPassword}>
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              autoComplete=""
-            ></TextField>
-          </div>
-          <div className="right">
-            <InputLabel className="label" htmlFor="Confirm password">
-              Confirm Password:
-            </InputLabel>
-            <TextField
-              required
-              id="confirmPassword"
-              name="confirmPassword"
-              value={confirmPassword}
-              type={showPassword ? "text" : "password"}
-              onChange={handleUserChange}
-              variant="filled"
-              placeholder="Confirm password"
-              className="input"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowPassword}>
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              autoComplete=""
-            ></TextField>
-          </div>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            m={1}
+          >
+            <Box component="div">
+              <InputLabel className="label" htmlFor="firstname">
+                Firstname:
+              </InputLabel>
+              <TextField
+                required
+                id="firstname"
+                name="firstname"
+                type="text"
+                value={firstname}
+                onChange={handleUserChange}
+                variant="filled"
+                placeholder="Your firstname"
+                className="input"
+              ></TextField>
+              <FormHelperText color="red"></FormHelperText>
+            </Box>
+            <Box component="div">
+              <InputLabel className="label" htmlFor="lastname">
+                Lastname:
+              </InputLabel>
+              <TextField
+                required
+                id="lastname"
+                name="lastname"
+                type="text"
+                value={lastname}
+                onChange={handleUserChange}
+                variant="filled"
+                placeholder="Your lastname"
+                className="input"
+              ></TextField>
+            </Box>
+          </Stack>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            m={1}
+          >
+            <Box component="div">
+              <InputLabel className="label" htmlFor="email">
+                Email:
+              </InputLabel>
+              <TextField
+                id="email"
+                value={email}
+                name="email"
+                variant="filled"
+                onChange={handleUserChange}
+                className="input"
+                placeholder="Your email"
+                type="email"
+              ></TextField>
+            </Box>
+            <Box component="div">
+              <InputLabel className="label" htmlFor="phoneNumber">
+                Phone number:
+              </InputLabel>
+              <TextField
+                id="phoneNumber"
+                type="tel"
+                name="phoneNumber"
+                value={phoneNumber}
+                onChange={handleUserChange}
+                variant="filled"
+                placeholder="Your phone number"
+                className="input"
+              ></TextField>
+            </Box>
+          </Stack>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            m={1}
+          >
+            <Box component="div">
+              <InputLabel className="label" htmlFor="password">
+                Password:
+              </InputLabel>
+              <TextField
+                required
+                id="password"
+                name="password"
+                value={password}
+                type={showPassword ? "text" : "password"}
+                onChange={handleUserChange}
+                variant="filled"
+                placeholder="Your password"
+                className="input"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                autoComplete="on"
+              ></TextField>
+            </Box>
+            <Box component="div">
+              <InputLabel className="label" htmlFor="Confirm password">
+                Confirm Password:
+              </InputLabel>
+              <TextField
+                required
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                type={showPassword ? "text" : "password"}
+                onChange={handleUserChange}
+                variant="filled"
+                placeholder="Confirm password"
+                className="input"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                autoComplete="on"
+              ></TextField>
+            </Box>
+          </Stack>
           <p style={{ color: "red" }}>
             <small>{errMessage ? errMessage : null}</small>
           </p>
-          <div className="signup">
+          <Box component="div" className="signup">
             <Button type="submit" variant="contained">
               Sign Up
             </Button>
             <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
               {loading && <LinearProgress color="success" />}
             </Box>
-            <p>
+            <Box component="div">
               <Typography className="caption" variant="caption">
                 Already have an account?
                 <Link style={linkStyle} to="/login">
@@ -207,8 +225,8 @@ const SignUp = () => {
                   Login
                 </Link>
               </Typography>
-            </p>
-          </div>
+            </Box>
+          </Box>
         </form>
       </Box>
     </>

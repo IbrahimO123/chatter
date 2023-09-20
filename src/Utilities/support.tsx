@@ -162,7 +162,7 @@ export const greetingsUser = (): string => {
 export const gridStyle = {
   display: "grid",
   placeContent: "center",
-  height: "90vh",
+  backgroundColor: "#4caf50" 
 };
 
 export const Tags = [

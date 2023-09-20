@@ -102,7 +102,7 @@ export const UserPage = ({
             <Typography component="p" variant="h6">
               Edit Profile
             </Typography>
-            <Box component="form" >
+            <Box component="form" className="user-form">
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -179,8 +179,7 @@ export const UserPage = ({
                 </div>
               </Stack>
             </Box>
-
-            <Box m={2}>
+            <Box m={2} className="user-form-2">
               <Typography component="p" variant="h6">
                 Social Profile
               </Typography>

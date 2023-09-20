@@ -9,6 +9,7 @@ import {
   Button,
   LinearProgress,
   Typography,
+  Stack
 } from "@mui/material";
 import { auth } from "../config/firebase";
 import { useSelector, useDispatch } from "react-redux";
@@ -105,95 +106,103 @@ const Login = () => {
         url="/login"
         href="/login"
       />
-      <Box sx={{ ...gridStyle, backgroundColor: "#4caf50" }}>
-        <form onSubmit={handleLogin}>
+      <Box sx={gridStyle}>
+        <form id="Loginform" onSubmit={handleLogin}>
           <Typography color="white" p={1} component="p" variant="h6">
             Login
           </Typography>
-          <div style={{ margin: "10px" }}>
-            <InputLabel className="label" htmlFor="email">
-              Email:
-            </InputLabel>
-            <TextField
-              sx={fieldStyle}
-              variant="filled"
-              className="input"
-              name="email"
-              onChange={handleLoginDetails}
-              required
-              id="email"
-              value={email}
-              type="email"
-              placeholder="Your email address"
-            ></TextField>
-          </div>
-          <div>
-            <InputLabel className="label" htmlFor="password">
-              Password:
-            </InputLabel>
-            <TextField
-              variant="filled"
-              className="input"
-              autoComplete=""
-              name="password"
-              onChange={handleLoginDetails}
-              value={password}
-              sx={fieldStyle}
-              required
-              id="password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowPassword}>
-                      {showPassword ? (
-                        <VisibilityIcon />
-                      ) : (
-                        <VisibilityOffIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              placeholder="Your password"
-              type={showPassword ? "text" : "password"}
-            ></TextField>
-          </div>
-          <p style={{ color: "red" }}>
-            {errMessage && <small>{errMessage}</small>}
-          </p>
-          <div>
-            <Button color="primary" type="submit" variant="contained">
-              Login
-            </Button>
-            <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
-              {loading && <LinearProgress color="success" />}
-            </Box>
-          </div>
-
-          <Typography className="caption" variant="caption">
-            Don't have an account?{" "}
-            <Link style={linkStyle} to="/signup">
-              Sign-up
-            </Link>
-          </Typography>
-        </form>
-        <Box textAlign="center" color="white">
-          <p>Sign in with Google </p>
-
-          <Button
-            onClick={handleGoogleSignIn}
-            sx={{ backgroundColor: "#fff", color: "#000" }}
-            variant="contained"
-            startIcon={
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                alt="Google Sign In"
-              />
-            }
+          <Stack
+            direction={{ xs: "column" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            m={1}
           >
-            Sign In
-          </Button>
-        </Box>
+            <Box component="div">
+              <InputLabel className="label" htmlFor="email">
+                Email:
+              </InputLabel>
+              <TextField
+                sx={fieldStyle}
+                variant="filled"
+                className="input"
+                name="email"
+                onChange={handleLoginDetails}
+                required
+                id="email"
+                value={email}
+                type="email"
+                placeholder="Your email address"
+              ></TextField>
+            </Box>
+            <Box component="div">
+              <InputLabel className="label" htmlFor="password">
+                Password:
+              </InputLabel>
+              <TextField
+                variant="filled"
+                className="input"
+                autoComplete=""
+                name="password"
+                onChange={handleLoginDetails}
+                value={password}
+                sx={fieldStyle}
+                required
+                id="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword}>
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Your password"
+                type={showPassword ? "text" : "password"}
+              ></TextField>
+            </Box>
+          </Stack>
+          <Box component="div">
+            <p style={{ color: "red" }}>
+              {errMessage && <small>{errMessage}</small>}
+            </p>
+            <div>
+              <Button color="primary" type="submit" variant="contained">
+                Login
+              </Button>
+              <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
+                {loading && <LinearProgress color="success" />}
+              </Box>
+            </div>
+
+            <Typography className="caption" variant="caption">
+              Don't have an account?{" "}
+              <Link style={linkStyle} to="/signup">
+                Sign-up
+              </Link>
+            </Typography>
+            <Box textAlign="center" color="white">
+              <p>Sign in with Google </p>
+
+              <Button
+                onClick={handleGoogleSignIn}
+                sx={{ backgroundColor: "#fff", color: "#000" }}
+                variant="contained"
+                startIcon={
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    alt="Google Sign In"
+                  />
+                }
+              >
+                Sign In
+              </Button>
+            </Box>
+          </Box>
+        </form>
       </Box>
     </>
   );
