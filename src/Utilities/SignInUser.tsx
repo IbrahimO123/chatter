@@ -14,76 +14,95 @@ export const signInUser = async ({
   aUser,
   navigate,
 }: any) => {
-  setErrMessage("");
-  dispatch(
-    updateOtherState({
-      ...others,
-      loading: true,
-    })
-  );
-  const { error, value } = schema.validate(aUser);
-  if (error) {
-    dispatch(
-      updateOtherState({
-        ...others,
-        loading: false,
-      })
-    );
-    return setErrMessage(error.message);
-  }
-  const res = await getData(email);
-  if (res?.exists()) {
-    dispatch(
-      updateOtherState({
-        ...others,
-        loading: false,
-      })
-    );
-    return setErrMessage("User with the email already exists");
-  } else {
+  try {
     setErrMessage("");
-    const { email, password } = value;
-    const userCredentials = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
     dispatch(
       updateOtherState({
         ...others,
-        open: true,
-        message: "Sign In Successful...",
         loading: true,
       })
     );
+    const { error, value } = schema.validate(aUser);
+    if (error) {
+      dispatch(
+        updateOtherState({
+          ...others,
+          loading: false,
+        })
+      );
+      return setErrMessage(error.message);
+    }
+    const res = await getData(email);
+    if (res?.exists()) {
+      dispatch(
+        updateOtherState({
+          ...others,
+          loading: false,
+        })
+      );
+      return setErrMessage("User with the email already exists");
+    } else {
+      setErrMessage("");
+      const { email, password } = value;
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    if (userCredentials.user) {
       dispatch(
         updateOtherState({
           ...others,
           open: true,
-          message: "Email Verification Sent...",
+          message: "Sign In Successful...",
+          loading: true,
         })
       );
-      await dispatch(
-        updateAUserPassword({
-          ...aUser,
-        })
-      );
-      await dispatch(
-        updateUserAsync({ ...aUser, password: "", confirmPassword: "" })
-      );
-      return navigate("/login", { replace: true });
-    } else {
-      return dispatch(
+
+      if (userCredentials.user) {
+        // dispatch(
+        //   updateOtherState({
+        //     ...others,
+        //     open: true,
+        //     message: "Email Verification Sent...",
+        //   })
+        // );
+        await dispatch(
+          updateAUserPassword({
+            ...aUser,
+          })
+        );
+        await dispatch(
+          updateUserAsync({ ...aUser, password: "", confirmPassword: "" })
+        );
+        return navigate("/login", { replace: true });
+      } else {
+        return dispatch(
+          updateOtherState({
+            ...others,
+            open: true,
+            message: "Sign In Failed...",
+            loading: false,
+          })
+        );
+      }
+    }
+  } catch (err: any) {
+    console.error("Error while signing up a user", err.code);
+    dispatch(
+      updateOtherState({
+        ...others,
+        loading: false,
+      })
+    );
+    if (err.code === "auth/email-already-in-use") {
+      dispatch(
         updateOtherState({
           ...others,
-          open: true,
-          message: "Sign In Failed...",
           loading: false,
         })
       );
+      return setErrMessage("Email already used for another sign in method");
     }
   }
 };
