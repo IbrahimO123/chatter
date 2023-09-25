@@ -1,48 +1,6 @@
 import { db } from "../config/firebase";
-import {
-  useCollectionData,
-  useCollectionDataOnce,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
-import { collection, doc, query, where, getDocs } from "firebase/firestore";
-
-export const RetrieveAllArticleOnce = async () => {
-  const [value, loading, error] = useCollectionDataOnce(
-    collection(db, "articles")
-  );
-  if (loading) {
-    return "Loading";
-  } else if (error) {
-    return "Error";
-  } else return value;
-};
-
-export const RetrieveAllArticleCont = async () => {
-  const [value, loading, error] = useCollectionData(collection(db, "articles"));
-  if (loading) {
-    return "Loading";
-  } else if (error) {
-    return "Error";
-  } else return value;
-};
-
-export const RetrieveAArticleOnce = async (title: string) => {
-  const ref = collection(db, "articles");
-  const q = query(ref, where("title", "==", title));
-  const result = await getDocs(q);
-
-  return result;
-};
-
-export const RetrieveAArticleCont = async (title: string) => {
-  const ref = doc(db, "articles");
-  const [value, loading, error] = useDocumentData(ref);
-  if (loading) {
-    return "Loading";
-  } else if (error) {
-    return "Error";
-  } else return value;
-};
+import { collection, getDocs } from "firebase/firestore";
+import { DraftModel } from "../redux/articles/model";
 
 export const RetrieveDrafts = async (uid: any) => {
   const draftSnapShot = await getDocs(
@@ -61,11 +19,38 @@ export const RetrieveSingleDraft = async (uid: any, draftId: string) => {
   const draftSnapShot = await getDocs(
     collection(db, "articles", uid, "drafts")
   );
-  let singleDraft: any = [];
+  let singleDraft: DraftModel["drafts"] = [
+    {
+      id: "",
+      data: [
+        {
+          text: "",
+          title: "",
+          subtitle: "",
+          html: "",
+          authorEmail: "",
+          authorName: "",
+          timeCreated: new Date().toLocaleTimeString(),
+          dateCreated: new Date().toLocaleDateString(),
+          likes: 0,
+          comments: {
+            numberOfComments: 0,
+            text: [],
+          },
+          categories: [],
+          repost: 0,
+          readOnly: true,
+          coverImage: "",
+          published: false,
+          profileImageUrl: "",
+        },
+      ],
+    },
+  ];
   if (draftSnapShot) {
     draftSnapShot.forEach((doc) => {
       if (doc.id === draftId) {
-        singleDraft.push({ id: doc.id, data: doc.data() });
+        singleDraft.push({ id: doc.id, data: doc.data() as DraftModel["drafts"][0]["data"] });
       }
     });
   }
