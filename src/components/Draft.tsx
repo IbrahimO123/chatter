@@ -17,26 +17,25 @@ import {
   RetrieveDrafts,
   RetrieveSingleDraft,
 } from "../Utilities/RetrieveDrafts";
-import { useDispatch } from "react-redux";
 import { updateArticle, updateSaveDrafts } from "../redux/articles/slice";
-import { updateOtherState } from "../redux/Others/slice";
-import { style } from "./../Utilities/support";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../config/firebase";
+import { updateOtherState } from "../redux/others/slice";
+import { style } from "../Utilities/Miscellaneous";
 import { DeleteDraft } from "../Utilities/DeleteDraft";
 import { DeleteImage } from "../Utilities/DeleteImage";
+import { useGeneral } from "../custom/hooks/useGeneral";
+import { DraftModel } from "../redux/articles/model";
+
 type DraftProps = {
   applyStyle?: boolean;
 };
 
 export const Draft = ({ applyStyle = false }: DraftProps) => {
   const [selectedDraft, setselectedDraft] = useState(null);
-  const [user] = useAuthState(auth);
-  const dispatch = useDispatch();
+  const { user, dispatch, others } = useGeneral();
+
   const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
   const { drafts } = saveDrafts;
   const { anArticle } = useSelector((state: RootState) => state.articles);
-  const others = useSelector((state: RootState) => state.others);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -60,7 +59,7 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
         dispatch(
           updateSaveDrafts({
             ...saveDrafts,
-            drafts: [...draftsData],
+            drafts: [...(draftsData as DraftModel["drafts"])],
           })
         );
       }
@@ -145,9 +144,7 @@ export const Draft = ({ applyStyle = false }: DraftProps) => {
                         .start();
                     }}
                   />
-                ) : (
-                  null
-                )}
+                ) : null}
               </Typography>
 
               {draft?.data?.title && (
