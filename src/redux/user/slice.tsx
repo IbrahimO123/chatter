@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { AppUser, User } from "./model";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { hashPassword } from "../../Utilities/securePassword";
-import { addToDatabase } from "../../Utilities/AddDrafts";
+import { addToDatabase } from "../../Utilities/AddUser";
 
 const initialState: AppUser = {
   allUsers: [
@@ -98,11 +98,9 @@ export const userSlice = createSlice({
     builder.addCase(updateAUserPassword.rejected, (state) => {
       return { ...state };
     });
-
     builder.addCase(updateAUserPassword.pending, (state) => {
       return state;
     });
-
     builder.addCase(updateUserAsync.fulfilled, (state, { payload }) => {
       return { ...state, aUser: payload };
     });
