@@ -8,7 +8,7 @@ import {
   Zoom,
   Fab,
 } from "@mui/material";
-import { MobileView } from "../Utilities/support";
+import { MobileView } from "../Utilities/Miscellaneous";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useCallback } from "react";
 
@@ -53,7 +53,6 @@ export const PostCard = (post: any) => {
         <Zoom in={trigger}>
           <Box
             role="presentation"
-            // Place the button in the bottom right corner.
             sx={{
               position: "fixed",
               bottom: 32,
@@ -62,7 +61,7 @@ export const PostCard = (post: any) => {
             }}
           >
             <Fab
-              onClick={scrollToTop}   
+              onClick={scrollToTop}
               size="large"
               aria-label="Scroll back to top"
             >
