@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import axios from "axios";
 import type { RootState } from "../redux/store";
 
 import { Photo } from "../redux/chatbox/model";
@@ -24,13 +23,11 @@ export const GridThree = () => {
   const { allPhotos } = photos;
   const fecthPhotos = async () => {
     try {
-      const res = await axios.get(
-        "https://jsonplaceholder.typicode.com/photos"
-      );
-      const data = await res.data;
+      const res = await fetch("https://jsonplaceholder.typicode.com/photos");
+      const data = await res.json();
       dispatch(getAllPhotos(data.slice(0, 10)));
     } catch (err: any) {
-      console.error("Error: ", err.message);
+      console.error("Error while fetching photo: ", err.message);
     }
   };
   useEffect(() => {
