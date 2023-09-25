@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
@@ -12,10 +12,10 @@ import { About } from "../components/About";
 import { GridThree } from "../components/GridThree";
 
 import { getAllArticles } from "../Utilities/RetrieveAllArticles";
-
+import { gridStyle } from "./../Utilities/Miscellaneous";
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);
-
+ 
   const fetchUserPost = async () => {
     try {
       const result = await getAllArticles();
@@ -30,7 +30,6 @@ const Home = () => {
   };
   useEffect(() => {
     fetchUserPost();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +54,21 @@ const Home = () => {
               {feed && feed.length > 0 ? (
                 feed.map((post: any) => <AppCard {...post} key={post.title} />)
               ) : (
-                <Typography textAlign="center" component="h3" variant="subtitle2" >Please wait... while we check for posts to display</Typography>
+                <Box
+                  sx={{ ...gridStyle, backgroundColor: "inherit" }}
+                  mt={15}
+                  mb={15}
+                >
+                  <Paper elevation={6} sx={{ width: "300px" }}>
+                    <Typography
+                      textAlign="center"
+                      component="h3"
+                      variant="subtitle2"
+                    >
+                      Please wait... while we check for articles to display
+                    </Typography>
+                  </Paper>
+                </Box>
               )}
             </Box>
           </Grid>
