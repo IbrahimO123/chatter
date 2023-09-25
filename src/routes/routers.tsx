@@ -20,7 +20,10 @@ export const Routers = () => {
         <Route path="/user/profile" element={<User />}></Route>
         <Route path="/write" element={<WriteArticle />}></Route>
       </Route>
-      <Route path="/articles/single/:articleId" element={<SingleArticle />}></Route>
+      <Route
+        path="/articles/single/:articleId"
+        element={<SingleArticle />}
+      ></Route>
       <Route path="/tags" element={<TagsPage />}></Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
