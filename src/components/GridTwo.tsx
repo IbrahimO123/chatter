@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import {
   Box,
   Grid,
@@ -10,18 +9,9 @@ import {
   Button,
 } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
-import womanImage from "../assets/images/woman.avif";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../config/firebase";
 
-type Photo = {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-};
-
+import { useGeneral } from "../custom/hooks/useGeneral";
+import { getLoggedInUser } from "../Utilities/GetUserData";
 const postStyle = {
   display: "flex",
   justifyContent: "space-around",
@@ -29,21 +19,19 @@ const postStyle = {
 };
 
 export const GridTwo = () => {
-  const [user] = useAuthState(auth);
-  const [photo, setPhoto] = useState<Photo>({} as Photo);
+  const { user, dispatch, aUser, profileImageUrl, firstname, lastname } =
+    useGeneral();
   const userPhoto = async () => {
     try {
-      const api = "https://jsonplaceholder.typicode.com/photos/1";
-      const res = await axios.get(api);
-      const data = await res.data;
-      setPhoto(data);
-    } catch (e: any) {
-      console.error(e.message);
+      await getLoggedInUser({ user, dispatch, aUser });
+    } catch (err: any) {
+      console.error("Error while fetching photo: ", err.message);
     }
   };
   useEffect(() => {
     userPhoto();
-  }, [photo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box>
       {user?.uid ? (
@@ -59,9 +47,11 @@ export const GridTwo = () => {
             <Grid item md={1}>
               <IconButton size="small">
                 <Avatar
-                  title={photo.hasOwnProperty("title") ? `${photo.title}` : ""}
+                  title={
+                    firstname && lastname ? `${lastname} ${firstname}` : ""
+                  }
                   alt="user photo"
-                  src={photo.hasOwnProperty("url") ? `${womanImage}` : ""}
+                  src={profileImageUrl || ""}
                 />
               </IconButton>
             </Grid>
