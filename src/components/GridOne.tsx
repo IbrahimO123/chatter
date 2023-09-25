@@ -11,7 +11,6 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -27,20 +26,14 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { updateOtherState } from "../redux/Others/slice";
+import { updateOtherState } from "../redux/others/slice";
 import { updateAUser } from "../redux/user/slice";
 import { Link } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 export const GridOne = () => {
-  const navigate = useNavigate();
-  const [user] = useAuthState(auth);
-  const dispatch = useDispatch();
-  const others = useSelector((state: RootState) => state.others);
-  const aUser = useSelector((state: RootState) => state.users.aUser);
+  const { navigate, user, dispatch, others, aUser } = useGeneral();
 
   const handleRoute = (route: string) => {
     navigate(`${route}`);
@@ -63,12 +56,12 @@ export const GridOne = () => {
       dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
       return;
     } catch (e: any) {
-      console.error(e.message);
+      console.error("Error while siging out user: ", e.code);
     }
   };
   return (
     <Box>
-      <Paper elevation={8} sx={{ padding: "0px 1px", }}>
+      <Paper elevation={8} sx={{ padding: "0px 1px" }}>
         <MenuList>
           <MenuItem onClick={() => handleRoute("/")}>
             <IconButton>
@@ -82,13 +75,13 @@ export const GridOne = () => {
             </IconButton>
             Draft
           </MenuItem>
-          <MenuItem onClick={() => handleRoute("/chat")} >
+          <MenuItem onClick={() => handleRoute("/chat")}>
             <IconButton>
               <ChatIcon />
             </IconButton>
             Chat
           </MenuItem>
-          <MenuItem onClick={()=>handleRoute("/communities")} >
+          <MenuItem onClick={() => handleRoute("/communities")}>
             <IconButton>
               <ForumIcon />
             </IconButton>
@@ -178,7 +171,7 @@ export const GridOne = () => {
               </Box>
             ) : (
               <Button color="warning" onClick={handleSignIn}>
-                Sign In
+                Login
               </Button>
             )}
           </Box>

@@ -6,7 +6,6 @@ export const getAllArticles = async () => {
     const articlesRef = collectionGroup(db, "articles");
     const snapshot = await getDocs(articlesRef);
     const articles = snapshot.docs.map((doc) =>
-      // console.log("doc.id", doc.id),
       ({
         id: doc.id,
         ...doc.data(),
