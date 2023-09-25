@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   IconButton,
@@ -9,31 +9,34 @@ import {
   Button,
   LinearProgress,
   Typography,
-  Stack
+  Stack,
 } from "@mui/material";
 import { auth } from "../config/firebase";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../redux/store";
-import { updateAUser } from "../redux/user/slice";
-import { gridStyle, linkStyle } from "../Utilities/support";
+import { gridStyle, linkStyle } from "../Utilities/Miscellaneous";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithGoogle } from "../config/firebase/functions";
+import { signInWithGoogle } from "../Utilities/SignInWithGoggle";
 import { MetaTags } from "../components/MetaTag";
 import { getLoggedInUser } from "../Utilities/GetUserData";
-import { LoginUser } from "../Utilities/LoginUser";
-
+import { LoginUser } from "../custom/functions/LoginUser";
+import { useGeneral } from "../custom/hooks/useGeneral";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const [user] = useAuthState(auth);
-  const aUser = useSelector((state: RootState) => state.users.aUser);
-  const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
-  const others = useSelector((state: RootState) => state.others);
-  const { loading } = others;
+  const {
+    handleUserChange,
+    updateOtherState,
+    aUser,
+    others,
+    email,
+    password,
+    loading,
+    dispatch,
+    navigate,
+  } = useGeneral();
 
   const handleFetchUser = async () => {
     try {
@@ -58,21 +61,21 @@ const Login = () => {
     width: { xs: "80%", md: "80%" },
   };
 
-  const handleLoginDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
-  };
-
-  const { email, password } = aUser;
-
   const handleGoogleSignIn = async () => {
     try {
-      const value = await signInWithGoogle();
-      const { result, error } = value;
-      if (error) {
+      const value = await signInWithGoogle(aUser);
+      if (value?.error) {
         return navigate("/login", { replace: true });
-      } else {
-        return result;
       }
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Sign in successfully with Google",
+          severity: "success",
+          
+        })
+      );
     } catch (err) {
       console.error("Error siging in user with google sign in method", err);
     }
@@ -125,7 +128,7 @@ const Login = () => {
                 variant="filled"
                 className="input"
                 name="email"
-                onChange={handleLoginDetails}
+                onChange={handleUserChange}
                 required
                 id="email"
                 value={email}
@@ -142,7 +145,7 @@ const Login = () => {
                 className="input"
                 autoComplete=""
                 name="password"
-                onChange={handleLoginDetails}
+                onChange={handleUserChange}
                 value={password}
                 sx={fieldStyle}
                 required

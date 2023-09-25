@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { updateAUser } from "../redux/user/slice";
-import { useDispatch } from "react-redux";
-
 import {
   IconButton,
   InputLabel,
@@ -16,37 +13,45 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { gridStyle, linkStyle } from "../Utilities/support";
+import { gridStyle, linkStyle } from "../Utilities/Miscellaneous";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { AppDispatch, RootState } from "../redux/store";
-import { useSelector } from "react-redux";
-import { signInUser } from "../Utilities/SignInUser";
+import { signInUser } from "../custom/functions/SignInUser";
 import { MetaTags } from "../components/MetaTag";
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const SignUp = () => {
-  const { aUser } = useSelector((state: RootState) => state.users);
-  const others = useSelector((state: RootState) => state.others);
-  const { loading } = others;
   const [errMessage, setErrMessage] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const { firstname, lastname, phoneNumber, email, password, confirmPassword } =
-    aUser;
+  const {
+    handleUserChange,
+    aUser,
+    others,
+    firstname,
+    lastname,
+    phoneNumber,
+    email,
+    password,
+    confirmPassword,
+    loading,
+    dispatch,
+  } = useGeneral();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      signInUser({ setErrMessage, dispatch, email, others, aUser, navigate });
+      await signInUser({
+        setErrMessage,
+        dispatch,
+        email,
+        others,
+        aUser,
+        navigate,
+      });
     } catch (err) {
       console.error("Error while signing-up user", err);
     }
   };
-
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
-  };
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -62,7 +67,7 @@ const SignUp = () => {
         href="/signup"
       />
       <Box sx={gridStyle}>
-        <form  id="form" onSubmit={handleSignUp}>
+        <form id="form" onSubmit={handleSignUp}>
           <Typography color="white" p={1} component="p" variant="h6">
             Sign Up
           </Typography>
