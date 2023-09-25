@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AppArticle } from "./model";
-import { Draft } from "./model";
+import { DraftModel } from "./model";
 
 const initialState: AppArticle = {
   allArticles: [
@@ -51,7 +51,7 @@ const initialState: AppArticle = {
   },
 };
 
-const saveDraftsIntialState: Draft = {
+const saveDraftsIntialState: DraftModel = {
   drafts: [
     {
       id: "",
@@ -99,7 +99,7 @@ export const saveDraftsSlice = createSlice({
   name: "save_drafts",
   initialState: saveDraftsIntialState,
   reducers: {
-    updateSaveDrafts(state, action: PayloadAction<Draft>) {
+    updateSaveDrafts(state, action: PayloadAction<DraftModel>) {
       return {
         ...state,
         ...action.payload,

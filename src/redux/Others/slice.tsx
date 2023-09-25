@@ -7,7 +7,7 @@ const initialState: OtherState = {
   close: false,
   error: "",
   loading: false,
-  severity:"info",
+  severity: "info",
 };
 
 export const otherSlice = createSlice({
