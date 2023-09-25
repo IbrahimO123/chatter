@@ -1,6 +1,15 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { updateAUser } from "../redux/user/slice";
+import { AppDispatch } from "../redux/store";
+import { User } from "firebase/auth";
+
+
+type getLoggedInUserProps = {
+  user: User | undefined | null;
+  dispatch: AppDispatch;
+  aUser: any;
+};
 
 export const getData = async (email: string) => {
   try {
@@ -13,12 +22,16 @@ export const getData = async (email: string) => {
   }
 };
 
-export const getLoggedInUser = async ({ user, dispatch, aUser }: any) => {
+export const getLoggedInUser = async ({
+  user,
+  dispatch,
+  aUser,
+}: getLoggedInUserProps) => {
   try {
     if (user) {
       if (user.uid !== null) {
         const res = await getData(user.email!);
-        if (res?.data() !== null) {
+        if (res?.exists()) {
           dispatch(
             updateAUser({
               ...aUser,
@@ -37,6 +50,27 @@ export const getLoggedInUser = async ({ user, dispatch, aUser }: any) => {
               linkedInHandle: res?.data()?.linkedInHandle,
             })
           );
+        } else {
+          user.providerData.forEach((profile: any) => {
+            dispatch(
+              updateAUser({
+                ...aUser,
+                firstname: profile.displayName.split(" ")[0],
+                lastname: profile.displayName.split(" ")[1],
+                phoneNumber: profile.phoneNumber || "",
+                email: profile.email,
+                isLoggedIn: true,
+                isRegistered: true,
+                isAuthorised: true,
+                profileImageUrl: profile.profileImageUrl,
+                dateCreated: "",
+                timeCreated: "",
+                facebookHandle: "",
+                twitterHandle: " ",
+                linkedInHandle: " ",
+              })
+            );
+          });
         }
         return "Done";
       }
