@@ -11,10 +11,11 @@ import {
   BottomNavigationAction,
   Paper,
   Box,
+  Slide,
 } from "@mui/material";
 import { RootState } from "./redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { updateOtherState } from "./redux/Others/slice";
+import { updateOtherState } from "./redux/others/slice";
 import HomeIcon from "@mui/icons-material/Home";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -55,8 +56,9 @@ function App() {
         <Snackbar
           onClose={handleSnackbarClose}
           open={open}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
           autoHideDuration={1500}
+          TransitionComponent={Slide}
         >
           <Alert variant="filled" severity={severity}>
             {message}
