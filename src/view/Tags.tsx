@@ -5,11 +5,10 @@ import {
   MenuItem,
   Badge,
 } from "@mui/material";
-import { Tags } from "../Utilities/support";
+import { Tags } from "../Utilities/Miscellaneous";
 import { MetaTags } from "../components/MetaTag";
 
 const TagsPage = () => {
-
   return (
     <>
       <MetaTags
