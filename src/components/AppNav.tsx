@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CircularSawSvg from "../assets/images/circular-saw.svg";
 import {
   AppBar,
@@ -18,22 +18,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
 import { Draft } from "./Draft";
 import { GridOne } from "./GridOne";
-import { auth } from "../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "../Utilities/support";
+} from "../Utilities/Miscellaneous";
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const { user, navigate } = useGeneral();
   const { pathname } = useLocation();
-  const [user] = useAuthState(auth);
-  // const toggleDrawer = () => {
-  //   setOpen((prev) => !prev);
-  // };
+
   const toggleDrawer = () => {
     setOpen((prev) => !prev);
   };
@@ -41,7 +37,8 @@ export const AppNav = () => {
   const menuId = "primary-search-account-menu";
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  const handleUserProfileRoute = (vent: React.MouseEvent<HTMLElement>) => {
+  const handleUserProfileRoute = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
     navigate("/user/profile");
   };
 
@@ -56,7 +53,6 @@ export const AppNav = () => {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               color="inherit"
-              // onClick={toggleDrawer}
               onClick={toggleDrawer}
             >
               <MenuIcon />
@@ -67,13 +63,13 @@ export const AppNav = () => {
               open={open}
               onClose={toggleDrawer}
             >
-              <Box onClick={toggleDrawer}>
+              <>
                 {pathname === "/write" ? (
                   <Draft applyStyle={true} />
                 ) : (
                   <GridOne />
                 )}
-              </Box>
+              </>
             </Drawer>
           </Box>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
