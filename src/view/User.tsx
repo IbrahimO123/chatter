@@ -1,21 +1,17 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../config/firebase";
 import { useEffect } from "react";
 import { UserPage } from "../components/UserPage";
-import { useNavigate } from "react-router-dom";
 import { MetaTags } from "../components/MetaTag";
 import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import { getLoggedInUser } from "../Utilities/GetUserData";
-import { useDispatch } from "react-redux";
+
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const User = () => {
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-  const aUser = useSelector((state: RootState) => state.users.aUser);
-  const dispatch = useDispatch();
+  const { user, dispatch, navigate } = useGeneral();
 
-  // const [profile, setProfile] = useState([user])
+  const aUser = useSelector((state: RootState) => state.users.aUser);
+
   useEffect(() => {
     if (user === null) {
       navigate("/login", { replace: true });
@@ -35,7 +31,7 @@ const User = () => {
         href="/user/profile"
       ></MetaTags>
       <>
-        <UserPage {...aUser} />
+        <UserPage />
       </>
     </>
   );

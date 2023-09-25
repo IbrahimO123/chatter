@@ -13,36 +13,35 @@ import {
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { useGeneral } from "../custom/hooks/useGeneral";
+import { useState } from "react";
 
-type UserProps = {
-  firstname: string;
-  lastname: string;
-  email: string;
-  phoneNumber: number;
-  password: string;
-  confirmPassword: string;
-  profileImageUrl: string;
-  facebookHandle: string;
-  twitterHandle: string;
-  linkedInHandle: string;
-  dateCreated: string;
-  handleUserUpdate: () => void;
-};
+export const UserPage = () => {
+  const [profileImage, setProfileImage] = useState<File>();
+  const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target!.files?.length === 0) {
+      setProfileImage(undefined);
+      return console.log("No image selected");
+    }
+    setProfileImage(e.target!.files![0]);
+  };
+  const {
+    handleUserChange,
+    handleUpdateUser,
+    handleProfilePhotoUpload,
+    firstname,
+    lastname,
+    phoneNumber,
+    email,
+    password,
+    confirmPassword,
+    profileImageUrl,
+    facebookHandle,
+    twitterHandle,
+    linkedInHandle,
+    dateCreated,
+  } = useGeneral();
 
-export const UserPage = ({
-  firstname,
-  lastname,
-  email,
-  phoneNumber,
-  password,
-  confirmPassword,
-  profileImageUrl,
-  facebookHandle,
-  twitterHandle,
-  linkedInHandle,
-  dateCreated,
-  handleUserUpdate,
-}: UserProps) => {
   return (
     <Box p={2}>
       <Grid container spacing={2}>
@@ -61,6 +60,7 @@ export const UserPage = ({
               ></Avatar>
               <TextField
                 type="file"
+                onChange={handleSelectImage}
                 helperText="Upload your avatar"
                 inputProps={{ accept: "image/*" }}
                 variant="standard"
@@ -68,7 +68,13 @@ export const UserPage = ({
                   disableUnderline: true,
                 }}
               ></TextField>
-              <Button color="warning" variant="contained" size="small">
+              <Button
+                color="warning"
+                onClick={() => handleProfilePhotoUpload(profileImage!)}
+                variant="contained"
+                size="small"
+                disabled={profileImage ? false : true}
+              >
                 Upload New Photo
               </Button>
               <Typography
@@ -115,6 +121,7 @@ export const UserPage = ({
                     value={firstname}
                     type="text"
                     placeholder="firstname"
+                    onChange={handleUserChange}
                   ></TextField>
                 </div>
                 <div>
@@ -123,6 +130,7 @@ export const UserPage = ({
                     name="lastname"
                     value={lastname}
                     type="text"
+                    onChange={handleUserChange}
                     placeholder="lastname"
                   ></TextField>
                 </div>
@@ -165,6 +173,7 @@ export const UserPage = ({
                     type="email"
                     value={email}
                     name="email"
+                    onChange={handleUserChange}
                     placeholder="email"
                   ></TextField>
                 </div>
@@ -174,6 +183,7 @@ export const UserPage = ({
                     type="number"
                     name="phoneNumber"
                     value={phoneNumber}
+                    onChange={handleUserChange}
                     placeholder="phone number"
                   ></TextField>
                 </div>
@@ -188,9 +198,11 @@ export const UserPage = ({
                 spacing={{ xs: 1, sm: 2, md: 4 }}
               >
                 <TextField
+                  type="text"
                   name="facebookHandle"
-                  value={facebookHandle}
+                  value={facebookHandle || ""}
                   placeholder="facebook"
+                  onChange={handleUserChange}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -200,9 +212,11 @@ export const UserPage = ({
                   }}
                 ></TextField>
                 <TextField
+                  type="text"
                   name="twitterHandle"
-                  value={twitterHandle}
+                  value={twitterHandle || ""}
                   placeholder="twitter"
+                  onChange={handleUserChange}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -212,9 +226,11 @@ export const UserPage = ({
                   }}
                 ></TextField>
                 <TextField
+                  type="text"
                   name="linkedInHandle"
-                  value={linkedInHandle}
+                  value={linkedInHandle || ""}
                   placeholder="linkedIn"
+                  onChange={handleUserChange}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -230,6 +246,7 @@ export const UserPage = ({
               sx={{ margin: "5px" }}
               size="small"
               color="warning"
+              onClick={handleUpdateUser}
             >
               Update Info
             </Button>
