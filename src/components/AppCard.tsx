@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Typography,
   Card,
@@ -10,19 +10,15 @@ import {
   IconButton,
   Avatar,
 } from "@mui/material";
-
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { calculateReadingTime } from "../Utilities/support";
-import { getTimeDifferenceString } from "../Utilities/support";
-import { ManagePostMore } from "../Utilities/support";
+import { calculateReadingTime } from "../Utilities/Miscellaneous";
+import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
+import { ManagePostMore } from "../Utilities/Miscellaneous";
 import { MenuComponent } from "./MenuComponent";
-// import { Post } from "../redux/posts/model";
-// import { Article } from "../redux/articles/model";
-
-import { useNavigate } from "react-router-dom";
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const actionStyle = {
   display: "flex",
@@ -33,11 +29,11 @@ export const menuStyle = {
   fontSize: "12px",
 };
 export const AppCard = (cpost: any) => {
-  const navigate = useNavigate();
+  const { navigate } = useGeneral();
   const blogPost = () => {
     navigate(`/articles/single/${cpost.id}`);
   };
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,15 +41,18 @@ export const AppCard = (cpost: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const handleMenuAction = (route: string) => {
-  //   navigate(`${route}`);
-  // };
   return (
     <Card sx={{ margin: "10px", maxHeight: "800px" }}>
       <CardHeader
-        sx={{ margin: 0, paddingBottom:0 }}
-        avatar={<Avatar onClick={blogPost} src="" />}
-        title={<h3 style={{wordWrap:"break-word"}} onClick={blogPost}>{cpost.title.toUpperCase()}</h3>}
+        sx={{ margin: 0, paddingBottom: 0 }}
+        avatar={
+          <Avatar onClick={blogPost} src={cpost.profileImageUrl || " "} />
+        }
+        title={
+          <h3 style={{ wordWrap: "break-word" }} onClick={blogPost}>
+            {cpost.title.toUpperCase()}
+          </h3>
+        }
         action={
           <>
             <IconButton
@@ -75,13 +74,13 @@ export const AppCard = (cpost: any) => {
           </>
         }
         subheader={
-          <small onClick={blogPost} style={{lineHeight:0}}>
+          <small onClick={blogPost} style={{ lineHeight: 0 }}>
             <Typography component="span" variant="caption">
               {getTimeDifferenceString(cpost.dateCreated)}
             </Typography>
             .
             <Typography component="span" variant="caption" ml={1}>
-              {calculateReadingTime(cpost.title)} mins read
+              {calculateReadingTime(cpost.text)} mins read
             </Typography>
           </small>
         }
