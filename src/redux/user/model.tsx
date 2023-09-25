@@ -20,3 +20,13 @@ export type AppUser = {
   allUsers: User[];
   aUser: User;
 };
+
+export type UserDataUpdateProps = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  facebookHandle: string;
+  twitterHandle: string;
+  linkedInHandle: string;
+};

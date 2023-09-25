@@ -25,7 +25,7 @@ export type AppArticle = {
   anArticle: Article;
 };
 
-export type Draft = {
+export type DraftModel = {
   drafts: [
     {
       id: string;
