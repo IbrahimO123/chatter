@@ -20,4 +20,5 @@ export const otherSlice = createSlice({
   },
 });
 
+
 export const { updateOtherState } = otherSlice.actions;
