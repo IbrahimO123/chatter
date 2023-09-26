@@ -70,3 +70,39 @@ export const loginSchema = Joi.object({
     .pattern(new RegExp(/^\S+$/))
     .message("Field must not contain spaces"),
 });
+
+export const updateUserSchema = Joi.object({
+  firstname: Joi.string()
+    .min(3)
+    .message("Name must be at least 3 characters long")
+    .max(30)
+    .message("Name must be at most 30 characters long")
+    .required()
+    .pattern(new RegExp(/^\S+$/))
+    .message("Field must not contain spaces"),
+  lastname: Joi.string()
+    .required()
+    .min(3)
+    .message("Name must be at least 3 characters long")
+    .max(30)
+    .message("Name must be at most 30 characters long")
+    .pattern(new RegExp(/^\S+$/))
+    .message("Field must not contain spaces"),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .message("Invalid email address")
+    .custom((value) => value.trim())
+    .pattern(new RegExp(/^\S+$/))
+    .message("Field must not contain spaces")
+    .required(),
+  phoneNumber: Joi.string()
+    .required()
+    .custom((value) => value.trim())
+    .max(30)
+    .min(11)
+    .pattern(new RegExp(/^\S+$/))
+    .message("Field must not contain spaces"),
+  facebookHandle: Joi.string().allow(""),
+  twitterHandle: Joi.string().allow(""),
+  linkedInHandle: Joi.string().allow(""),
+});

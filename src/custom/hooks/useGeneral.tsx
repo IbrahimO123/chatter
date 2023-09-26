@@ -9,6 +9,7 @@ import { updateUserDetails } from "../../Utilities/UpdateUserDetails";
 import { updateOtherState } from "../../redux/Others/slice";
 import { UploadProfileImage } from "../../Utilities/UploadImage";
 import { AddProfileImageToDatabase } from "../../Utilities/AddProfileImage";
+import { updateUserSchema } from "../../config/joi";
 
 export const useGeneral = () => {
   const dispatch = useDispatch();
@@ -36,36 +37,36 @@ export const useGeneral = () => {
 
   const handleUpdateUser = async (e: any) => {
     e.preventDefault();
-    const response = await updateUserDetails(
-      {
-        firstname,
-        lastname,
-        email,
-        phoneNumber,
-        facebookHandle,
-        twitterHandle,
-        linkedInHandle,
-      },
-      email
-    );
-    if (response === "Done") {
+    const { error, value } = updateUserSchema.validate({
+      firstname,
+      lastname,
+      email,
+      phoneNumber,
+      facebookHandle,
+      twitterHandle,
+      linkedInHandle,
+    });
+    if (error) {
       return dispatch(
         updateOtherState({
           ...others,
           open: true,
-          message: "User data updated successfully",
-          severity: "success",
-        })
-      );
-    } else {
-      return dispatch(
-        updateOtherState({
-          ...others,
-          open: true,
-          message: "Some invalid data was passed",
+          message: error.message,
           severity: "error",
         })
       );
+    } else {
+      const response = await updateUserDetails(value, email);
+      if (response === "Done") {
+        return dispatch(
+          updateOtherState({
+            ...others,
+            open: true,
+            message: "User data updated successfully",
+            severity: "success",
+          })
+        );
+      }
     }
   };
   const handleProfilePhotoUpload = async (image: File) => {
