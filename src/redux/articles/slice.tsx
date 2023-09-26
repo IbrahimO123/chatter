@@ -12,8 +12,8 @@ const initialState: AppArticle = {
       html: "",
       authorEmail: "",
       authorName: "",
-      timeCreated: new Date().toLocaleTimeString(),
-      dateCreated: new Date().toLocaleDateString(),
+      timeCreated: new Date().toISOString(),
+      dateCreated: new Date().toISOString(),
 
       likes: 0,
       comments: {
@@ -35,8 +35,8 @@ const initialState: AppArticle = {
     html: "",
     authorEmail: "",
     authorName: "",
-    timeCreated: new Date().toLocaleTimeString(),
-    dateCreated: new Date().toLocaleDateString(),
+    timeCreated: new Date().toISOString(),
+    dateCreated: new Date().toISOString(),
     likes: 0,
     comments: {
       numberOfComments: 0,
@@ -63,8 +63,8 @@ const saveDraftsIntialState: DraftModel = {
           html: "",
           authorEmail: "",
           authorName: "",
-          timeCreated: new Date().toLocaleTimeString(),
-          dateCreated: new Date().toLocaleDateString(),
+          timeCreated: new Date().toISOString(),
+          dateCreated: new Date().toISOString(),
           likes: 0,
           comments: {
             numberOfComments: 0,
