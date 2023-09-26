@@ -46,7 +46,12 @@ export const AppCard = (cpost: any) => {
       <CardHeader
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
-          <Avatar onClick={blogPost} src={cpost.profileImageUrl || " "} />
+          <Avatar
+            onClick={blogPost}
+            src={cpost.profileImageUrl || " "}
+            alt={cpost.authorName ? cpost.authorName + "picture" : ""}
+            title={cpost.authorName || ""}
+          />
         }
         title={
           <h3 style={{ wordWrap: "break-word" }} onClick={blogPost}>

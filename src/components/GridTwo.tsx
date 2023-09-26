@@ -50,7 +50,11 @@ export const GridTwo = () => {
                   title={
                     firstname && lastname ? `${lastname} ${firstname}` : ""
                   }
-                  alt="user photo"
+                  alt={
+                    firstname && lastname
+                      ? `${lastname} ${firstname} picture`
+                      : ""
+                  }
                   src={profileImageUrl || ""}
                 />
               </IconButton>
