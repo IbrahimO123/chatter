@@ -49,7 +49,7 @@ export const AppCard = (cpost: any) => {
           <Avatar
             onClick={blogPost}
             src={cpost.profileImageUrl || " "}
-            alt={cpost.authorName ? cpost.authorName + "picture" : ""}
+            alt={cpost.authorName ? cpost.authorName + " picture" : ""}
             title={cpost.authorName || ""}
           />
         }
@@ -81,11 +81,11 @@ export const AppCard = (cpost: any) => {
         subheader={
           <small onClick={blogPost} style={{ lineHeight: 0 }}>
             <Typography component="span" variant="caption">
-              {getTimeDifferenceString(cpost.dateCreated)}
+              {getTimeDifferenceString(cpost.dateCreated) || "1 second ago"}
             </Typography>
             .
             <Typography component="span" variant="caption" ml={1}>
-              {calculateReadingTime(cpost.text)} mins read
+              {calculateReadingTime(cpost.text) || "1"} mins read
             </Typography>
           </small>
         }
@@ -97,7 +97,8 @@ export const AppCard = (cpost: any) => {
           title={cpost.title}
         ></CardMedia>
         <Typography mt={2} variant="body2">
-          {`${cpost.text?.substring(0, 200)}....`}
+          {`${cpost.text?.substring(0, 300)}....`}{" "}
+          <span className="read-more" onClick={blogPost}>Read more</span>
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>

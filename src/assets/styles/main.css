@@ -76,6 +76,10 @@ div.MuiSelect-select {
     color: #fff;
 }
 
+.read-more {
+    cursor: pointer;
+    color: blue;
+}
 
 @media only screen and (max-width: 843px) {
     form {
