@@ -43,7 +43,6 @@ export const ManagePostMore = [
   {
     value: "Bookmark",
     logo: <BookmarkAddIcon />,
-    
   },
   {
     value: "Hide",
@@ -108,7 +107,7 @@ export const formatDate = (date: string | Date) => {
 export const getTimeDifferenceString = (date: string): string => {
   const postTime = new Date(date).getTime();
   const currentTime = new Date().getTime();
-  const timeDifference = Number(currentTime - postTime);
+  const timeDifference = currentTime - postTime
   const seconds = Math.floor(timeDifference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -162,7 +161,7 @@ export const greetingsUser = (): string => {
 export const gridStyle = {
   display: "grid",
   placeContent: "center",
-  backgroundColor: "#4caf50" 
+  backgroundColor: "#4caf50",
 };
 
 export const Tags = [

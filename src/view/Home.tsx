@@ -25,7 +25,7 @@ const Home = () => {
       );
       setFeed(sortedArticles);
     } catch (err: any) {
-      console.error("Error: ", err.code);
+      console.error("Error while fetching articles from server: ", err.code);
     }
   };
   useEffect(() => {
