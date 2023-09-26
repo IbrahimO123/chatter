@@ -18,7 +18,7 @@ export const useArticle = () => {
         ...anArticle,
         [e.target.name]: e.target.value,
         authorEmail: email,
-        authorName: `${firstname} ${lastname}`,
+        authorName: ` ${lastname} ${firstname}`,
         profileImageUrl,
       })
     );
