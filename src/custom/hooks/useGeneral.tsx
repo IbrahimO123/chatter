@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { updateAUser } from "../../redux/user/slice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
 import { updateUserDetails } from "../../Utilities/UpdateUserDetails";
@@ -15,6 +15,8 @@ export const useGeneral = () => {
   const dispatch = useDispatch();
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
   const { aUser } = useSelector((state: RootState) => state.users);
   const {
     firstname,
@@ -106,6 +108,8 @@ export const useGeneral = () => {
     aUser,
     others,
     navigate,
+    location,
+    state,
     dispatch,
     user,
     firstname,
