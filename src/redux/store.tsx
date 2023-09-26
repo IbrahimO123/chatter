@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { chatPhotosSlice } from "./chatbox/slice";
 import { postSlice } from "./posts/slice";
 import { userSlice } from "./user/slice";
-import { otherSlice } from "./others/slice";
+import { otherSlice } from "./Others/slice";
 import { articleSlice } from "./articles/slice";
 import { saveDraftsSlice } from "./articles/slice";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
 import { updateUserDetails } from "../../Utilities/UpdateUserDetails";
-import { updateOtherState } from "../../redux/others/slice";
+import { updateOtherState } from "../../redux/Others/slice";
 import { UploadProfileImage } from "../../Utilities/UploadImage";
 import { AddProfileImageToDatabase } from "../../Utilities/AddProfileImage";
 

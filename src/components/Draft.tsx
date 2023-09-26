@@ -18,7 +18,7 @@ import {
   RetrieveSingleDraft,
 } from "../Utilities/RetrieveDrafts";
 import { updateArticle, updateSaveDrafts } from "../redux/articles/slice";
-import { updateOtherState } from "../redux/others/slice";
+import { updateOtherState } from "../redux/Others/slice";
 import { style } from "../Utilities/Miscellaneous";
 import { DeleteDraft } from "../Utilities/DeleteDraft";
 import { DeleteImage } from "../Utilities/DeleteImage";

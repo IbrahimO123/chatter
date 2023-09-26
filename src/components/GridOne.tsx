@@ -26,7 +26,7 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { updateOtherState } from "../redux/others/slice";
+import { updateOtherState } from "../redux/Others/slice";
 import { updateAUser } from "../redux/user/slice";
 import { Link } from "react-router-dom";
 

@@ -2,7 +2,7 @@ import { useGeneral } from "./useGeneral";
 import { updateArticle } from "../../redux/articles/slice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { updateOtherState } from "../../redux/others/slice";
+import { updateOtherState } from "../../redux/Others/slice";
 import { Tags } from "../../Utilities/Miscellaneous";
 import { SelectChangeEvent } from "@mui/material";
 

@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import { Tags } from "../Utilities/Miscellaneous";
 import { updateArticle } from "../redux/articles/slice";
 import { Draft } from "../components/Draft";
-import { updateOtherState } from "../redux/others/slice";
+import { updateOtherState } from "../redux/Others/slice";
 import EditorMarkdown from "../components/Editors";
 import { addDraftToDatabase } from "../Utilities/AddDrafts";
 import { useState } from "react";

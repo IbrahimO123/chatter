@@ -1,4 +1,4 @@
-import { updateOtherState } from "../../redux/others/slice";
+import { updateOtherState } from "../../redux/Others/slice";
 import { updateUserAsync } from "../../redux/user/slice";
 import { getData } from "../../Utilities/GetUserData";
 import { auth } from "../../config/firebase";

@@ -1,7 +1,7 @@
 import { loginSchema } from "../../config/joi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import { updateOtherState } from "../../redux/others/slice";
+import { updateOtherState } from "../../redux/Others/slice";
 import { updateAUser } from "../../redux/user/slice";
 import { comparePassword } from "../../Utilities/securePassword";
 import { getData } from "../../Utilities/GetUserData";
