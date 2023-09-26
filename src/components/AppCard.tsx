@@ -90,15 +90,18 @@ export const AppCard = (cpost: any) => {
           </small>
         }
       ></CardHeader>
-      <CardContent onClick={blogPost}>
+      <CardContent>
         <CardMedia
           sx={{ height: 350 }}
           image={cpost.coverImage}
           title={cpost.title}
+          onClick={blogPost}
         ></CardMedia>
         <Typography mt={2} variant="body2">
           {`${cpost.text?.substring(0, 300)}....`}{" "}
-          <span className="read-more" onClick={blogPost}>Read more</span>
+          <span className="read-more" onClick={blogPost}>
+            Read more
+          </span>
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
