@@ -14,8 +14,10 @@ export const LoginUser = async ({
   password,
   others,
   navigate,
+  state,
 }: any) => {
   try {
+    const { redirectTo } = state;
     setErrMessage("");
     dispatch(
       updateOtherState({
@@ -90,7 +92,7 @@ export const LoginUser = async ({
                     isLoggedIn: true,
                   })
                 );
-                navigate("/", { replace: true });
+                navigate(`${redirectTo.pathname}`, { replace: true });
                 return;
               } else {
                 dispatch(

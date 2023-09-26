@@ -36,13 +36,15 @@ const Login = () => {
     loading,
     dispatch,
     navigate,
+    state,
   } = useGeneral();
 
   const handleFetchUser = async () => {
+    const { redirectTo } = state;
     try {
       const response = await getLoggedInUser({ user, dispatch, aUser });
       if (response) {
-        navigate("/", { replace: true });
+        navigate(`${redirectTo.pathname}`, { replace: true });
       }
     } catch (err) {
       console.error("Error fetching user", err);
@@ -73,7 +75,6 @@ const Login = () => {
           open: true,
           message: "Sign in successfully with Google",
           severity: "success",
-          
         })
       );
     } catch (err) {
@@ -92,6 +93,7 @@ const Login = () => {
         password,
         others,
         navigate,
+        state,
       });
     } catch (err) {
       console.error("Error login", err);
