@@ -16,7 +16,8 @@ export const useGeneral = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
-  const { state } = location;
+  const { state: locationState } = location
+  // const { redirectTo } = locationState as RedirectLocationState;
   const { aUser } = useSelector((state: RootState) => state.users);
   const {
     firstname,
@@ -109,7 +110,7 @@ export const useGeneral = () => {
     others,
     navigate,
     location,
-    state,
+    locationState,
     dispatch,
     user,
     firstname,

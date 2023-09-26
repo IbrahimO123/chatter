@@ -6,6 +6,9 @@ import { updateAUser } from "../../redux/user/slice";
 import { comparePassword } from "../../Utilities/securePassword";
 import { getData } from "../../Utilities/GetUserData";
 
+type RedirectLocationState = {
+  redirectTo: Location;
+};
 export const LoginUser = async ({
   dispatch,
   setErrMessage,
@@ -14,10 +17,10 @@ export const LoginUser = async ({
   password,
   others,
   navigate,
-  state,
+  locationState,
 }: any) => {
   try {
-    const { redirectTo } = state;
+    const { redirectTo } = locationState as RedirectLocationState ?? {};
     setErrMessage("");
     dispatch(
       updateOtherState({
@@ -92,7 +95,9 @@ export const LoginUser = async ({
                     isLoggedIn: true,
                   })
                 );
-                navigate(`${redirectTo.pathname}`, { replace: true });
+                navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
+                  replace: true,
+                });
                 return;
               } else {
                 dispatch(

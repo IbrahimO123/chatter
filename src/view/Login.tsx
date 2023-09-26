@@ -21,6 +21,9 @@ import { LoginUser } from "../custom/functions/LoginUser";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+type RedirectLocationState = {
+  redirectTo: Location;
+};
 
 const Login = () => {
   const [user] = useAuthState(auth);
@@ -36,15 +39,16 @@ const Login = () => {
     loading,
     dispatch,
     navigate,
-    state,
+    locationState,
   } = useGeneral();
-
   const handleFetchUser = async () => {
-    const { redirectTo } = state;
+    const { redirectTo } = locationState as RedirectLocationState ?? {} ;
     try {
       const response = await getLoggedInUser({ user, dispatch, aUser });
       if (response) {
-        navigate(`${redirectTo.pathname}`, { replace: true });
+        navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
+          replace: true,
+        });
       }
     } catch (err) {
       console.error("Error fetching user", err);
@@ -93,7 +97,7 @@ const Login = () => {
         password,
         others,
         navigate,
-        state,
+        locationState,
       });
     } catch (err) {
       console.error("Error login", err);
