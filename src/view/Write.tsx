@@ -329,7 +329,7 @@ const WriteArticle = () => {
             <Paper sx={{ marginTop: "15px" }} elevation={4}>
               <EditorMarkdown />
               <FormHelperText sx={{ marginLeft: "5px" }}>
-                At least 200 characters
+                At least 350 characters
               </FormHelperText>
             </Paper>
 
@@ -340,10 +340,11 @@ const WriteArticle = () => {
                   variant="contained"
                   loading={publishButton}
                   disabled={
-                    text.length < 200
+                    text.length < 350
                       ? true
                       : false ||
                         title.length === 0 ||
+                        subtitle.length === 0 ||
                         categories.length === 0 ||
                         selectedImage === undefined
                   }
@@ -360,10 +361,11 @@ const WriteArticle = () => {
                   variant="contained"
                   loading={saveButton}
                   disabled={
-                    text.length < 200
+                    text.length < 350
                       ? true
                       : false ||
                         title.length === 0 ||
+                        subtitle.length === 0 ||
                         categories.length === 0 ||
                         selectedImage === undefined
                   }
