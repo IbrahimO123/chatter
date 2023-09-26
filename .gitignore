@@ -25,4 +25,4 @@ yarn-error.log*
 
 
 # rough sheets for development
-/src/components/rough.txt
+/src/components/**/*.txt*
