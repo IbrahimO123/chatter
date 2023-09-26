@@ -1,10 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { auth } from "../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const PrivateRoute = () => {
-  const [user] = useAuthState(auth);
-  return user?.uid ? <Outlet /> : <Navigate to="/login" />;
+  const { user, location } = useGeneral();
+  return user?.uid ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace state={{ redirectTo: location }} />
+  );
 };
 
 export default PrivateRoute;
