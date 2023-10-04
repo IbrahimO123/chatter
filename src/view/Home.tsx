@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
+import { Loader } from "..";
 
 import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
@@ -15,7 +16,7 @@ import { getAllArticles } from "../Utilities/RetrieveAllArticles";
 import { gridStyle } from "./../Utilities/Miscellaneous";
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);
- 
+
   const fetchUserPost = async () => {
     try {
       const result = await getAllArticles();
@@ -59,15 +60,7 @@ const Home = () => {
                   mt={15}
                   mb={15}
                 >
-                  <Paper elevation={6} sx={{ width: "300px" }}>
-                    <Typography
-                      textAlign="center"
-                      component="h3"
-                      variant="subtitle2"
-                    >
-                      Please wait... while we check for articles to display
-                    </Typography>
-                  </Paper>
+                  <Loader />
                 </Box>
               )}
             </Box>
