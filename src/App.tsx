@@ -49,7 +49,7 @@ function App() {
         <AppNav />
         <Routers />
         {user?.uid ? (
-          <Box sx={{ textAlign: "center" }} p={2}>
+          <Box sx={{ textAlign: "center", marginTop: { xs: "40px" } }} p={2}>
             Chatter Copyright &copy; 2023
           </Box>
         ) : null}
