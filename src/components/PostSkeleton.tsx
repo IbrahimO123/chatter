@@ -7,7 +7,7 @@ export const PostSkeleton = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        margin: "12px",
+        marginTop: "12px",
       }}
     >
       <Container>
