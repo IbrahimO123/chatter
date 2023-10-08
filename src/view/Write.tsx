@@ -163,7 +163,7 @@ const WriteArticle = () => {
         url="/write"
         href="/write"
       />
-      ;
+      
       <Box sx={{ margin: { xs: "10px", md: "5px" } }}>
         <Typography textAlign="center" component="h1" variant="h6" m={1}>
           Write an Article
