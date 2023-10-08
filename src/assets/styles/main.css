@@ -80,7 +80,10 @@ div.MuiSelect-select {
     cursor: pointer;
     color: blue;
 }
-
+.comment {
+    text-align: center;
+    box-shadow: 0;
+}
 @media only screen and (max-width: 843px) {
     form {
         height: 100%;

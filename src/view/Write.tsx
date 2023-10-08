@@ -171,7 +171,7 @@ const WriteArticle = () => {
         <Grid container spacing={1}>
           <Grid item md={2.4}>
             <Paper
-              elevation={4}
+              elevation={0}
               sx={{
                 height: "80vh",
                 marginLeft: "10px",
@@ -184,7 +184,7 @@ const WriteArticle = () => {
             </Paper>
           </Grid>
           <Grid item md={9.6} xs={12}>
-            <Paper elevation={4} sx={{ padding: "10px" }}>
+            <Paper elevation={0} sx={{ padding: "10px" }}>
               <Box
                 sx={{
                   marginBottom: "10px",
@@ -326,7 +326,7 @@ const WriteArticle = () => {
               </Box>
             </Paper>
 
-            <Paper sx={{ marginTop: "15px" }} elevation={4}>
+            <Paper sx={{ marginTop: "15px" }} elevation={0}>
               <EditorMarkdown />
               <FormHelperText sx={{ marginLeft: "5px" }}>
                 At least 350 characters

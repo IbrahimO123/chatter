@@ -36,7 +36,7 @@ export const GridThree = () => {
   }, []);
   return (
     <Box>
-      <Paper elevation={8} sx={{ padding: "2px 1px" }}>
+      <Paper elevation={0} sx={{ padding: "2px 1px" }}>
         <Paper variant="outlined" sx={{ padding: "2px 1px" }}>
           <Typography component="p" variant="h6">
             Chat

@@ -41,7 +41,7 @@ export const GridTwo = () => {
             padding: "5px 5px",
             margin: "10px",
           }}
-          elevation={8}
+          elevation={0}
         >
           <Grid container spacing={2}>
             <Grid item md={1}>
@@ -68,7 +68,7 @@ export const GridTwo = () => {
             </Grid>
           </Grid>
           <Box sx={postStyle}>
-            <Button endIcon={<PostAddIcon />} variant="contained">
+            <Button endIcon={<PostAddIcon />} disableElevation  variant="contained">
               Post
             </Button>
             <IconButton disableRipple={true} size="small">
