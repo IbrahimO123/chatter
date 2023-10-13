@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   Typography,
   Card,
@@ -9,10 +9,7 @@ import {
   CardMedia,
   IconButton,
   Avatar,
-  Accordion,
   Box,
-  AccordionSummary,
-  AccordionDetails,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
@@ -24,6 +21,7 @@ import { ManagePostMore } from "../Utilities/Miscellaneous";
 import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { Comment } from "./Comment";
+
 
 const actionStyle = {
   display: "flex",
@@ -39,7 +37,7 @@ export const AppCard = (cpost: any) => {
     navigate(`/articles/single/${cpost.id}`);
   };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [accordion, setAccordion] = useState(false);
+  const [hideComment, setHideComment] = useState("none");
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,18 +45,11 @@ export const AppCard = (cpost: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const commentRef = useRef<HTMLDivElement>(null);
   const handleComment = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    if (commentRef.current) {
-      commentRef.current.style.flexGrow = "0";
-    }
+    setHideComment("block");
   };
   const handleCloseComment = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    if (commentRef.current) {
-      commentRef.current.style.flexGrow = "1";
-    }
+    setHideComment("none");
   };
   return (
     <Card sx={{ margin: "10px", maxHeight: "800px" }} elevation={0}>
@@ -124,39 +115,26 @@ export const AppCard = (cpost: any) => {
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
-        <Box>
-          <Button
-            onClick={() => console.log("button Clicked")}
-            endIcon={<ThumbUpOutlinedIcon />}
-          >
-            Like
-          </Button>
-        </Box>
-        <Box ref={commentRef} className="comment">
-          <Accordion
-            expanded={accordion}
-            onChange={() => setAccordion((prev) => !prev)}
-            elevation={0}
-            disableGutters
-          >
-            <AccordionSummary>
-              <Button
-                onClick={accordion ? handleComment : handleCloseComment}
-                disableElevation
-                endIcon={<AddCommentOutlinedIcon />}
-              >
-                Comment
-              </Button>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Comment />
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-        <Box>
-          <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
-        </Box>
+        <Button
+          onClick={() => console.log("button Clicked")}
+          endIcon={<ThumbUpOutlinedIcon />}
+        >
+          Like
+        </Button>
+        <Button
+          onClick={
+            hideComment === "none" ? handleComment : handleCloseComment
+          }
+          disableElevation
+          endIcon={<AddCommentOutlinedIcon />}
+        >
+          Comment
+        </Button>
+        <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
       </CardActions>
+      <Box component="div" sx={{ display: hideComment }}>
+        <Comment />
+      </Box>
     </Card>
   );
 };
