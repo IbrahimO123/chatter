@@ -18,11 +18,12 @@ import {
   REGISTER,
   persistStore,
 } from "redux-persist";
+import { commentSlice } from "./comment/slice";
 
 const persistConfig = {
   key: "session",
   storage: storageSession,
-  blacklist: ["users", "chats", "posts", "others", "saveDrafts"],
+  blacklist: ["users", "chats", "posts", "others", "saveDrafts", "comment"],
 };
 
 export const sessionReducer = combineReducers({
@@ -32,6 +33,7 @@ export const sessionReducer = combineReducers({
   posts: postSlice.reducer,
   users: userSlice.reducer,
   saveDrafts: saveDraftsSlice.reducer,
+  comment: commentSlice.reducer,
 });
 
 const persistReducers = persistReducer(persistConfig, sessionReducer);
