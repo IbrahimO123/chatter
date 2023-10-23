@@ -14,8 +14,11 @@ import { GridThree } from "../components/GridThree";
 
 import { getAllArticles } from "../Utilities/RetrieveAllArticles";
 import { gridStyle } from "./../Utilities/Miscellaneous";
+import { useGeneral } from "../custom/hooks/useGeneral";
+import { getLoggedInUser } from "../Utilities/GetUserData";
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);
+  const { user, dispatch, aUser } = useGeneral();
 
   const fetchUserPost = async () => {
     try {
@@ -31,8 +34,11 @@ const Home = () => {
   };
   useEffect(() => {
     fetchUserPost();
+    if (user !== null) {
+      getLoggedInUser({ user, dispatch, aUser });
+    } else return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <>
