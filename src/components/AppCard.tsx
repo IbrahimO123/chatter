@@ -5,11 +5,9 @@ import {
   CardContent,
   CardHeader,
   CardActions,
-  Button,
   CardMedia,
   IconButton,
   Avatar,
-  Box,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
@@ -20,24 +18,32 @@ import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import { ManagePostMore } from "../Utilities/Miscellaneous";
 import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
-import { Comment } from "./Comment";
-
 
 const actionStyle = {
   display: "flex",
-  justifyContent: "space-around",
+  justifyContent: "center",
+  fontSize: "5px",
 };
 
 export const menuStyle = {
   fontSize: "12px",
 };
-export const AppCard = (cpost: any) => {
+
+type AppCardProps = {
+  id: string;
+  authorName: string;
+  profileImageUrl: string;
+  dateCreated: string;
+  coverImage: string;
+  text: string;
+  title: string;
+};
+export const AppCard = (cpost: AppCardProps) => {
   const { navigate } = useGeneral();
   const blogPost = () => {
-    navigate(`/articles/single/${cpost.id}`);
+    navigate(`/articles/single/${cpost.authorName}/${cpost.id}/${cpost.title}`);
   };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [hideComment, setHideComment] = useState("none");
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,14 +51,8 @@ export const AppCard = (cpost: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleComment = (e: React.MouseEvent<HTMLElement>) => {
-    setHideComment("block");
-  };
-  const handleCloseComment = (e: React.MouseEvent<HTMLElement>) => {
-    setHideComment("none");
-  };
   return (
-    <Card sx={{ margin: "10px", maxHeight: "800px" }} elevation={0}>
+    <Card sx={{ margin: "10px", maxHeight: "900px" }} elevation={0}>
       <CardHeader
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
@@ -115,26 +115,19 @@ export const AppCard = (cpost: any) => {
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
-        <Button
-          onClick={() => console.log("button Clicked")}
-          endIcon={<ThumbUpOutlinedIcon />}
-        >
-          Like
-        </Button>
-        <Button
-          onClick={
-            hideComment === "none" ? handleComment : handleCloseComment
-          }
-          disableElevation
-          endIcon={<AddCommentOutlinedIcon />}
-        >
-          Comment
-        </Button>
-        <Button endIcon={<ShareOutlinedIcon />}>Share</Button>
+        <IconButton sx={{ fontSize: "15px" }}>
+          <ThumbUpOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
+          <span>0</span>
+        </IconButton>
+        <IconButton sx={{ fontSize: "15px" }}>
+          <AddCommentOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
+          <span>0</span>
+        </IconButton>
+        <IconButton sx={{ fontSize: "15px" }}>
+          <ShareOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
+          <span>0</span>
+        </IconButton>
       </CardActions>
-      <Box component="div" sx={{ display: hideComment }}>
-        <Comment />
-      </Box>
     </Card>
   );
 };
