@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
   Card,
@@ -18,6 +18,7 @@ import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import { ManagePostMore } from "../Utilities/Miscellaneous";
 import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { useComment } from "../custom/hooks/useComment";
 
 const actionStyle = {
   display: "flex",
@@ -29,7 +30,7 @@ export const menuStyle = {
   fontSize: "12px",
 };
 
-type AppCardProps = {
+type MiniCardProps = {
   id: string;
   authorName: string;
   profileImageUrl: string;
@@ -38,8 +39,9 @@ type AppCardProps = {
   text: string;
   title: string;
 };
-export const MiniCard = (cpost: AppCardProps) => {
+export const MiniCard = (cpost: MiniCardProps) => {
   const { navigate } = useGeneral();
+  const { commentsList, fetchComments, text } = useComment();
   const blogPost = () => {
     navigate(`/articles/single/${cpost.authorName}/${cpost.id}/${cpost.title}`);
   };
@@ -51,6 +53,10 @@ export const MiniCard = (cpost: AppCardProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  useEffect(() => {
+    fetchComments(cpost.id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cpost.id, text]);
   return (
     <Card sx={{ margin: "10px", maxHeight: "900px" }} elevation={0}>
       <CardHeader
@@ -121,7 +127,7 @@ export const MiniCard = (cpost: AppCardProps) => {
         </IconButton>
         <IconButton sx={{ fontSize: "15px" }}>
           <AddCommentOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
-          <span>0</span>
+          <span>{commentsList.length || 0}</span>
         </IconButton>
         <IconButton sx={{ fontSize: "15px" }}>
           <ShareOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}

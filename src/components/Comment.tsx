@@ -4,7 +4,6 @@ import { useComment } from "../custom/hooks/useComment";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { CommentCard } from "./CommentCard";
 import { addCommentToDatabase } from "../Utilities/AddComments";
-import { getAllComments } from "../Utilities/RetrieveComments";
 
 const style = {
   "& .MuiOutlinedInput-root": {
@@ -21,22 +20,20 @@ type CommentProps = {
 
 export const Comment = ({ commentId }: CommentProps) => {
   const { user, dispatch } = useGeneral();
-  const { aComment, allComments, addComment, text, updateComment } =
-    useComment();
-  const [commentList, setCommentList] = useState<typeof allComments>([]);
+  const {
+    aComment,
+    addComment,
+    text,
+    updateComment,
+    commentsList,
+    fetchComments,
+  } = useComment();
   const [error, setError] = useState(false);
-  const fetchComments = async () => {
-    const res = await getAllComments(commentId);
-    const { comments, error } = res;
-    if (error === null && comments.length > 0) {
-      setCommentList(comments as typeof allComments);
-    } else {
-    }
-  };
+
   useEffect(() => {
-    fetchComments();
+    fetchComments(commentId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentId,text]);
+  }, [commentId, text]);
   const handleUserComment = () => {
     if (user?.uid) {
       addCommentToDatabase(aComment, commentId);
@@ -90,12 +87,12 @@ export const Comment = ({ commentId }: CommentProps) => {
         </Button>
       </Box>
       <Box>
-        {commentList.length > 0 && user?.uid ? (
+        {commentsList.length > 0 && user?.uid ? (
           <List sx={{ maxHeight: "100%", overflow: "auto" }}>
             <Typography component="h3" variant="h5" m={1} p={1}>
               Comments:
             </Typography>
-            {commentList.map((result: typeof aComment) => (
+            {commentsList.map((result: typeof aComment) => (
               <CommentCard {...result} key={result.comment.text} />
             ))}
           </List>

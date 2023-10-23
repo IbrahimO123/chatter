@@ -3,8 +3,11 @@ import { useGeneral } from "./useGeneral";
 import { updateComment } from "../../redux/comment/slice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getAllComments } from "../../Utilities/RetrieveComments";
+import { useState } from 'react';
 
 export const useComment = () => {
+   const [commentsList, setCommentsList] = useState<typeof allComments>([]);
   const { dispatch } = useGeneral();
   const { user, firstname, lastname, profileImageUrl } = useGeneral();
   const { aComment, allComments } = useSelector(
@@ -50,14 +53,26 @@ export const useComment = () => {
     );
   };
 
+  const fetchComments = async (commentId:string) => {
+        const res = await getAllComments(commentId);
+        const { comments, error } = res;
+        if (error === null && comments.length > 0) {
+          setCommentsList(comments as typeof allComments);
+        } else {
+        }
+  }
+
   return {
     addComment,
     editComment,
     showComment,
     updateComment,
+    fetchComments,
     likeComment,
     aComment,
     allComments,
     text,
+    commentsList,
+    setCommentsList,
   };
 };
