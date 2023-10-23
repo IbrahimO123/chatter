@@ -37,11 +37,11 @@ export const GridThree = () => {
   return (
     <Box>
       <Paper elevation={0} sx={{ padding: "2px 1px" }}>
-        <Paper variant="outlined" sx={{ padding: "2px 1px" }}>
-          <Typography component="p" variant="h6">
+        
+          <Typography component="p" textAlign="center" variant="h6">
             Chat
           </Typography>
-        </Paper>
+        
         {allPhotos.length > 0 ? (
           allPhotos.map((photo: Photo) => (
             <Card variant="outlined" sx={{ margin: "2px" }} key={photo.id}>
