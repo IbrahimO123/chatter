@@ -21,7 +21,7 @@ export const Routers = () => {
         <Route path="/write" element={<WriteArticle />}></Route>
       </Route>
       <Route
-        path="/articles/single/:articleId"
+        path="/articles/single/:authorName/:articleId/:title"
         element={<SingleArticle />}
       ></Route>
       <Route path="/tags" element={<TagsPage />}></Route>

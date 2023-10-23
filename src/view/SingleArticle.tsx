@@ -5,8 +5,11 @@ import { Container } from "@mui/material";
 import { PostCard } from "../components/PostCard";
 import { PostSkeleton } from "../components/PostSkeleton";
 import { MetaTags } from "../components/MetaTag";
+import { useGeneral } from "../custom/hooks/useGeneral";
+import { getLoggedInUser } from "../Utilities/GetUserData";
 
 const SingleArticle = () => {
+  const { user, dispatch, aUser } = useGeneral();
   const [singleArticle, setSingleArtcile] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
   const params: any = useParams();
@@ -32,6 +35,13 @@ const SingleArticle = () => {
     fetchArticle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId]);
+
+  useEffect(() => {
+    if (user !== null) {
+      getLoggedInUser({ user, dispatch, aUser });
+    } else return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   return (
     <>
       <MetaTags
