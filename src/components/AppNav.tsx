@@ -145,6 +145,37 @@ export const AppNav = () => {
                     <AccountCircle />
                   </IconButton>
                 </Box>
+                <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                  <IconButton
+                    size="small"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={0} color="error">
+                      <MailIcon />
+                    </Badge>
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={0} color="error">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    color="inherit"
+                    onClick={handleUserProfileRoute}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                </Box>
               </div>
             ) : (
               <Box>
