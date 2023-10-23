@@ -38,7 +38,7 @@ type AppCardProps = {
   text: string;
   title: string;
 };
-export const AppCard = (cpost: AppCardProps) => {
+export const MiniCard = (cpost: AppCardProps) => {
   const { navigate } = useGeneral();
   const blogPost = () => {
     navigate(`/articles/single/${cpost.authorName}/${cpost.id}/${cpost.title}`);

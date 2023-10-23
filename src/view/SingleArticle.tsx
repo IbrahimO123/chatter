@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../Utilities/RetrieveArticle";
 import { Container } from "@mui/material";
-import { PostCard } from "../components/PostCard";
+import { ArticleCard } from "../components/ArticleCard";
 import { PostSkeleton } from "../components/PostSkeleton";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
@@ -57,7 +57,7 @@ const SingleArticle = () => {
           <PostSkeleton />
         ) : (
           singleArticle.map((article: any) => (
-            <PostCard {...article} key={article.id} />
+            <ArticleCard {...article} key={article.id} />
           ))
         )}
       </Container>

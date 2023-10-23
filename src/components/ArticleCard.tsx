@@ -25,7 +25,7 @@ const actionStyle = {
   padding: "10px",
 };
 
-export const PostCard = (post: any) => {
+export const ArticleCard = (post: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });

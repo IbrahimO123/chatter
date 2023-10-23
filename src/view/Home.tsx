@@ -6,7 +6,7 @@ import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
 import { MetaTags } from "../components/MetaTag";
 
-import { AppCard } from "../components/AppCard";
+import { MiniCard } from "../components/MiniCard";
 import { useEffect } from "react";
 
 import { About } from "../components/About";
@@ -59,7 +59,7 @@ const Home = () => {
             <GridTwo />
             <Box>
               {feed && feed.length > 0 ? (
-                feed.map((post: any) => <AppCard {...post} key={post.title} />)
+                feed.map((post: any) => <MiniCard {...post} key={post.title} />)
               ) : (
                 <Box
                   sx={{ ...gridStyle, backgroundColor: "inherit" }}
