@@ -82,13 +82,15 @@ div.MuiSelect-select {
 }
 
 .comment-text {
-    box-shadow: 0;
-    width: 40vw;
-    border: #000
+    width: 25vw;
 }
 
 .icon {
     float: right
+}
+
+.name {
+    padding: 0
 }
 
 @media only screen and (max-width: 843px) {
