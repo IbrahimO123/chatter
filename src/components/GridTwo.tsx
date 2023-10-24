@@ -19,7 +19,7 @@ const postStyle = {
 };
 
 export const GridTwo = () => {
-  const { user, dispatch, aUser, profileImageUrl, firstname, lastname } =
+  const { user,navigate, dispatch, aUser, profileImageUrl, firstname, lastname } =
     useGeneral();
   const userPhoto = async () => {
     try {
@@ -71,16 +71,16 @@ export const GridTwo = () => {
             <Button endIcon={<PostAddIcon />} disableElevation  variant="contained">
               Post
             </Button>
-            <IconButton disableRipple={true} size="small">
+            <IconButton onClick={()=>navigate("/write")} disableRipple size="small">
               Write article
             </IconButton>
-            <IconButton disableRipple={true} size="small">
+            <IconButton disableRipple size="small">
               Photo
             </IconButton>
-            <IconButton disableRipple={true} size="small">
+            <IconButton disableRipple size="small">
               Video
             </IconButton>
-            <IconButton disableRipple={true} size="small">
+            <IconButton disableRipple size="small">
               Event
             </IconButton>
           </Box>
