@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getSingleArticle } from "../Utilities/RetrieveArticle";
 import { Container } from "@mui/material";
 import { ArticleCard } from "../components/ArticleCard";
-import { PostSkeleton } from "../components/PostSkeleton";
+import { MiniSkeleton } from "../components/MiniSkeleton";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
@@ -13,7 +13,7 @@ const SingleArticle = () => {
   const [singleArticle, setSingleArtcile] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
   const params: any = useParams();
-  const { articleId } = params;
+  const { articleId, title, authorName } = params;
   const fetchArticle = async () => {
     const article = await getSingleArticle(articleId);
     if (article?.length === 0) {
@@ -49,12 +49,12 @@ const SingleArticle = () => {
         title={`Chatter | ${singleArticle[0]?.title}`}
         PageTitle="Article Page, details on article"
         typeOfPlatform="website"
-        url={`/articles/single/${articleId}`}
-        href={`/articles/single/${articleId}`}
+        url={`/articles/single/${authorName}/${articleId}/${title}`}
+        href={`/articles/single/${authorName}/${articleId}/${title}`}
       />
       <Container>
         {isLoading ? (
-          <PostSkeleton />
+          <MiniSkeleton />
         ) : (
           singleArticle.map((article: any) => (
             <ArticleCard {...article} key={article.id} />
