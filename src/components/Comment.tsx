@@ -87,7 +87,14 @@ export const Comment = ({ commentId }: CommentProps) => {
         </Button>
       </Box>
       <Box>
-        {commentsList.length > 0 && user?.uid ? (
+        <Box>
+          {error && user?.uid === undefined ? (
+            <Typography color="red" m={1} p={1} variant="caption">
+              Login or signup to comment on article
+            </Typography>
+          ) : undefined}
+        </Box>
+        {commentsList.length > 0 ? (
           <List sx={{ maxHeight: "100%", overflow: "auto" }}>
             <Typography component="h3" variant="h5" m={1} p={1}>
               Comments:
@@ -96,10 +103,6 @@ export const Comment = ({ commentId }: CommentProps) => {
               <CommentCard {...result} key={result.comment.text} />
             ))}
           </List>
-        ) : error ? (
-          <Typography color="red" m={1} p={1} variant="caption">
-            Login or signup to comment on article
-          </Typography>
         ) : (
           <Typography m={1} p={1} variant="caption">
             No comments yet, be the first.
