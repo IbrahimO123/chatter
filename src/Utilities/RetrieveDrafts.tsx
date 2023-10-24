@@ -33,10 +33,7 @@ export const RetrieveSingleDraft = async (uid: any, draftId: string) => {
           timeCreated: new Date().toLocaleTimeString(),
           dateCreated: new Date().toLocaleDateString(),
           likes: 0,
-          comments: {
-            numberOfComments: 0,
-            text: [],
-          },
+
           categories: [],
           repost: 0,
           readOnly: true,
@@ -50,7 +47,10 @@ export const RetrieveSingleDraft = async (uid: any, draftId: string) => {
   if (draftSnapShot) {
     draftSnapShot.forEach((doc) => {
       if (doc.id === draftId) {
-        singleDraft.push({ id: doc.id, data: doc.data() as DraftModel["drafts"][0]["data"] });
+        singleDraft.push({
+          id: doc.id,
+          data: doc.data() as DraftModel["drafts"][0]["data"],
+        });
       }
     });
   }

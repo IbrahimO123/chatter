@@ -91,10 +91,6 @@ const WriteArticle = () => {
           timeCreated: new Date().toLocaleTimeString(),
           dateCreated: new Date().toLocaleDateString(),
           likes: 0,
-          comments: {
-            numberOfComments: 0,
-            text: [],
-          },
           categories: [],
           repost: 0,
           readOnly: true,

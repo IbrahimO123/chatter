@@ -14,12 +14,7 @@ const initialState: AppArticle = {
       authorName: "",
       timeCreated: new Date().toISOString(),
       dateCreated: new Date().toISOString(),
-
       likes: 0,
-      comments: {
-        numberOfComments: 0,
-        text: [],
-      },
       categories: [],
       repost: 0,
       readOnly: true,
@@ -38,10 +33,6 @@ const initialState: AppArticle = {
     timeCreated: new Date().toISOString(),
     dateCreated: new Date().toISOString(),
     likes: 0,
-    comments: {
-      numberOfComments: 0,
-      text: [],
-    },
     categories: [],
     repost: 0,
     readOnly: true,
@@ -65,11 +56,7 @@ const saveDraftsIntialState: DraftModel = {
           authorName: "",
           timeCreated: new Date().toISOString(),
           dateCreated: new Date().toISOString(),
-          likes: 0,
-          comments: {
-            numberOfComments: 0,
-            text: [],
-          },
+          likes: 0,     
           categories: [],
           repost: 0,
           readOnly: true,

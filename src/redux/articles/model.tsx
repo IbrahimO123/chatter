@@ -8,10 +8,6 @@ export type Article = {
   authorName: string;
   authorEmail: string;
   likes: number;
-  comments: {
-    text: Array<string>;
-    numberOfComments: number;
-  };
   categories: Array<string>;
   repost: number;
   readOnly: boolean;
@@ -40,16 +36,12 @@ export type DraftModel = {
           authorName: string;
           authorEmail: string;
           likes: number;
-          comments: {
-            text: Array<string>;
-            numberOfComments: number;
-          };
           categories: Array<string>;
           repost: number;
           readOnly: boolean;
           coverImage: string;
           published: boolean;
-          profileImageUrl: string
+          profileImageUrl: string;
         }
       ];
     }
