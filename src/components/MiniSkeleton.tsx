@@ -1,5 +1,5 @@
 import { Skeleton, Paper, Container } from "@mui/material";
-export const PostSkeleton = () => {
+export const MiniSkeleton = () => {
   return (
     <Paper
       elevation={0}
