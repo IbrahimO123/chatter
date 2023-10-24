@@ -39,11 +39,11 @@ type MiniCardProps = {
   text: string;
   title: string;
 };
-export const MiniCard = (cpost: MiniCardProps) => {
+export const MiniCard = (card: MiniCardProps) => {
   const { navigate } = useGeneral();
   const { commentsList, fetchComments, text } = useComment();
   const blogPost = () => {
-    navigate(`/articles/single/${cpost.authorName}/${cpost.id}/${cpost.title}`);
+    navigate(`/articles/single/${card.authorName}/${card.id}/${card.title}`);
   };
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -54,24 +54,25 @@ export const MiniCard = (cpost: MiniCardProps) => {
     setAnchorEl(null);
   };
   useEffect(() => {
-    fetchComments(cpost.id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cpost.id, text]);
+    fetchComments(card.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [card.id, text]);
+
   return (
     <Card sx={{ margin: "10px", maxHeight: "900px" }} elevation={0}>
       <CardHeader
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
           <Avatar
-            onClick={blogPost}
-            src={cpost.profileImageUrl || " "}
-            alt={cpost.authorName ? cpost.authorName + " picture" : ""}
-            title={cpost.authorName || ""}
+            
+            src={card.profileImageUrl || " "}
+            alt={card.authorName ? card.authorName + " picture" : ""}
+            title={card.authorName || ""}
           />
         }
         title={
-          <h3 style={{ wordWrap: "break-word" }} onClick={blogPost}>
-            {cpost.title.toUpperCase()}
+          <h3 style={{ wordWrap: "break-word" }}>
+            {card.title.toUpperCase()}
           </h3>
         }
         action={
@@ -95,13 +96,13 @@ export const MiniCard = (cpost: MiniCardProps) => {
           </>
         }
         subheader={
-          <small onClick={blogPost} style={{ lineHeight: 0 }}>
+          <small style={{ lineHeight: 0 }}>
             <Typography component="span" variant="caption">
-              {getTimeDifferenceString(cpost.dateCreated) || "1 second ago"}
+              {getTimeDifferenceString(card.dateCreated) || "1 second ago"}
             </Typography>
             .
             <Typography component="span" variant="caption" ml={1}>
-              {calculateReadingTime(cpost.text) || "1"} mins read
+              {calculateReadingTime(card.text) || "1"} mins read
             </Typography>
           </small>
         }
@@ -109,12 +110,12 @@ export const MiniCard = (cpost: MiniCardProps) => {
       <CardContent>
         <CardMedia
           sx={{ height: 350 }}
-          image={cpost.coverImage}
-          title={cpost.title}
+          image={card.coverImage}
+          title={card.title}
           onClick={blogPost}
         ></CardMedia>
         <Typography mt={2} variant="body2">
-          {`${cpost.text?.substring(0, 300)}....`}{" "}
+          {`${card.text?.substring(0, 300)}....`}{" "}
           <span className="read-more" onClick={blogPost}>
             Read more
           </span>
