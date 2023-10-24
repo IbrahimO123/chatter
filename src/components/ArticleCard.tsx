@@ -18,6 +18,7 @@ import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
+import { useArticle } from "../custom/hooks/useArticle";
 
 const actionStyle = {
   display: "flex",
@@ -25,48 +26,53 @@ const actionStyle = {
   padding: "10px",
 };
 
-export const ArticleCard = (post: any) => {
+export const ArticleCard = (article: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });
-  const [like, setLike] = useState(false);
+  const { handleLikeArticle, value } = useArticle();
+
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  const handleLike = () => {
-    setLike((prev) => !prev);
-  };
   const [hideComment, setHideComment] = useState("none");
 
   const handleComment = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
     setHideComment("block");
   };
   const handleCloseComment = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
     setHideComment("none");
   };
+  // useEffect(() => {
+  //   if(value ) {
+  //     console.log("Landed")
+  //   }
+  // }, [value]);
   return (
     <Paper elevation={0}>
       <Container sx={{ textAlign: "center" }}>
         <Typography m={2} component="p" variant="h3">
-          {post.title}
+          {article.title}
         </Typography>
         <Typography component="h1" variant="h6">
-          {post.subtitle}
+          {article.subtitle}
         </Typography>
         <Box mt={1} mb={1}>
           <img
-            src={post.coverImage}
+            src={article.coverImage}
             style={{
               width: "100%",
               maxWidth: "100%",
               height: MobileView() ? "15em" : "25em",
             }}
-            alt={post.title}
+            alt={article.title}
           ></img>
         </Box>
-        <Typography textAlign="left">{post.text}</Typography>
+        <Typography textAlign="left">{article.text}</Typography>
         <Box component="div" p={3} textAlign="left">
-          {post.categories.map((category: string) => (
+          {article.categories.map((category: string) => (
             <Chip
               key={category}
               sx={{ margin: "10px" }}
@@ -78,8 +84,8 @@ export const ArticleCard = (post: any) => {
         <Box sx={actionStyle}>
           <Button
             sx={{ color: "black" }}
-            onClick={handleLike}
-            endIcon={like ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+            onClick={() => handleLikeArticle(article.id)}
+            endIcon={value ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
           >
             Like
           </Button>
@@ -98,7 +104,7 @@ export const ArticleCard = (post: any) => {
           </Button>
         </Box>
         <Box component="div" sx={{ display: hideComment }}>
-          <Comment commentId={post.id}  />
+          <Comment commentId={article.id} />
         </Box>
         <Zoom in={trigger}>
           <Box
