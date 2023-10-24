@@ -8,7 +8,8 @@ export type Post = {
   author: string;
   userId: number;
   title: string;
-  body: string;
+  picture: string;
+  video: string;
 };
 
 export type AppPosts = {

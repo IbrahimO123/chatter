@@ -14,7 +14,8 @@ const initialState: AppPosts = {
       author: "",
       userId: 0,
       title: "",
-      body: "",
+      picture: "",
+      video: "",
     },
   ],
   aPost: {
@@ -27,7 +28,8 @@ const initialState: AppPosts = {
     author: "",
     userId: 0,
     title: "",
-    body: "",
+    picture: "",
+    video: "",
   },
 };
 
