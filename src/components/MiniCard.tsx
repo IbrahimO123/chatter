@@ -64,16 +64,13 @@ export const MiniCard = (card: MiniCardProps) => {
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
           <Avatar
-            
             src={card.profileImageUrl || " "}
             alt={card.authorName ? card.authorName + " picture" : ""}
             title={card.authorName || ""}
           />
         }
         title={
-          <h3 style={{ wordWrap: "break-word" }}>
-            {card.title.toUpperCase()}
-          </h3>
+          <h3 style={{ wordWrap: "break-word" }}>{card.title.toUpperCase()}</h3>
         }
         action={
           <>
@@ -122,15 +119,24 @@ export const MiniCard = (card: MiniCardProps) => {
         </Typography>
       </CardContent>
       <CardActions sx={actionStyle}>
-        <IconButton sx={{ fontSize: "15px" }}>
+        <IconButton
+          disableRipple
+          sx={{ fontSize: "15px", cursor: "context-menu" }}
+        >
           <ThumbUpOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
           <span>0</span>
         </IconButton>
-        <IconButton sx={{ fontSize: "15px" }}>
+        <IconButton
+          disableRipple
+          sx={{ fontSize: "15px", cursor: "context-menu" }}
+        >
           <AddCommentOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
           <span>{commentsList.length || 0}</span>
         </IconButton>
-        <IconButton sx={{ fontSize: "15px" }}>
+        <IconButton
+          disableRipple
+          sx={{ fontSize: "15px", cursor: "context-menu" }}
+        >
           <ShareOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
           <span>0</span>
         </IconButton>
