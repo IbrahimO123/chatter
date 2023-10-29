@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { LikeType } from "./model";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState: LikeType = {
   aLike: {
     value: false,
+    article: "",
     who: "",
     whoId: "",
     when: new Date().toISOString(),
@@ -13,6 +15,7 @@ const initialState: LikeType = {
   allLikes: [
     {
       value: false,
+      article: "",
       who: "",
       whoId: "",
       when: new Date().toISOString(),
@@ -20,7 +23,16 @@ const initialState: LikeType = {
     },
   ],
 };
-
+export const updateLikeAsync = createAsyncThunk(
+  "like/update",
+  async (like: LikeType["aLike"], { rejectWithValue }) => {
+    try {
+      return {...like};
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 export const likeSlice = createSlice({
   name: "like_slice",
   initialState,
@@ -31,6 +43,11 @@ export const likeSlice = createSlice({
         aLike: action.payload,
       };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(updateLikeAsync.fulfilled, (state, { payload }) => {
+      return { ...state, aLike: payload };
+    });
   },
 });
 
