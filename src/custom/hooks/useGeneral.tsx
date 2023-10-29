@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { updateAUser } from "../../redux/user/slice";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
@@ -12,12 +12,11 @@ import { AddProfileImageToDatabase } from "../../Utilities/AddProfileImage";
 import { updateUserSchema } from "../../config/joi";
 
 export const useGeneral = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
-  const { state: locationState } = location
-  // const { redirectTo } = locationState as RedirectLocationState;
+  const { state: locationState } = location;
   const { aUser } = useSelector((state: RootState) => state.users);
   const {
     firstname,

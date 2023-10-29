@@ -4,25 +4,26 @@ import { updateComment } from "../../redux/comment/slice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getAllComments } from "../../Utilities/RetrieveComments";
-import { useState } from 'react';
+import { useState } from "react";
 
 export const useComment = () => {
-   const [commentsList, setCommentsList] = useState<typeof allComments>([]);
+  const [commentsList, setCommentsList] = useState<typeof allComments>([]);
   const { dispatch } = useGeneral();
   const { user, firstname, lastname, profileImageUrl } = useGeneral();
   const { aComment, allComments } = useSelector(
     (state: RootState) => state.comment
   );
   const { text } = aComment.comment;
-
   const addComment = (
     e: React.ChangeEvent<HTMLInputElement>,
-    articleId: string
+    articleId: string,
+    article: string
   ) => {
     dispatch(
       updateComment({
         ...aComment,
         id: articleId,
+        article,
         comment: {
           authorName: `${lastname} ${firstname}`,
           userId: user?.uid!,
@@ -53,14 +54,14 @@ export const useComment = () => {
     );
   };
 
-  const fetchComments = async (commentId:string) => {
-        const res = await getAllComments(commentId);
-        const { comments, error } = res;
-        if (error === null && comments.length > 0) {
-          setCommentsList(comments as typeof allComments);
-        } else {
-        }
-  }
+  const fetchComments = async (commentId: string) => {
+    const res = await getAllComments(commentId);
+    const { comments, error } = res;
+    if (error === null && comments.length > 0) {
+      setCommentsList(comments as typeof allComments);
+    } else {
+    }
+  };
 
   return {
     addComment,
