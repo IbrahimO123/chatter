@@ -16,10 +16,11 @@ const style = {
 
 type CommentProps = {
   commentId: string;
+  article:string;
 };
 
-export const Comment = ({ commentId }: CommentProps) => {
-  const { user, dispatch } = useGeneral();
+export const Comment = ({ commentId, article }: CommentProps) => {
+  const { user, dispatch, updateOtherState, others } = useGeneral();
   const {
     aComment,
     addComment,
@@ -37,6 +38,14 @@ export const Comment = ({ commentId }: CommentProps) => {
   const handleUserComment = () => {
     if (user?.uid) {
       addCommentToDatabase(aComment, commentId);
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Comment added successfully",
+          severity: "success",
+        })
+      );
       dispatch(
         updateComment({
           ...aComment,
@@ -56,6 +65,14 @@ export const Comment = ({ commentId }: CommentProps) => {
       return;
     } else {
       setError(true);
+       dispatch(
+         updateOtherState({
+           ...others,
+           open: true,
+           message: "Login first",
+           severity: "error",
+         })
+       );
       return;
     }
   };
@@ -67,7 +84,7 @@ export const Comment = ({ commentId }: CommentProps) => {
           value={text}
           sx={style}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            addComment(e, commentId)
+            addComment(e, commentId, article)
           }
           name="text"
           className="comment-text"
