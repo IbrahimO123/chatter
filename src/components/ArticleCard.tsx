@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -19,6 +19,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
 import { useArticle } from "../custom/hooks/useArticle";
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const actionStyle = {
   display: "flex",
@@ -30,8 +31,14 @@ export const ArticleCard = (article: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });
-  const { handleLikeArticle, value } = useArticle();
-
+  const { dispatch } = useGeneral();
+  const {
+    handleUserLikeArticle,
+    handleGetUserLikedArticle,
+    aLike,
+    updateLikeAsync,
+  } = useArticle();
+  const { value } = aLike;
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -45,11 +52,30 @@ export const ArticleCard = (article: any) => {
     e.preventDefault();
     setHideComment("none");
   };
-  // useEffect(() => {
-  //   if(value ) {
-  //     console.log("Landed")
-  //   }
-  // }, [value]);
+  const likeArticle = async () => {
+    const response = await handleUserLikeArticle(article.id, article.title);
+    if (response === "liked") {
+      dispatch(
+        updateLikeAsync({
+          ...aLike,
+          value: false,
+          article: "",
+          articleId: "",
+          who: "",
+          whoId: "",
+          when: "",
+        })
+      );
+    }
+  };
+  const getLikedArticle = async () => {
+    await handleGetUserLikedArticle(article.id);
+  };
+  useEffect(() => {
+    getLikedArticle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Paper elevation={0}>
       <Container sx={{ textAlign: "center" }}>
@@ -84,8 +110,14 @@ export const ArticleCard = (article: any) => {
         <Box sx={actionStyle}>
           <Button
             sx={{ color: "black" }}
-            onClick={() => handleLikeArticle(article.id)}
-            endIcon={value ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+            onClick={likeArticle}
+            endIcon={
+              value ? (
+                <ThumbUpIcon sx={{ color: "#4caf50", marginTop: "-5px" }} />
+              ) : (
+                <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
+              )
+            }
           >
             Like
           </Button>
@@ -104,7 +136,7 @@ export const ArticleCard = (article: any) => {
           </Button>
         </Box>
         <Box component="div" sx={{ display: hideComment }}>
-          <Comment commentId={article.id} />
+          <Comment commentId={article.id} article={article.title} />
         </Box>
         <Zoom in={trigger}>
           <Box
