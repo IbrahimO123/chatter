@@ -39,8 +39,8 @@ import { getLoggedInUser } from "../Utilities/GetUserData";
 const WriteArticle = () => {
   const { others, dispatch, user, aUser } = useGeneral();
   const {
-    handleArticle,
-    handleCategory,
+    handleWriteArticle,
+    handleSelectCategory,
     anArticle,
     categories,
     title,
@@ -206,7 +206,7 @@ const WriteArticle = () => {
                     InputProps={{
                       disableUnderline: true,
                     }}
-                    onChange={handleArticle}
+                    onChange={handleWriteArticle}
                   ></TextField>
                 </Box>
 
@@ -228,7 +228,7 @@ const WriteArticle = () => {
                     InputProps={{
                       disableUnderline: true,
                     }}
-                    onChange={handleArticle}
+                    onChange={handleWriteArticle}
                   ></TextField>
                 </Box>
               </Box>
@@ -266,7 +266,7 @@ const WriteArticle = () => {
                     disabled={
                       text.length < 200 ? true : false || title.length === 0
                     }
-                    onChange={handleCategory}
+                    onChange={handleSelectCategory}
                     input={
                       <OutlinedInput id="select-multiple-chip" label="Chip" />
                     }
