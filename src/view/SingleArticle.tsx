@@ -46,7 +46,9 @@ const SingleArticle = () => {
     <>
       <MetaTags
         description="Article page, reader can access the content of an article, comment on it, bookmark for future refrences"
-        title={`Chatter | ${singleArticle[0]?.title}`}
+        title={`Chatter | ${
+          singleArticle[0]?.title ? singleArticle[0]?.title : "Loading..."
+        }`}
         PageTitle="Article Page, details on article"
         typeOfPlatform="website"
         url={`/articles/single/${authorName}/${articleId}/${title}`}
