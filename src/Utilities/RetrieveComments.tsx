@@ -14,7 +14,7 @@ export const getAllComments = async (commentId: string) => {
     );
     return { comments, error: null };
   } catch (error) {
-    console.error("Error fetching articles:", error);
+    console.error("Error fetching comments:", error);
     return { comments: [], error };
   }
 };
