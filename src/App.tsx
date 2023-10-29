@@ -57,7 +57,7 @@ function App() {
           onClose={handleSnackbarClose}
           open={open}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          autoHideDuration={1500}
+          autoHideDuration={2000}
           TransitionComponent={Slide}
         >
           <Alert variant="filled" severity={severity}>
