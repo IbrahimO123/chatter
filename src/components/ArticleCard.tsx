@@ -34,7 +34,7 @@ export const ArticleCard = (article: any) => {
   const { dispatch } = useGeneral();
   const {
     handleUserLikeArticle,
-    handleGetUserLikedArticle,
+    // handleGetUserLikedArticle,
     aLike,
     updateLikeAsync,
   } = useArticle();
@@ -68,13 +68,13 @@ export const ArticleCard = (article: any) => {
       );
     }
   };
-  const getLikedArticle = async () => {
-    await handleGetUserLikedArticle(article.id);
-  };
-  useEffect(() => {
-    getLikedArticle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const getLikedArticle = async () => {
+  //   await handleGetUserLikedArticle(article.id);
+  // };
+  // useEffect(() => {
+  //   getLikedArticle();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <Paper elevation={0}>
