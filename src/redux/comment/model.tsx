@@ -1,5 +1,6 @@
 export type CommentModel = {
   id: string;
+  article:string;
   comment: {
     userId: string;
     text: string;

@@ -5,6 +5,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 const initialState: AppComment = {
   aComment: {
     id: "",
+    article: "",
     comment: {
       text: "",
       authorName: "",
@@ -28,6 +29,7 @@ const initialState: AppComment = {
   allComments: [
     {
       id: "",
+      article: "",
       comment: {
         text: "",
         authorName: "",
