@@ -19,7 +19,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
 import { useArticle } from "../custom/hooks/useArticle";
-import { useGeneral } from "../custom/hooks/useGeneral";
+
 
 const actionStyle = {
   display: "flex",
@@ -31,12 +31,12 @@ export const ArticleCard = (article: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });
-  const { dispatch } = useGeneral();
+ 
   const {
     handleUserLikeArticle,
     // handleGetUserLikedArticle,
     aLike,
-    updateLikeAsync,
+    
   } = useArticle();
   const { value } = aLike;
   const scrollToTop = useCallback(() => {
@@ -53,20 +53,20 @@ export const ArticleCard = (article: any) => {
     setHideComment("none");
   };
   const likeArticle = async () => {
-    const response = await handleUserLikeArticle(article.id, article.title);
-    if (response === "liked") {
-      dispatch(
-        updateLikeAsync({
-          ...aLike,
-          value: false,
-          article: "",
-          articleId: "",
-          who: "",
-          whoId: "",
-          when: "",
-        })
-      );
-    }
+    await handleUserLikeArticle(article.id, article.title);
+    // if (response === "liked") {
+    //   dispatch(
+    //     updateLikeAsync({
+    //       ...aLike,
+    //       value: false,
+    //       article: "",
+    //       articleId: "",
+    //       who: "",
+    //       whoId: "",
+    //       when: "",
+    //     })
+    //   );
+    // }
   };
   // const getLikedArticle = async () => {
   //   await handleGetUserLikedArticle(article.id);
