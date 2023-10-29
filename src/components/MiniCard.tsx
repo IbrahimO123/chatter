@@ -19,6 +19,7 @@ import { ManagePostMore } from "../Utilities/Miscellaneous";
 import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { useComment } from "../custom/hooks/useComment";
+import { useArticle } from "../custom/hooks/useArticle";
 
 const actionStyle = {
   display: "flex",
@@ -42,6 +43,7 @@ type MiniCardProps = {
 export const MiniCard = (card: MiniCardProps) => {
   const { navigate } = useGeneral();
   const { commentsList, fetchComments, text } = useComment();
+  const { handleFetchLikedArticles, likedArticleList } = useArticle();
   const blogPost = () => {
     navigate(`/articles/single/${card.authorName}/${card.id}/${card.title}`);
   };
@@ -55,6 +57,7 @@ export const MiniCard = (card: MiniCardProps) => {
   };
   useEffect(() => {
     fetchComments(card.id);
+    handleFetchLikedArticles(card.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card.id, text]);
 
@@ -124,7 +127,7 @@ export const MiniCard = (card: MiniCardProps) => {
           sx={{ fontSize: "15px", cursor: "context-menu" }}
         >
           <ThumbUpOutlinedIcon sx={{ padding: "5px", fontSize: "20px" }} />{" "}
-          <span>0</span>
+          <span>{likedArticleList.length || 0}</span>
         </IconButton>
         <IconButton
           disableRipple
