@@ -5,7 +5,7 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import { CommentCard } from "./CommentCard";
 import { addCommentToDatabase } from "../Utilities/AddComments";
 
-const style = {
+export const style = {
   "& .MuiOutlinedInput-root": {
     marginRight: "10px",
     "&.Mui-focused fieldset": {

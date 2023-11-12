@@ -18,7 +18,7 @@ export const AuthorCard = (props: User) => {
     <Card
       elevation={0}
       sx={{
-        backgroundColor: "#e8f5e9",
+        bgcolor: "#e8f5e9",
         alignContent: "center",
         margin: "10px",
         width: { md: "23vw", xs: "100vw" },

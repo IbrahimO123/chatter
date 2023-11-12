@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -6,15 +7,29 @@ import {
   IconButton,
   Avatar,
   Typography,
+  TextField,
+  
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { CommentModel } from "../redux/comment/model";
-import { useComment } from "../custom/hooks/useComment";
+import { style } from "./Comment";
 
 export const CommentCard = (props: CommentModel) => {
-  const { likeComment } = useComment();
+  const [commentLike, setCommentLike] = useState(false);
+  const [showCommentReply, setShowCommentReply] = useState("none");
+  const handleCommentLike = () => {
+    setCommentLike((prev) => !prev);
+  };
+  const handleOpenCommentReply = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowCommentReply("block");
+  };
+  const handleCloseCommentReply = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowCommentReply("none");
+  };
   return (
     <Card
       sx={{
@@ -60,16 +75,30 @@ export const CommentCard = (props: CommentModel) => {
       />
       <CardContent>{props.comment.text}</CardContent>
       <CardActions>
-        <IconButton onClick={likeComment}>
-          {props.comment.commentLikes.length < 0 ? (
-            <ThumbUpIcon sx={{ fontSize: "15px" }} />
+        <IconButton onClick={handleCommentLike}>
+          {commentLike ? (
+            <ThumbUpIcon sx={{ fontSize: "15px", color: "#4caf50" }} />
           ) : (
             <ThumbUpOutlinedIcon sx={{ fontSize: "15px" }} />
           )}
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={
+            showCommentReply === "none"
+              ? handleOpenCommentReply
+              : handleCloseCommentReply
+          }
+        >
           <ChatBubbleOutlineIcon sx={{ fontSize: "15px" }} />
         </IconButton>
+        <TextField
+        fullWidth
+          name="reply"
+          sx={{ display: showCommentReply, ...style }}
+          className="comment-reply"
+          multiline
+          placeholder="Write your reply..."
+        ></TextField>
       </CardActions>
     </Card>
   );
