@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -20,7 +20,6 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
 import { useArticle } from "../custom/hooks/useArticle";
 
-
 const actionStyle = {
   display: "flex",
   justifyContent: "space-around",
@@ -31,14 +30,10 @@ export const ArticleCard = (article: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });
- 
-  const {
-    handleUserLikeArticle,
-    // handleGetUserLikedArticle,
-    aLike,
-    
-  } = useArticle();
-  const { value } = aLike;
+
+  const { handleUserLikeArticle, handleGetUserLikedArticle, like } =
+    useArticle();
+
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -54,27 +49,14 @@ export const ArticleCard = (article: any) => {
   };
   const likeArticle = async () => {
     await handleUserLikeArticle(article.id, article.title);
-    // if (response === "liked") {
-    //   dispatch(
-    //     updateLikeAsync({
-    //       ...aLike,
-    //       value: false,
-    //       article: "",
-    //       articleId: "",
-    //       who: "",
-    //       whoId: "",
-    //       when: "",
-    //     })
-    //   );
-    // }
   };
-  // const getLikedArticle = async () => {
-  //   await handleGetUserLikedArticle(article.id);
-  // };
-  // useEffect(() => {
-  //   getLikedArticle();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const getLikedArticle = async () => {
+    await handleGetUserLikedArticle(article.id);
+  };
+  useEffect(() => {
+    getLikedArticle();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper elevation={0}>
@@ -112,7 +94,7 @@ export const ArticleCard = (article: any) => {
             sx={{ color: "black" }}
             onClick={likeArticle}
             endIcon={
-              value ? (
+              like ? (
                 <ThumbUpIcon sx={{ color: "#4caf50", marginTop: "-5px" }} />
               ) : (
                 <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />

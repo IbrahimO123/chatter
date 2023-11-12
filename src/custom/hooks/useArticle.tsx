@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Tags } from "../../Utilities/Miscellaneous";
 import { SelectChangeEvent } from "@mui/material";
-import { updateLike } from "../../redux/like/slice";
 import { getAllLikedArticle } from "../../Utilities/RetrieveLikedArticle";
 import { useState } from "react";
 import { LikeType } from "../../redux/like/model";
@@ -27,6 +26,7 @@ export const useArticle = () => {
   const [likedArticleList, setLikedArticleList] = useState<
     LikeType["allLikes"]
   >([]);
+  const [like, setLike] = useState(false);
   const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
   const { aLike } = useSelector((state: RootState) => state.like);
   const { value } = aLike;
@@ -79,40 +79,23 @@ export const useArticle = () => {
         console.log(response.error);
         return;
       } else {
-        response.likedArticle.map(async (liked: any) => {
-          if (liked.articleId === articleId && liked.whoId === user?.uid) {
-            return await dispatch(
-              updateLikeAsync({
-                ...aLike,
-                value: true,
-                articleId,
-                who: `${lastname} ${firstname}`,
-                whoId: user.uid,
-              })
-            );
-          } else {
-            dispatch(
-              updateLike({
-                ...aLike,
-                value: false,
-                articleId: "",
-                who: "",
-                whoId: " ",
-              })
-            );
-          }
-          return liked;
-        });
+        const likedArticle = response.likedArticle.filter(
+          (article: any) => article.whoId === user.uid
+        );
+        if (likedArticle.length > 0) {
+          setLike(true);
+        }
       }
     }
   };
 
   const handleUserLikeArticle = async (articleId: string, article: string) => {
     if (user?.uid) {
+      setLike(true);
       const response = await dispatch(
         updateLikeAsync({
           ...aLike,
-          value: !value,
+          value: true,
           articleId,
           article,
           whoId: user.uid,
@@ -155,6 +138,8 @@ export const useArticle = () => {
     categories,
     title,
     text,
+    like,
+    setLike,
     subtitle,
     coverImage,
     saveDrafts,
