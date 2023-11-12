@@ -19,6 +19,10 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
 import { useArticle } from "../custom/hooks/useArticle";
+import { getData } from "../Utilities/GetUserData";
+import { AuthorCard } from "./AuthorCard";
+import { User } from "../redux/user/model";
+
 
 const actionStyle = {
   display: "flex",
@@ -30,6 +34,7 @@ export const ArticleCard = (article: any) => {
   const trigger = useScrollTrigger({
     threshold: 500,
   });
+  const [author, setAuthor] = useState<User | any>({});
 
   const { handleUserLikeArticle, handleGetUserLikedArticle, like } =
     useArticle();
@@ -50,11 +55,18 @@ export const ArticleCard = (article: any) => {
   const likeArticle = async () => {
     await handleUserLikeArticle(article.id, article.title);
   };
+  const getAuthor = async () => {
+    const res = await getData(article.authorEmail);
+    if (res?.exists()) {
+      setAuthor(res?.data());
+    }
+  };
   const getLikedArticle = async () => {
     await handleGetUserLikedArticle(article.id);
   };
   useEffect(() => {
     getLikedArticle();
+    getAuthor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -139,6 +151,16 @@ export const ArticleCard = (article: any) => {
             </Fab>
           </Box>
         </Zoom>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            margin: "20px",
+          }}
+        >
+          <AuthorCard {...author} />
+        </Box>
       </Container>
     </Paper>
   );

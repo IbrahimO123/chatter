@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../Utilities/RetrieveArticle";
-import { Container } from "@mui/material";
+import {  Container } from "@mui/material";
 import { ArticleCard } from "../components/ArticleCard";
 import { MiniSkeleton } from "../components/MiniSkeleton";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
+
 
 const SingleArticle = () => {
   const { user, dispatch, aUser } = useGeneral();
@@ -62,6 +63,7 @@ const SingleArticle = () => {
             <ArticleCard {...article} key={article.id} />
           ))
         )}
+       
       </Container>
     </>
   );
