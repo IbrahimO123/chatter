@@ -8,7 +8,6 @@ import {
   Avatar,
   Typography,
   TextField,
-  
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -92,7 +91,7 @@ export const CommentCard = (props: CommentModel) => {
           <ChatBubbleOutlineIcon sx={{ fontSize: "15px" }} />
         </IconButton>
         <TextField
-        fullWidth
+          fullWidth
           name="reply"
           sx={{ display: showCommentReply, ...style }}
           className="comment-reply"

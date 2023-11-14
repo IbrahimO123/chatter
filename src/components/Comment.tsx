@@ -16,7 +16,7 @@ export const style = {
 
 type CommentProps = {
   commentId: string;
-  article:string;
+  article: string;
 };
 
 export const Comment = ({ commentId, article }: CommentProps) => {
@@ -65,14 +65,14 @@ export const Comment = ({ commentId, article }: CommentProps) => {
       return;
     } else {
       setError(true);
-       dispatch(
-         updateOtherState({
-           ...others,
-           open: true,
-           message: "Login first",
-           severity: "error",
-         })
-       );
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Login first",
+          severity: "error",
+        })
+      );
       return;
     }
   };
@@ -92,7 +92,7 @@ export const Comment = ({ commentId, article }: CommentProps) => {
           placeholder="Write your comment..."
         ></TextField>
         <Button
-          disabled={text === ""}
+          disabled={text === "" || text.trim() === ""}
           onClick={handleUserComment}
           disableFocusRipple
           size="small"
