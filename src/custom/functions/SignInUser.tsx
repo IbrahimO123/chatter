@@ -4,7 +4,7 @@ import { getData } from "../../Utilities/GetUserData";
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateAUserPassword } from "../../redux/user/slice";
-import { schema } from "../../config/joi";
+import { SignUpSchema } from "../../config/joi";
 
 export const signInUser = async ({
   setErrMessage,
@@ -22,7 +22,7 @@ export const signInUser = async ({
         loading: true,
       })
     );
-    const { error, value } = schema.validate(aUser);
+    const { error, value } = SignUpSchema.validate(aUser);
     if (error) {
       dispatch(
         updateOtherState({

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const schema = Joi.object({
+export const SignUpSchema = Joi.object({
   firstname: Joi.string()
     .min(3)
     .message("Name must be at least 3 characters long")
