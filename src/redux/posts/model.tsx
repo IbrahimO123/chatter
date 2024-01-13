@@ -1,5 +1,4 @@
 export type Post = {
-  id: number;
   likesCount: number;
   sharesCount: number;
   commentsCount: number;
@@ -7,9 +6,11 @@ export type Post = {
   content: string;
   author: string;
   userId: number;
-  title: string;
   picture: string;
   video: string;
+  event: string;
+  timeCreated: string;
+  dateCreated: string;
 };
 
 export type AppPosts = {
