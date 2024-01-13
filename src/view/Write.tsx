@@ -159,7 +159,7 @@ const WriteArticle = () => {
         url="/write"
         href="/write"
       />
-      
+
       <Box sx={{ margin: { xs: "10px", md: "5px" } }}>
         <Typography textAlign="center" component="h1" variant="h6" m={1}>
           Write an Article
@@ -324,8 +324,13 @@ const WriteArticle = () => {
 
             <Paper sx={{ marginTop: "15px" }} elevation={0}>
               <EditorMarkdown />
-              <FormHelperText sx={{ marginLeft: "5px" }}>
-                At least 350 characters
+              <FormHelperText
+                sx={{
+                  marginLeft: "5px",
+                  color: text.length > 350 ? "#76ff03" : "#9e9e9e",
+                }}
+              >
+                At least 350 characters &#8594; {text.length}
               </FormHelperText>
             </Paper>
 
