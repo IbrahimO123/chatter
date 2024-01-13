@@ -111,7 +111,7 @@ export const MiniCard = (card: MiniCardProps) => {
         <CardMedia
           sx={{ height: 350 }}
           image={card.coverImage}
-          title={card.title}
+          title={"Chatter_app_"+card.title}
           onClick={blogPost}
         ></CardMedia>
         <Typography mt={2} variant="body2">
