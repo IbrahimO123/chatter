@@ -12,15 +12,30 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
+import { usePost } from "../custom/hooks/usePost";
 const postStyle = {
   display: "flex",
   justifyContent: "space-around",
   flexDirection: "row",
+
 };
 
 export const GridTwo = () => {
-  const { user,navigate, dispatch, aUser, profileImageUrl, firstname, lastname } =
-    useGeneral();
+  const {
+    user,
+    navigate,
+    dispatch,
+    aUser,
+    profileImageUrl,
+    firstname,
+    lastname,
+  } = useGeneral();
+  const {
+    content,
+    handleChangeContent,
+    selectedImage,
+    selectedVideo,
+  } = usePost();
   const userPhoto = async () => {
     try {
       await getLoggedInUser({ user, dispatch, aUser });
@@ -28,6 +43,7 @@ export const GridTwo = () => {
       console.error("Error while fetching photo: ", err.message);
     }
   };
+
   useEffect(() => {
     userPhoto();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +53,6 @@ export const GridTwo = () => {
       {user?.uid ? (
         <Paper
           sx={{
-            display: { xs: "none", md: "grid" },
             padding: "5px 5px",
             margin: "10px",
           }}
@@ -62,27 +77,56 @@ export const GridTwo = () => {
             <Grid item md={11}>
               <TextField
                 fullWidth
+                name="content"
+                value={content}
+                onChange={handleChangeContent}
                 size="small"
-                placeholder="Ask community for advice."
+                placeholder="Ask community for advice..."
               ></TextField>
             </Grid>
           </Grid>
           <Box sx={postStyle}>
-            <Button endIcon={<PostAddIcon />} disableElevation  variant="contained">
+            <Button
+              endIcon={<PostAddIcon />}
+              disableElevation
+              variant="contained"
+              size="small"
+            >
               Post
             </Button>
-            <IconButton onClick={()=>navigate("/write")} disableRipple size="small">
-              Write article
-            </IconButton>
-            <IconButton disableRipple size="small">
+            <label onClick={() => navigate("/write")}>Write Article</label>
+
+            <label htmlFor="image">
               Photo
-            </IconButton>
-            <IconButton disableRipple size="small">
+              <TextField
+                id="image"
+                type="file"
+                sx={{ display: "none" }}
+                name="selectedImage"
+                value={selectedImage}
+                inputProps={{ accept: "image/*" }}
+                variant="standard"
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </label>
+
+            <label>
               Video
-            </IconButton>
-            <IconButton disableRipple size="small">
-              Event
-            </IconButton>
+              <TextField
+                sx={{ display: "none" }}
+                name="selectedVideo"
+                value={selectedVideo}
+                type="file"
+                inputProps={{ accept: "video/*" }}
+                variant="standard"
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </label>
+            <label>Event</label>
           </Box>
         </Paper>
       ) : null}
