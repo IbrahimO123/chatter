@@ -5,6 +5,7 @@ import { Loader } from "..";
 import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
 import { MetaTags } from "../components/MetaTag";
+import { PostCard } from "../components/PostCard";
 
 import { MiniCard } from "../components/MiniCard";
 import { useEffect } from "react";
@@ -58,6 +59,7 @@ const Home = () => {
           <Grid item xs={12} md={8}>
             <GridTwo />
             <Box>
+              <PostCard content="We are live here" video="" />
               {feed && feed.length > 0 ? (
                 feed.map((post: any) => <MiniCard {...post} key={post.title} />)
               ) : (
