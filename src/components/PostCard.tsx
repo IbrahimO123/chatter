@@ -32,7 +32,6 @@ export const PostCard = ({ content, video }: postCard) => {
     <Box>
       <Paper
         sx={{
-          display: { xs: "none", md: "grid" },
           padding: "2px 2px",
           margin: "5px 10px",
         }}
