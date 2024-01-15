@@ -30,3 +30,17 @@ export const UploadProfileImage = async (file: any, filename: string) => {
     console.log("Error while uploading image", e.code);
   }
 };
+
+export const AddPictureToPost = async (file: any, filename: string) => {
+  try {
+    const photoRef = ref(storage, `postsImages/${filename}`);
+    const res = await uploadBytes(photoRef, file as Blob);
+    if (res) {
+      const url = await getDownloadURL(ref(storage, `postsImages/${filename}`));
+      return url;
+    }
+    return false;
+  } catch (e: any) {
+    console.log("Error while posting image", e.code);
+  }
+};
