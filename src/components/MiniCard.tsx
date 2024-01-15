@@ -62,7 +62,7 @@ export const MiniCard = (card: MiniCardProps) => {
   }, [card.id, text]);
 
   return (
-    <Card sx={{ margin: "10px", maxHeight: "900px" }} elevation={0}>
+    <Card sx={{ margin: "10px", maxHeight: "700px" }} elevation={0}>
       <CardHeader
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
