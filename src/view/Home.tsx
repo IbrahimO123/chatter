@@ -59,7 +59,10 @@ const Home = () => {
           <Grid item xs={12} md={8}>
             <GridTwo />
             <Box>
-              <PostCard content="We are live here" video="" />
+              <PostCard
+                content="We are live here"
+                video="https://res.cloudinary.com/ifeomaimoh/video/upload/v1650567487/speech_ofvfzq.mp4"
+              />
               {feed && feed.length > 0 ? (
                 feed.map((post: any) => <MiniCard {...post} key={post.title} />)
               ) : (

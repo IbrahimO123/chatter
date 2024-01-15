@@ -21,6 +21,7 @@ import { LoginUser } from "../custom/functions/LoginUser";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import GoogleLogo from "../assets/images/google-icon-logo-svgrepo-com.svg";
 type RedirectLocationState = {
   redirectTo: Location;
 };
@@ -42,7 +43,7 @@ const Login = () => {
     locationState,
   } = useGeneral();
   const handleFetchUser = async () => {
-    const { redirectTo } = locationState as RedirectLocationState ?? {} ;
+    const { redirectTo } = (locationState as RedirectLocationState) ?? {};
     try {
       const response = await getLoggedInUser({ user, dispatch, aUser });
       if (response) {
@@ -202,8 +203,9 @@ const Login = () => {
                 variant="contained"
                 startIcon={
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                    alt="Google Sign In"
+                    src={GoogleLogo}
+                    style={{ width: "20px", padding: "5px", color: "white" }}
+                    alt="man working on a saw mill"
                   />
                 }
               >
