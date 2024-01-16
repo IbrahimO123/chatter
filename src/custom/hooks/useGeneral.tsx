@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateAUser } from "../../redux/user/slice";
 import { useSelector } from "react-redux";
@@ -16,6 +17,7 @@ export const useGeneral = () => {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const location = useLocation();
+  const [profileImage, setProfileImage] = useState<File>();
   const { state: locationState } = location;
   const { aUser } = useSelector((state: RootState) => state.users);
   const {
@@ -36,7 +38,44 @@ export const useGeneral = () => {
   const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateAUser({ ...aUser, [e.target.name]: e.target.value }));
   };
-
+  const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let fileList = e.target.files;
+    if (!fileList) {
+      e.target.value = "";
+      return console.log("No image selected");
+    }
+    let imageObj = e.target!.files![0];
+    const { size, type } = imageObj;
+    const ext = type.split("/")[0];
+    const mb = size / 1000000;
+    if (mb > 2) {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Size exceeds the maximum allowed",
+          severity: "error",
+        })
+      );
+      e.target.value = "";
+      setProfileImage(undefined);
+      return false;
+    } else if (ext !== "image") {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Please upload image only",
+          severity: "error",
+        })
+      );
+      e.target.value = "";
+      setProfileImage(undefined);
+      return false;
+    } else {
+      setProfileImage(e.target!.files![0]);
+    }
+  };
   const handleUpdateUser = async (e: any) => {
     e.preventDefault();
     const { error, value } = updateUserSchema.validate({
@@ -103,6 +142,7 @@ export const useGeneral = () => {
   return {
     handleUserChange,
     handleUpdateUser,
+    handleSelectImage,
     handleProfilePhotoUpload,
     updateOtherState,
     aUser,
@@ -112,6 +152,8 @@ export const useGeneral = () => {
     locationState,
     dispatch,
     user,
+    setProfileImage,
+    profileImage,
     firstname,
     lastname,
     phoneNumber,

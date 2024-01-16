@@ -14,51 +14,9 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useGeneral } from "../custom/hooks/useGeneral";
-import { useState } from "react";
-import { updateOtherState } from "../redux/Others/slice";
 
 export const UserPage = () => {
-  const [profileImage, setProfileImage] = useState<File>();
-  const { dispatch, others } = useGeneral();
-
-  const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let fileList = e.target.files;
-    if (!fileList) {
-      e.target.value = "";
-      return console.log("No image selected");
-    }
-    let imageObj = e.target!.files![0];
-    const { size, type } = imageObj;
-    const ext = type.split("/")[0];
-    const mb = size / 1000000;
-    if (mb > 2) {
-      dispatch(
-        updateOtherState({
-          ...others,
-          open: true,
-          message: "Size exceeds the maximum allowed",
-          severity: "error",
-        })
-      );
-      e.target.value = "";
-      setProfileImage(undefined);
-      return false;
-    } else if (ext !== "image") {
-      dispatch(
-        updateOtherState({
-          ...others,
-          open: true,
-          message: "Please upload image only",
-          severity: "error",
-        })
-      );
-      e.target.value = "";
-      setProfileImage(undefined);
-      return false;
-    } else {
-      setProfileImage(e.target!.files![0]);
-    }
-  };
+  const { handleSelectImage, profileImage } = useGeneral();
 
   const {
     handleUserChange,

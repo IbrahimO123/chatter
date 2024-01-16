@@ -9,7 +9,6 @@ const TagsPage = lazy(() => import("../view/Tags"));
 const User = lazy(() => import("../view/User"));
 const NotFound = lazy(() => import("../view/NotFound"));
 const SingleArticle = lazy(() => import("../view/SingleArticle"));
-
 const PrivateRoute = lazy(() => import("../components/PrivateRoute"));
 
 export const Routers = () => {
