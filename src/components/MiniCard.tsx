@@ -62,7 +62,7 @@ export const MiniCard = (card: MiniCardProps) => {
   }, [card.id, text]);
 
   return (
-    <Card sx={{ margin: "10px", maxHeight: "700px" }} elevation={0}>
+    <Card sx={{ margin: "10px", maxHeight: "750px" }} elevation={0}>
       <CardHeader
         sx={{ margin: 0, paddingBottom: 0 }}
         avatar={
@@ -109,9 +109,9 @@ export const MiniCard = (card: MiniCardProps) => {
       ></CardHeader>
       <CardContent>
         <CardMedia
-          sx={{ height: 350 }}
+          sx={{ height: "300px" , backgroundSize:'cover', backgroundPosition:"center"}}
           image={card.coverImage}
-          title={"Chatter_App_"+card.title}
+          title={"Chatter_App_" + card.title}
           onClick={blogPost}
         ></CardMedia>
         <Typography mt={2} variant="body2">
