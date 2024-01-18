@@ -17,29 +17,40 @@ import { getAllArticles } from "../Utilities/RetrieveAllArticles";
 import { gridStyle } from "./../Utilities/Miscellaneous";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
+import { getAllPosts } from "../Utilities/RetrieveAllPost";
+import { usePost } from "../custom/hooks/usePost";
+
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);
+  const [posts, setPosts] = useState<any>([]);
   const { user, dispatch, aUser } = useGeneral();
+  const { content } = usePost();
 
-  const fetchUserPost = async () => {
+  const fetchAllContent = async () => {
     try {
       const result = await getAllArticles();
+      const res = await getAllPosts();
       const sortedArticles = result.articles.sort(
         (a: any, b: any) =>
           new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
       );
+      const sortedPosts = res.posts.sort(
+        (a: any, b: any) =>
+          new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+      );
       setFeed(sortedArticles);
+      setPosts(sortedPosts);
     } catch (err: any) {
       console.error("Error while fetching articles from server: ", err.code);
     }
   };
   useEffect(() => {
-    fetchUserPost();
+    fetchAllContent();
     if (user !== null) {
       getLoggedInUser({ user, dispatch, aUser });
     } else return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, content]);
 
   return (
     <>
@@ -59,10 +70,19 @@ const Home = () => {
           <Grid item xs={12} md={8}>
             <GridTwo />
             <Box>
-              <PostCard
-                content="We are live here"
-                video="https://res.cloudinary.com/ifeomaimoh/video/upload/v1650567487/speech_ofvfzq.mp4"
-              />
+              {posts && posts.length > 0 ? (
+                posts.map((post: any) => (
+                  <PostCard {...post} key={post.title} />
+                ))
+              ) : (
+                <Box
+                  sx={{ ...gridStyle, backgroundColor: "inherit" }}
+                  mt={15}
+                  mb={15}
+                >
+                  <Loader />
+                </Box>
+              )}
               {feed && feed.length > 0 ? (
                 feed.map((post: any) => <MiniCard {...post} key={post.title} />)
               ) : (
