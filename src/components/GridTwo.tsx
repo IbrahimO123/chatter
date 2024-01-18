@@ -34,6 +34,7 @@ export const GridTwo = () => {
     handleChangeContent,
     handleSelectedImage,
     handleSelectedVideo,
+    handleAddPost,
   } = usePost();
   const userPhoto = async () => {
     try {
@@ -90,6 +91,7 @@ export const GridTwo = () => {
               disableElevation
               variant="contained"
               size="small"
+              onClick={handleAddPost}
               disabled={content.length <= 3}
             >
               Post
