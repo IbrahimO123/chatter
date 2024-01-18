@@ -8,6 +8,7 @@ import {
   IconButton,
   Paper,
   Typography,
+  CardHeader,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
@@ -16,6 +17,7 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MenuComponent } from "./MenuComponent";
 import { PostMenu } from "../Utilities/Miscellaneous";
+import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 
 type postCard = {
   likesCount?: number;
@@ -23,16 +25,24 @@ type postCard = {
   commentsCount?: number;
   viewsCount?: number;
   content: string;
-  author?: string;
-  userId?: number;
+  author: string;
+  userId: number;
   picture?: string;
   video?: string;
   event?: string;
-  timeCreated?: string;
-  dateCreated?: string;
+  timeCreated: string;
+  dateCreated: string;
+  profileImageUrl: string;
 };
 
-export const PostCard = ({ content, video, picture }: postCard) => {
+export const PostCard = ({
+  content,
+  video,
+  picture,
+  profileImageUrl,
+  author,
+  dateCreated,
+}: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,7 +56,7 @@ export const PostCard = ({ content, video, picture }: postCard) => {
       <Paper
         sx={{
           padding: "2px 2px",
-          margin: "5px 10px",
+          margin: "10px 10px",
         }}
         elevation={0}
       >
@@ -58,11 +68,24 @@ export const PostCard = ({ content, video, picture }: postCard) => {
               alignContent: "center",
             }}
           >
-            <Avatar
-              sizes="small"
-              src=""
-              sx={{ padding: "2px", margin: "10px 10px 0px 10px" }}
-            ></Avatar>
+            <CardHeader
+              avatar={
+                <Avatar
+                  sizes="small"
+                  src={profileImageUrl}
+                  sx={{ padding: "2px", margin: "10px 10px 0px 10px" }}
+                ></Avatar>
+              }
+              title={<h3 style={{ wordWrap: "break-word" }}>{author}</h3>}
+              subheader={
+                <small style={{ lineHeight: 0 }}>
+                  <Typography component="span" variant="caption">
+                    {getTimeDifferenceString(dateCreated) ||
+                      "1 second ago"}
+                  </Typography>
+                </small>
+              }
+            ></CardHeader>
             <Box>
               <IconButton
                 aria-label="more"
@@ -107,7 +130,7 @@ export const PostCard = ({ content, video, picture }: postCard) => {
                   <center>
                     <CardMedia
                       component="img"
-                      sx={{ height: 350}}
+                      sx={{ height: 350 }}
                       image={picture}
                     ></CardMedia>
                   </center>
