@@ -50,86 +50,82 @@ export const GridTwo = () => {
   }, []);
   return (
     <Box>
-      {user?.uid ? (
-        <Paper
-          sx={{
-            padding: "5px 5px",
-            margin: "10px",
-          }}
-          elevation={0}
-        >
-          <Grid container spacing={2}>
-            <Grid item md={1}>
-              <IconButton size="small">
-                <Avatar
-                  title={
-                    firstname && lastname ? `${lastname} ${firstname}` : ""
-                  }
-                  alt={
-                    firstname && lastname
-                      ? `${lastname} ${firstname} picture`
-                      : ""
-                  }
-                  src={profileImageUrl || ""}
-                />
-              </IconButton>
-            </Grid>
-            <Grid item md={11}>
-              <TextField
-                fullWidth
-                name="content"
-                value={content}
-                onChange={handleChangeContent}
-                size="small"
-                placeholder="Talk with the community..."
-              ></TextField>
-            </Grid>
+      <Paper
+        sx={{
+          padding: "5px 5px",
+          margin: "10px",
+        }}
+        elevation={0}
+      >
+        <Grid container spacing={2}>
+          <Grid item md={1}>
+            <IconButton size="small">
+              <Avatar
+                title={firstname && lastname ? `${lastname} ${firstname}` : ""}
+                alt={
+                  firstname && lastname
+                    ? `${lastname} ${firstname} picture`
+                    : ""
+                }
+                src={profileImageUrl || ""}
+              />
+            </IconButton>
           </Grid>
-          <Box sx={postStyle}>
-            <Button
-              endIcon={<PostAddIcon />}
-              disableElevation
-              variant="contained"
+          <Grid item md={11}>
+            <TextField
+              fullWidth
+              name="content"
+              value={content}
+              onChange={handleChangeContent}
               size="small"
-              onClick={handleAddPost}
-              disabled={content.length <= 3}
-            >
-              Post
-            </Button>
-            <label onClick={() => navigate("/write")}>Write Article</label>
+              placeholder="Talk with the community..."
+            ></TextField>
+          </Grid>
+        </Grid>
+        <Box sx={postStyle}>
+          <Button
+            endIcon={<PostAddIcon />}
+            disableElevation
+            variant="contained"
+            size="small"
+            onClick={handleAddPost}
+            disabled={content.length <= 3}
+          >
+            Post
+          </Button>
+          <label onClick={() => navigate("/write")}>Write Article</label>
 
-            <label htmlFor="image">
-              Photo
-              <TextField
-                id="image"
-                type="file"
-                sx={{ display: "none" }}
-                onChange={handleSelectedImage}
-                inputProps={{ accept: "image/*" }}
-                variant="standard"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </label>
+          <label htmlFor="image">
+            Photo
+            <TextField
+              id="image"
+              type="file"
+              sx={{ display: "none" }}
+              onChange={handleSelectedImage}
+              inputProps={{ accept: "image/*" }}
+              variant="standard"
+              InputProps={{
+                disableUnderline: true,
+              }}
+            />
+          </label>
 
-            <label>
-              Video
-              <TextField
-                sx={{ display: "none" }}
-                onChange={handleSelectedVideo}
-                type="file"
-                inputProps={{ accept: "video/*" }}
-                variant="standard"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </label>
-            <label>Event</label>
-          </Box>
-        </Paper>
-      ) : null}
+          <label>
+            Video
+            <TextField
+              sx={{ display: "none" }}
+              onChange={handleSelectedVideo}
+              type="file"
+              inputProps={{ accept: "video/*" }}
+              variant="standard"
+              InputProps={{
+                disableUnderline: true,
+              }}
+            />
+          </label>
+          <label>Event</label>
+        </Box>
+      </Paper>
     </Box>
   );
 };
