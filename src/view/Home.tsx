@@ -72,7 +72,7 @@ const Home = () => {
             <Box>
               {posts && posts.length > 0 ? (
                 posts.map((post: any) => (
-                  <PostCard {...post} key={post.title} />
+                  <PostCard {...post} key={post.content} />
                 ))
               ) : (
                 <Box
