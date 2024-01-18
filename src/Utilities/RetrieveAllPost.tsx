@@ -1,10 +1,10 @@
 import { db } from "../config/firebase";
 import { collectionGroup, getDocs } from "firebase/firestore";
 
-export const getAllArticles = async () => {
+export const getAllPosts = async () => {
   try {
-    const articlesRef = collectionGroup(db, "posts");
-    const snapshot = await getDocs(articlesRef);
+    const postsRef = collectionGroup(db, "published");
+    const snapshot = await getDocs(postsRef);
     const posts = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -12,6 +12,6 @@ export const getAllArticles = async () => {
     return { posts, error: null };
   } catch (error) {
     console.error("Error fetching posts:", error);
-    return { articles: [], error };
+    return { posts: [], error };
   }
 };

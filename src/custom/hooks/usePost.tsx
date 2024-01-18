@@ -7,10 +7,12 @@ import { addPostToDatabase } from "../../Utilities/AddPost";
 import { updateOtherState } from "../../redux/Others/slice";
 export const usePost = () => {
   const aPost = useSelector((state: RootState) => state.posts.aPost);
-  const { dispatch, user, others } = useGeneral();
+  const { dispatch, user, others, profileImageUrl } = useGeneral();
   const { content, likesCount } = aPost;
   const [selectedImage, setSelectedImage] = useState<File>();
   const [selectedVideo, setSelectedVideo] = useState<File>();
+
+ 
   const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateAPost({
@@ -20,11 +22,46 @@ export const usePost = () => {
     );
   };
 
-  const handleAddPost = () => {
+  const handleAddPost = async () => {
     if (user?.uid) {
-      addPostToDatabase(aPost, user.uid);
+      const res = await addPostToDatabase(
+        { ...aPost, userId: user.uid, author: user.displayName! , profileImageUrl},
+        user.uid
+      );
+      if (res) {
+        dispatch(
+          updateOtherState({
+            ...others,
+            open: true,
+            message: "Your post has been added",
+            severity: "success",
+          })
+        );
+        dispatch(
+          updateAPost({
+            ...aPost,
+            content: "",
+            likesCount: 0,
+            sharesCount: 0,
+            commentsCount: 0,
+            viewsCount: 0,
+            author: "",
+            userId: "",
+            picture: "",
+            video: "",
+            event: "",
+          })
+        );
+      }
     } else {
-      console.log("Login or sign up to post");
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Login or sign up to post",
+          severity: "error",
+        })
+      );
     }
   };
   const handleSelectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
