@@ -71,17 +71,16 @@ export const PostCard = ({
             <CardHeader
               avatar={
                 <Avatar
-                  sizes="small"
                   src={profileImageUrl}
-                  sx={{ padding: "2px", margin: "10px 10px 0px 10px" }}
+                  title={author}
+                  alt={`${author} picture`}
                 ></Avatar>
               }
               title={<h3 style={{ wordWrap: "break-word" }}>{author}</h3>}
               subheader={
                 <small style={{ lineHeight: 0 }}>
                   <Typography component="span" variant="caption">
-                    {getTimeDifferenceString(dateCreated) ||
-                      "1 second ago"}
+                    {getTimeDifferenceString(dateCreated) || "1 second ago"}
                   </Typography>
                 </small>
               }
