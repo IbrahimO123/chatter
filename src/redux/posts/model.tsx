@@ -5,12 +5,13 @@ export type Post = {
   viewsCount: number;
   content: string;
   author: string;
-  userId: number;
+  userId: string;
   picture: string;
   video: string;
   event: string;
   timeCreated: string;
   dateCreated: string;
+  profileImageUrl: string;
 };
 
 export type AppPosts = {
