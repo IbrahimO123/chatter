@@ -23,6 +23,7 @@ import { usePost } from "../custom/hooks/usePost";
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);
   const [posts, setPosts] = useState<any>([]);
+
   const { user, dispatch, aUser } = useGeneral();
   const { content } = usePost();
 

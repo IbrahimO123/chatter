@@ -16,7 +16,7 @@ import {
 import { gridStyle, linkStyle } from "../Utilities/Miscellaneous";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { signInUser } from "../custom/functions/SignInUser";
+import { signUpUser } from "../custom/functions/SignUpUser";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
 
@@ -40,7 +40,7 @@ const SignUp = () => {
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      await signInUser({
+      await signUpUser({
         setErrMessage,
         dispatch,
         email,
