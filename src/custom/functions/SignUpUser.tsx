@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateAUserPassword } from "../../redux/user/slice";
 import { SignUpSchema } from "../../config/joi";
 
-export const signInUser = async ({
+export const signUpUser = async ({
   setErrMessage,
   dispatch,
   email,
