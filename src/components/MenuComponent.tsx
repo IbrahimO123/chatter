@@ -1,5 +1,6 @@
 import { Menu, MenuItem, Fade, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useGeneral } from "../custom/hooks/useGeneral";
 type MenuProps = {
   handleClose: () => void;
   open: boolean;
@@ -7,9 +8,11 @@ type MenuProps = {
     value: string;
     logo: any;
     link?: any;
+    change?: boolean;
   }[];
   anchorEl: null | HTMLElement;
   action?: () => void;
+  uid?: string;
 };
 
 export const MenuComponent = ({
@@ -18,8 +21,10 @@ export const MenuComponent = ({
   anchorEl,
   data,
   action,
+  uid,
 }: MenuProps) => {
   const navigate = useNavigate();
+  const { user } = useGeneral();
   const handleMenuRoute = (route: string) => {
     navigate(`${route}`);
   };
@@ -36,7 +41,17 @@ export const MenuComponent = ({
       TransitionComponent={Fade}
     >
       {data.map((item, index) => (
-        <MenuItem key={index} onClick={() => handleMenuRoute(item.link)}>
+        <MenuItem
+          sx={{
+            display: !item.change
+              ? "flex"
+              : user?.uid === uid
+              ? "flex"
+              : "none",
+          }}
+          key={index}
+          onClick={() => handleMenuRoute(item.link)}
+        >
           {item.logo}
           <Typography sx={{ fontSize: "13px" }} ml={1}>
             {item.value}

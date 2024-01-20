@@ -26,7 +26,7 @@ type postCard = {
   viewsCount?: number;
   content: string;
   author: string;
-  userId: number;
+  userId: string;
   picture?: string;
   video?: string;
   event?: string;
@@ -42,6 +42,7 @@ export const PostCard = ({
   profileImageUrl,
   author,
   dateCreated,
+  userId,
 }: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -101,6 +102,7 @@ export const PostCard = ({
                 handleClose={handleClose}
                 data={PostMenu}
                 anchorEl={anchorEl}
+                uid={userId}
               />
             </Box>
           </Box>

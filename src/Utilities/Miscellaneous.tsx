@@ -11,6 +11,7 @@ import ArticleIcon from "@mui/icons-material/Article";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const AccountMenu = [
   {
@@ -44,20 +45,28 @@ export const PostMenu = [
   {
     value: "Edit",
     logo: <EditNoteIcon />,
+    change: true,
+  },
+  {
+    value: "Delete",
+    logo: <DeleteIcon />,
+    change: true,
   },
   {
     value: "Hide",
     logo: <HideSourceIcon />,
+    change: false,
   },
   {
     value: "Report",
     logo: <ReportIcon />,
+    change: false,
   },
   {
     value: "Copy link",
     logo: <CopyAllSharpIcon />,
+    change: false,
   },
- 
 ];
 export const ManagePostMore = [
   {
