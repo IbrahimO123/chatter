@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import CircularSawSvg from "../assets/images/circular-saw.svg";
 import {
@@ -7,23 +7,23 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Badge,
   Drawer,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
 import { Draft } from "./Draft";
 import { GridOne } from "./GridOne";
+import ChatIcon from "@mui/icons-material/Chat";
 import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
 } from "../Utilities/Miscellaneous";
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { PopUp } from "./PopUpState";
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);
@@ -92,19 +92,21 @@ export const AppNav = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          {user?.uid ? (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          ) : null}
           <Box>
             {user?.uid ? (
               <div>
-                <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Box sx={{ display: "flex" }}>
                   <Link className="link" to="/write">
                     <IconButton
                       size="small"
@@ -115,55 +117,11 @@ export const AppNav = () => {
                       <CreateIcon />
                     </IconButton>
                   </Link>
-                  <IconButton
-                    size="small"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                  >
-                    <Badge badgeContent={0} color="error">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                  >
-                    <Badge badgeContent={0} color="error">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    color="inherit"
-                    onClick={handleUserProfileRoute}
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                </Box>
-                <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                  <IconButton
-                    size="small"
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                  >
-                    <Badge badgeContent={0} color="error">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                  >
-                    <Badge badgeContent={0} color="error">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
+                  <PopUp Icon={ChatIcon} message="No new chat..." />
+                  <PopUp
+                    Icon={NotificationsIcon}
+                    message="No new Notifications"
+                  />
                   <IconButton
                     size="small"
                     edge="end"
