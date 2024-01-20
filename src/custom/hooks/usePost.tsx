@@ -7,12 +7,12 @@ import { addPostToDatabase } from "../../Utilities/AddPost";
 import { updateOtherState } from "../../redux/Others/slice";
 export const usePost = () => {
   const aPost = useSelector((state: RootState) => state.posts.aPost);
-  const { dispatch, user, others, profileImageUrl } = useGeneral();
+  const { dispatch, user, others, profileImageUrl, firstname, lastname } =
+    useGeneral();
   const { content, likesCount } = aPost;
   const [selectedImage, setSelectedImage] = useState<File>();
   const [selectedVideo, setSelectedVideo] = useState<File>();
 
- 
   const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateAPost({
@@ -25,7 +25,12 @@ export const usePost = () => {
   const handleAddPost = async () => {
     if (user?.uid) {
       const res = await addPostToDatabase(
-        { ...aPost, userId: user.uid, author: user.displayName! , profileImageUrl},
+        {
+          ...aPost,
+          userId: user.uid,
+          author: `${firstname} ${lastname}` || user.displayName!,
+          profileImageUrl,
+        },
         user.uid
       );
       if (res) {
