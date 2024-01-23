@@ -11,6 +11,7 @@ import { updateOtherState } from "../../redux/Others/slice";
 import { UploadProfileImage } from "../../Utilities/UploadImage";
 import { AddProfileImageToDatabase } from "../../Utilities/AddProfileImage";
 import { updateUserSchema } from "../../config/joi";
+import { CopyToClipboard } from "../functions/CopyToClipboard";
 
 export const useGeneral = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -139,11 +140,26 @@ export const useGeneral = () => {
     }
   };
 
+  const handleCopy = (text: string) => {
+    const res = CopyToClipboard(text);
+    if (res) {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Copy to clipboard",
+          severity: "success",
+        })
+      );
+    }
+  };
+
   return {
     handleUserChange,
     handleUpdateUser,
     handleSelectImage,
     handleProfilePhotoUpload,
+    handleCopy,
     updateOtherState,
     aUser,
     others,
