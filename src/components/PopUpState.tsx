@@ -21,10 +21,10 @@ export const PopUp = ({ Icon, message }: any) => {
             slotProps={{
               paper: {
                 style: {
-                  width: "300px",
+                  width: "280px",
                   textAlign: "center",
                   marginTop: "5px",
-                  minHeight: "300px",
+                  minHeight: "600px",
                 },
               },
             }}
