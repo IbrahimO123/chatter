@@ -12,6 +12,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import LogoutIcon from "@mui/icons-material/Logout";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 
 export const AccountMenu = [
   {
@@ -63,8 +64,8 @@ export const PostMenu = [
     change: false,
   },
   {
-    value: "Copy link",
-    logo: <CopyAllSharpIcon />,
+    value: "Save Post",
+    logo: <SaveIcon />,
     change: false,
   },
 ];
