@@ -1,12 +1,13 @@
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllPhotos } from "../redux/chatbox/slice";
 
 import { useEffect } from "react";
-import {  projectID } from "./../config/chat-engine/index";
+import { projectID } from "./../config/chat-engine/index";
 
 import {
   useMultiChatLogic,
-  ChatSettings,
+  ChatList,
+  ChatForm,
 } from "react-chat-engine-advanced";
 
 const projectId = projectID!;
@@ -16,7 +17,7 @@ const secret = "team";
 export const GridThree = () => {
   const chatProps = useMultiChatLogic(projectId, username, secret);
   const dispatch = useDispatch();
-  
+
   const fecthPhotos = async () => {
     try {
       const res = await fetch("https://jsonplaceholder.typicode.com/photos");
@@ -32,13 +33,14 @@ export const GridThree = () => {
   }, []);
   return (
     <>
-      {/* <ChatList
-       
+      <ChatList
+        title="Chats"
         {...chatProps}
-        isLoading={true}
-        style={{ height: "inherit", margin: "0", padding: "0" }}
-      /> */}
-      <ChatSettings {...chatProps} />
+        
+        style={{ maxWidth: "400px", borderRadius: "5px", maxHeight: "900px" }}
+      >
+        <ChatForm title="Chats" />
+      </ChatList>
     </>
   );
 };
