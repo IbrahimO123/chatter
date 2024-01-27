@@ -1,26 +1,22 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardHeader,
-  Paper,
-  Typography,
-} from "@mui/material";
-
-import type { RootState } from "../redux/store";
-
-import { Photo } from "../redux/chatbox/model";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { getAllPhotos } from "../redux/chatbox/slice";
 
-import womanImage from "../assets/images/woman.avif";
-import womanImage2 from "../assets/images/woman2.avif";
 import { useEffect } from "react";
+import {  projectID } from "./../config/chat-engine/index";
+
+import {
+  useMultiChatLogic,
+  ChatSettings,
+} from "react-chat-engine-advanced";
+
+const projectId = projectID!;
+const username = "Owolabi";
+const secret = "team";
 
 export const GridThree = () => {
-  const photos = useSelector((state: RootState) => state.chats);
+  const chatProps = useMultiChatLogic(projectId, username, secret);
   const dispatch = useDispatch();
-  const { allPhotos } = photos;
+  
   const fecthPhotos = async () => {
     try {
       const res = await fetch("https://jsonplaceholder.typicode.com/photos");
@@ -35,33 +31,14 @@ export const GridThree = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Box>
-      <Paper elevation={0} sx={{ padding: "2px 1px" }}>
-        
-          <Typography component="p" textAlign="center" variant="h6">
-            Chat
-          </Typography>
-        
-        {allPhotos.length > 0 ? (
-          allPhotos.map((photo: Photo) => (
-            <Card variant="outlined" sx={{ margin: "2px" }} key={photo.id}>
-              <CardHeader
-                subheader="10:12:2022"
-                avatar={
-                  <Avatar
-                    alt={photo.title}
-                    src={photo.id % 2 ? womanImage2 : womanImage}
-                  />
-                }
-              />
-            </Card>
-          ))
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            No chat yet
-          </Typography>
-        )}
-      </Paper>
-    </Box>
+    <>
+      {/* <ChatList
+       
+        {...chatProps}
+        isLoading={true}
+        style={{ height: "inherit", margin: "0", padding: "0" }}
+      /> */}
+      <ChatSettings {...chatProps} />
+    </>
   );
 };

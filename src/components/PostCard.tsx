@@ -54,14 +54,13 @@ export const PostCard = ({
   };
   return (
     <Box>
-      <Paper
-        sx={{
-          padding: "2px 2px",
-          margin: "10px 10px",
-        }}
-        elevation={0}
-      >
-        <Card>
+        <Card
+          sx={{
+            padding: "2px 2px",
+            margin: "10px 10px",
+          }}
+          elevation={0}
+        >
           <Box
             sx={{
               display: "flex",
@@ -164,7 +163,7 @@ export const PostCard = ({
             </Grid>
           </Grid>
         </Card>
-      </Paper>
+      
     </Box>
   );
 };
