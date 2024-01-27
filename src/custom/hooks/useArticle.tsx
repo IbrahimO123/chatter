@@ -6,9 +6,19 @@ import { Tags } from "../../Utilities/Miscellaneous";
 import { SelectChangeEvent } from "@mui/material";
 import { getAllLikedArticle } from "../../Utilities/RetrieveLikedArticle";
 import { useState } from "react";
-import { LikeType } from "../../redux/like/model";
 import { addLikeArticleToDatabase } from "../../Utilities/AddLikeArticle";
 import { updateLikeAsync } from "../../redux/like/slice";
+import { UnlikeArticle } from "../../Utilities/UnLikeArticle";
+
+export type likeList = {
+  article: string;
+  articleId: string;
+  id: string;
+  value: Boolean;
+  when: string;
+  who: string;
+  whoId: string;
+}[];
 
 export const useArticle = () => {
   const {
@@ -23,14 +33,13 @@ export const useArticle = () => {
   } = useGeneral();
 
   const { anArticle } = useSelector((state: RootState) => state.articles);
-  const [likedArticleList, setLikedArticleList] = useState<
-    LikeType["allLikes"]
-  >([]);
+  const [likedArticleList, setLikedArticleList] = useState<likeList>([]);
   const [like, setLike] = useState(false);
   const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
   const { aLike } = useSelector((state: RootState) => state.like);
   const { value } = aLike;
   const { categories, title, text, subtitle, coverImage } = anArticle;
+
   const handleWriteArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateArticle({
@@ -85,6 +94,7 @@ export const useArticle = () => {
         if (likedArticle.length > 0) {
           setLike(true);
         }
+        return response.likedArticle;
       }
     }
   };
@@ -121,10 +131,26 @@ export const useArticle = () => {
     const response = await getAllLikedArticle(articleId);
     const { likedArticle, error } = response;
     if (error === null && likedArticle.length > 0) {
-      setLikedArticleList(likedArticle as LikeType["allLikes"]);
+      setLikedArticleList(likedArticle as likeList);
       return;
     } else {
       return;
+    }
+  };
+
+  const handleUnlikedArticle = async (articleId: string, likedId: string) => {
+    const res = await UnlikeArticle(articleId, likedId);
+    if (res === "done") {
+      setLike(false);
+    } else {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Error updating liked article",
+          severity: "error",
+        })
+      );
     }
   };
   return {
@@ -133,6 +159,7 @@ export const useArticle = () => {
     handleUserLikeArticle,
     handleGetUserLikedArticle,
     handleFetchLikedArticles,
+    handleUnlikedArticle,
     updateLikeAsync,
     anArticle,
     categories,

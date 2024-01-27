@@ -18,11 +18,11 @@ import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
-import { useArticle } from "../custom/hooks/useArticle";
+import { likeList, useArticle } from "../custom/hooks/useArticle";
 import { getData } from "../Utilities/GetUserData";
 import { AuthorCard } from "./AuthorCard";
 import { User } from "../redux/user/model";
-
+import { useGeneral } from "../custom/hooks/useGeneral";
 
 const actionStyle = {
   display: "flex",
@@ -36,8 +36,16 @@ export const ArticleCard = (article: any) => {
   });
   const [author, setAuthor] = useState<User | any>({});
 
-  const { handleUserLikeArticle, handleGetUserLikedArticle, like } =
-    useArticle();
+  const {
+    handleUserLikeArticle,
+    handleGetUserLikedArticle,
+    handleUnlikedArticle,
+    likedArticleList,
+    setLikedArticleList,
+    like,
+  } = useArticle();
+
+  const { user } = useGeneral();
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,22 +56,38 @@ export const ArticleCard = (article: any) => {
     e.preventDefault();
     setHideComment("block");
   };
+
   const handleCloseComment = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setHideComment("none");
   };
+
   const likeArticle = async () => {
     await handleUserLikeArticle(article.id, article.title);
   };
+
   const getAuthor = async () => {
     const res = await getData(article.authorEmail);
     if (res?.exists()) {
       setAuthor(res?.data());
     }
   };
+
   const getLikedArticle = async () => {
-    await handleGetUserLikedArticle(article.id);
+    const res = await handleGetUserLikedArticle(article.id);
+    setLikedArticleList(res as likeList);
   };
+
+  const unLikeArticle = async () => {
+    const res = likedArticleList.filter((item) => item.whoId === user?.uid);
+    if (res[0].hasOwnProperty("id")) {
+      await handleUnlikedArticle(article.id, res[0].id);
+      return;
+    } else {
+      console.log("Error with  like id");
+    }
+  };
+
   useEffect(() => {
     getLikedArticle();
     getAuthor();
@@ -104,7 +128,7 @@ export const ArticleCard = (article: any) => {
         <Box sx={actionStyle}>
           <Button
             sx={{ color: "black" }}
-            onClick={likeArticle}
+            onClick={like ? unLikeArticle : likeArticle}
             endIcon={
               like ? (
                 <ThumbUpIcon sx={{ color: "#4caf50", marginTop: "-5px" }} />
