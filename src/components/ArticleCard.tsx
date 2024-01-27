@@ -89,10 +89,14 @@ export const ArticleCard = (article: any) => {
   };
 
   useEffect(() => {
-    getLikedArticle();
     getAuthor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [like]);
+
+  useEffect(() => {
+    getLikedArticle();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [like])
 
   return (
     <Paper elevation={0}>
