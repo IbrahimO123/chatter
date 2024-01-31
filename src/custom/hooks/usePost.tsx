@@ -5,6 +5,7 @@ import { updateAPost } from "../../redux/posts/slice";
 import { useState } from "react";
 import { addPostToDatabase } from "../../Utilities/AddPost";
 import { updateOtherState } from "../../redux/Others/slice";
+import { uploadImage, uploadVideo } from "../../Utilities/UploadPostFile";
 export const usePost = () => {
   const aPost = useSelector((state: RootState) => state.posts.aPost);
   const { dispatch, user, others, profileImageUrl, firstname, lastname } =
@@ -12,6 +13,7 @@ export const usePost = () => {
   const { content, likesCount } = aPost;
   const [selectedImage, setSelectedImage] = useState<File>();
   const [selectedVideo, setSelectedVideo] = useState<File>();
+  const [postButton, setPostButton] = useState(false);
 
   const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
@@ -23,13 +25,24 @@ export const usePost = () => {
   };
 
   const handleAddPost = async () => {
+    setPostButton((prev) => !prev);
     if (user?.uid) {
+      let pictureUrl = "";
+      let videoUrl = "";
+      if (selectedImage?.name) {
+        pictureUrl = (await handleImageUpload()) as string;
+      }
+      if (selectedVideo?.name) {
+        videoUrl = (await handleVideoUpload()) as string;
+      }
       const res = await addPostToDatabase(
         {
           ...aPost,
           userId: user.uid,
           author: `${firstname} ${lastname}` || user.displayName!,
           profileImageUrl,
+          picture: pictureUrl,
+          video: videoUrl,
         },
         user.uid
       );
@@ -57,6 +70,10 @@ export const usePost = () => {
             event: "",
           })
         );
+        setSelectedImage(undefined);
+        setSelectedVideo(undefined);
+        setPostButton((prev) => !prev);
+        return;
       }
     } else {
       dispatch(
@@ -68,6 +85,8 @@ export const usePost = () => {
         })
       );
     }
+    setPostButton((prev) => !prev);
+    return;
   };
   const handleSelectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length === 0) {
@@ -145,16 +164,35 @@ export const usePost = () => {
     }
     setSelectedVideo(e.target!.files![0]);
   };
+  const handleImageUpload = async () => {
+    if (selectedImage?.name) {
+      const url = await uploadImage(selectedImage);
+      return url;
+    } else {
+      console.log("select an image");
+    }
+  };
+  const handleVideoUpload = async () => {
+    if (selectedVideo?.name) {
+      const url = await uploadVideo(selectedVideo);
+      return url;
+    } else {
+      console.log("select an video");
+    }
+  };
   return {
     handleChangeContent,
     handleAddPost,
     handleSelectedImage,
     handleSelectedVideo,
+    handleVideoUpload,
+    handleImageUpload,
     content,
     likesCount,
     selectedImage,
     selectedVideo,
     setSelectedImage,
     setSelectedVideo,
+    postButton,
   };
 };
