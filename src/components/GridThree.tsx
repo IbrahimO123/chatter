@@ -1,9 +1,5 @@
-import { useDispatch } from "react-redux";
-import { getAllPhotos } from "../redux/chatbox/slice";
-
-import { useEffect } from "react";
+import { Box } from "@mui/material";
 import { projectID } from "./../config/chat-engine/index";
-
 import {
   useMultiChatLogic,
   ChatList,
@@ -16,23 +12,9 @@ const secret = "team";
 
 export const GridThree = () => {
   const chatProps = useMultiChatLogic(projectId, username, secret);
-  const dispatch = useDispatch();
 
-  const fecthPhotos = async () => {
-    try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/photos");
-      const data = await res.json();
-      dispatch(getAllPhotos(data.slice(0, 10)));
-    } catch (err: any) {
-      console.error("Error while fetching photo: ", err.message);
-    }
-  };
-  useEffect(() => {
-    fecthPhotos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
-    <>
+    <Box>
       <ChatList
         title="Chats"
         {...chatProps}
@@ -41,6 +23,6 @@ export const GridThree = () => {
       >
         <ChatForm title="Chats" />
       </ChatList>
-    </>
+    </Box>
   );
 };
