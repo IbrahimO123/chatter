@@ -6,9 +6,10 @@ import {
   Paper,
   TextField,
   Avatar,
-  Button,
+  Badge,
 } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
@@ -35,6 +36,9 @@ export const GridTwo = () => {
     handleSelectedImage,
     handleSelectedVideo,
     handleAddPost,
+    selectedImage,
+    selectedVideo,
+    postButton,
   } = usePost();
   const userPhoto = async () => {
     try {
@@ -83,8 +87,9 @@ export const GridTwo = () => {
           </Grid>
         </Grid>
         <Box sx={postStyle}>
-          <Button
+          <LoadingButton
             endIcon={<PostAddIcon />}
+            loading={postButton}
             disableElevation
             variant="contained"
             size="small"
@@ -92,11 +97,23 @@ export const GridTwo = () => {
             disabled={content.length <= 3}
           >
             Post
-          </Button>
+          </LoadingButton>
           <label onClick={() => navigate("/write")}>Write Article</label>
 
           <label htmlFor="image">
-            Photo
+            <Badge
+              badgeContent={
+                selectedImage?.name &&
+                selectedImage.type.split("/")[0] === "image" ? (
+                  <small>1</small>
+                ) : (
+                  0
+                )
+              }
+              color="primary"
+            >
+              Photo
+            </Badge>
             <TextField
               id="image"
               type="file"
@@ -111,7 +128,19 @@ export const GridTwo = () => {
           </label>
 
           <label>
-            Video
+            <Badge
+              badgeContent={
+                selectedVideo?.name &&
+                selectedVideo.type.split("/")[0] === "video" ? (
+                  <small>1</small>
+                ) : (
+                  0
+                )
+              }
+              color="primary"
+            >
+              Video
+            </Badge>
             <TextField
               sx={{ display: "none" }}
               onChange={handleSelectedVideo}
