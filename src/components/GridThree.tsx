@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { projectID } from "./../config/chat-engine/index";
 import {
   useMultiChatLogic,
@@ -14,7 +13,7 @@ export const GridThree = () => {
   const chatProps = useMultiChatLogic(projectId, username, secret);
 
   return (
-    <Box>
+    <>
       <ChatList
         title="Chats"
         {...chatProps}
@@ -23,6 +22,6 @@ export const GridThree = () => {
       >
         <ChatForm title="Chats" />
       </ChatList>
-    </Box>
+    </>
   );
 };
