@@ -190,7 +190,7 @@ export const PostCard = ({
             >
               <IconButton
                 title="Like"
-                sx={{ color: "black" }}
+                
                 onClick={likePost ? unLikePost : handleLikePost}
               >
                 {likePost ? (
