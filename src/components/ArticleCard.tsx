@@ -95,8 +95,8 @@ export const ArticleCard = (article: any) => {
 
   useEffect(() => {
     getLikedArticle();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [like])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [like]);
 
   return (
     <Paper elevation={0}>
@@ -118,7 +118,9 @@ export const ArticleCard = (article: any) => {
             alt={article.title}
           ></img>
         </Box>
-        <Typography textAlign="left">{article.text}</Typography>
+        <Typography sx={{ fontWeight: "bold" }} textAlign="left">
+          {article.text}
+        </Typography>
         <Box component="div" p={3} textAlign="left">
           {article.categories.map((category: string) => (
             <Chip
