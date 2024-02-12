@@ -8,6 +8,7 @@ import {
   CardMedia,
   IconButton,
   Avatar,
+  Divider,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
@@ -109,18 +110,23 @@ export const MiniCard = (card: MiniCardProps) => {
       ></CardHeader>
       <CardContent>
         <CardMedia
-          sx={{ height: "300px" , backgroundSize:'cover', backgroundPosition:"center"}}
+          sx={{
+            height: "300px",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
           image={card.coverImage}
           title={"Chatter_App_" + card.title}
           onClick={blogPost}
         ></CardMedia>
-        <Typography mt={2} variant="body2">
+        <Typography mt={2} variant="body2" sx={{ fontWeight: "bold" }}>
           {`${card.text?.substring(0, 300)}....`}{" "}
           <span className="read-more" onClick={blogPost}>
             Read more
           </span>
         </Typography>
       </CardContent>
+      <Divider variant="middle" />
       <CardActions sx={actionStyle}>
         <IconButton
           disableRipple
