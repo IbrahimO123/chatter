@@ -6,6 +6,21 @@ import { useState } from "react";
 import { addPostToDatabase } from "../../Utilities/AddPost";
 import { updateOtherState } from "../../redux/Others/slice";
 import { uploadImage, uploadVideo } from "../../Utilities/UploadPostFile";
+import { updateLikePostAsync } from "../../redux/like/slice";
+import { addLikePostToDatabase } from "../../Utilities/AddLike";
+import { UnLikePost } from "../../Utilities/UnLike";
+import { GetAllLikedPost } from "../../Utilities/RetrieveLiked";
+
+export type likeList = {
+  content: string;
+  postId: string;
+  id: string;
+  value: Boolean;
+  when: string;
+  who: string;
+  whoId: string;
+}[];
+
 export const usePost = () => {
   const aPost = useSelector((state: RootState) => state.posts.aPost);
   const { dispatch, user, others, profileImageUrl, firstname, lastname } =
@@ -14,7 +29,11 @@ export const usePost = () => {
   const [selectedImage, setSelectedImage] = useState<File>();
   const [selectedVideo, setSelectedVideo] = useState<File>();
   const [postButton, setPostButton] = useState(false);
+  const [likedPostList, setLikedPostList] = useState<likeList>([]);
+  const [likePost, setLikePost] = useState(false);
+  const { aLike } = useSelector((state: RootState) => state.likePosts);
 
+  //  Methods for usePost hooks
   const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateAPost({
@@ -180,6 +199,78 @@ export const usePost = () => {
       console.log("select an video");
     }
   };
+
+  const handleUserLikePost = async (postId: string, post: string) => {
+    if (user?.uid) {
+      setLikePost(true);
+      const response = await dispatch(
+        updateLikePostAsync({
+          ...aLike,
+          value: true,
+          postId,
+          content: post,
+          whoId: user.uid,
+          who: `${lastname} ${firstname}`,
+        })
+      );
+      const data = await JSON.parse(JSON.stringify(response.payload));
+      await addLikePostToDatabase(data, postId);
+      return "liked";
+    } else {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Login first",
+          severity: "error",
+        })
+      );
+      return false;
+    }
+  };
+  const handleUnLikedPost = async (postId: string, likedId: string) => {
+    const res = await UnLikePost(postId, likedId);
+    console.log(res);
+    if (res === "done") {
+      setLikePost(false);
+    } else {
+      dispatch(
+        updateOtherState({
+          ...others,
+          open: true,
+          message: "Error updating liked article",
+          severity: "error",
+        })
+      );
+    }
+  };
+  const handleGetUserLikedPost = async (postId: string) => {
+    if (user?.uid) {
+      const response = await GetAllLikedPost(postId);
+      if (response.error) {
+        console.log(response.error);
+        return;
+      } else {
+        const likedPost = response.likedPost.filter(
+          (post: any) => post.whoId === user.uid
+        );
+        if (likedPost.length > 0) {
+          setLikePost(true);
+        }
+        return response.likedPost;
+      }
+    }
+  };
+  const handleFetchLikedPosts = async (postId: string) => {
+    const response = await GetAllLikedPost(postId);
+    const { likedPost, error } = response;
+    if (error === null && likedPost.length > 0) {
+      setLikedPostList(likedPost as likeList);
+      return;
+    } else {
+      return;
+    }
+  };
   return {
     handleChangeContent,
     handleAddPost,
@@ -187,12 +278,20 @@ export const usePost = () => {
     handleSelectedVideo,
     handleVideoUpload,
     handleImageUpload,
+    handleUserLikePost,
+    handleUnLikedPost,
+    handleGetUserLikedPost,
+    handleFetchLikedPosts,
     content,
     likesCount,
     selectedImage,
     selectedVideo,
     setSelectedImage,
     setSelectedVideo,
+    setLikedPostList,
+    likedPostList,
     postButton,
+    likePost,
+    setLikePost,
   };
 };
