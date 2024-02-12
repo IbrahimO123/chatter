@@ -190,7 +190,7 @@ export const PostCard = ({
             >
               <IconButton
                 title="Like"
-                
+                sx={{ color: "black" }}
                 onClick={likePost ? unLikePost : handleLikePost}
               >
                 {likePost ? (
@@ -202,13 +202,13 @@ export const PostCard = ({
                   {likedPostList.length || null}
                 </span>
               </IconButton>
-              <IconButton title="Add Comment">
+              <IconButton title="Add Comment" sx={{ color: "black" }}>
                 <AddCommentOutlinedIcon />
               </IconButton>
-              <IconButton title="Share">
+              <IconButton title="Share" sx={{ color: "black" }}>
                 <ShareOutlinedIcon />
               </IconButton>
-              <IconButton title="Repost">
+              <IconButton title="Repost" sx={{ color: "black" }}>
                 <RepeatIcon />
               </IconButton>
             </Box>
