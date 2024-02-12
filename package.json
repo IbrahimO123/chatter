@@ -16,6 +16,7 @@
     "@types/node": "^16.18.30",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
+    "axios": "^1.6.7",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "firebase": "^9.22.0",
