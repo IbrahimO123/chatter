@@ -198,6 +198,9 @@ export const PostCard = ({
                 ) : (
                   <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
                 )}
+                <span style={{ margin: "2px", fontSize: "12px" }}>
+                  {likedPostList.length || null}
+                </span>
               </IconButton>
               <IconButton title="Add Comment">
                 <AddCommentOutlinedIcon />
