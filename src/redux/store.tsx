@@ -5,7 +5,7 @@ import { userSlice } from "./user/slice";
 import { otherSlice } from "./Others/slice";
 import { articleSlice } from "./articles/slice";
 import { saveDraftsSlice } from "./articles/slice";
-import { likeSlice } from "./like/slice";
+import { likeSlice, likePostSlice } from "./like/slice";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import storageSession from "redux-persist/lib/storage/session";
 
@@ -32,6 +32,7 @@ const persistConfig = {
     "saveDrafts",
     "comment",
     "like",
+    "likePosts"
   ],
 };
 
@@ -44,6 +45,7 @@ export const sessionReducer = combineReducers({
   saveDrafts: saveDraftsSlice.reducer,
   comment: commentSlice.reducer,
   like: likeSlice.reducer,
+  likePosts : likePostSlice.reducer
 });
 
 const persistReducers = persistReducer(persistConfig, sessionReducer);
