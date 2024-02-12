@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Tags } from "../../Utilities/Miscellaneous";
 import { SelectChangeEvent } from "@mui/material";
-import { getAllLikedArticle } from "../../Utilities/RetrieveLikedArticle";
+import { getAllLikedArticle } from "../../Utilities/RetrieveLiked";
 import { useState } from "react";
-import { addLikeArticleToDatabase } from "../../Utilities/AddLikeArticle";
+import { addLikeArticleToDatabase } from "../../Utilities/AddLike";
 import { updateLikeAsync } from "../../redux/like/slice";
-import { UnlikeArticle } from "../../Utilities/UnLikeArticle";
+import { UnlikeArticle } from "../../Utilities/UnLike";
 
 export type likeList = {
   article: string;
@@ -37,7 +37,7 @@ export const useArticle = () => {
   const [like, setLike] = useState(false);
   const saveDrafts = useSelector((state: RootState) => state.saveDrafts);
   const { aLike } = useSelector((state: RootState) => state.like);
-  const { value } = aLike;
+
   const { categories, title, text, subtitle, coverImage } = anArticle;
 
   const handleWriteArticle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -170,7 +170,6 @@ export const useArticle = () => {
     subtitle,
     coverImage,
     saveDrafts,
-    value,
     aLike,
     likedArticleList,
     setLikedArticleList,
