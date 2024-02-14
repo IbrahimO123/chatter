@@ -14,3 +14,21 @@ export const addCommentToDatabase = async (
     console.error(e.message);
   }
 };
+
+export const addPostCommentToDatabase = async (
+  data: CommentModel,
+  commentId: string
+) => {
+  try {
+    const collectionRef = collection(
+      db,
+      "postComments",
+      commentId,
+      "postComments"
+    );
+    const res = await setDoc(doc(collectionRef), data);
+    return res;
+  } catch (e: any) {
+    console.error(e.message);
+  }
+};
