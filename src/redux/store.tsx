@@ -19,7 +19,7 @@ import {
   REGISTER,
   persistStore,
 } from "redux-persist";
-import { commentSlice } from "./comment/slice";
+import { commentSlice, postCommentSlice } from "./comment/slice";
 
 const persistConfig = {
   key: "session",
@@ -32,7 +32,8 @@ const persistConfig = {
     "saveDrafts",
     "comment",
     "like",
-    "likePosts"
+    "likePosts",
+    "postComments",
   ],
 };
 
@@ -45,7 +46,8 @@ export const sessionReducer = combineReducers({
   saveDrafts: saveDraftsSlice.reducer,
   comment: commentSlice.reducer,
   like: likeSlice.reducer,
-  likePosts : likePostSlice.reducer
+  likePosts: likePostSlice.reducer,
+  postComments: postCommentSlice.reducer,
 });
 
 const persistReducers = persistReducer(persistConfig, sessionReducer);

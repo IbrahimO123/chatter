@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppComment } from "./model";
+import { AppComment, PostComment } from "./model";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: AppComment = {
@@ -67,3 +67,73 @@ export const commentSlice = createSlice({
 });
 
 export const { updateComment } = commentSlice.actions;
+
+//Post Comment Slice and Actions
+const initialPostState: PostComment = {
+  singlePostComment: {
+    id: "",
+    post: "",
+    comment: {
+      postText: "",
+      authorName: "",
+      userId: "",
+      dateCreated: "",
+      timeCreated: "",
+      profileImageUrl: "",
+      replies: [
+        {
+          postText: "",
+          authorName: "",
+          userId: "",
+          dateCreated: "",
+          timeCreated: "",
+          profileImageUrl: "",
+        },
+      ],
+      commentLikes: [],
+    },
+  },
+  allPostComments: [
+    {
+      id: "",
+      post: "",
+      comment: {
+        postText: "",
+        authorName: "",
+        userId: "",
+        dateCreated: "",
+        timeCreated: "",
+        profileImageUrl: "",
+        replies: [
+          {
+            postText: "",
+            authorName: "",
+            userId: "",
+            dateCreated: "",
+            timeCreated: "",
+            profileImageUrl: "",
+          },
+        ],
+        commentLikes: [],
+      },
+    },
+  ],
+};
+
+export const postCommentSlice = createSlice({
+  name: "post_comment_slice",
+  initialState: initialPostState,
+  reducers: {
+    updatePostComment(
+      state,
+      action: PayloadAction<PostComment["singlePostComment"]>
+    ) {
+      return {
+        ...state,
+        singlePostComment: action.payload,
+      };
+    },
+  },
+});
+
+export const { updatePostComment } = postCommentSlice.actions;
