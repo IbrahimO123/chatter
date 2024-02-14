@@ -205,8 +205,8 @@ export const PostCard = ({
                   <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
                 )}
                 <span style={{ margin: "2px", fontSize: "10px" }}>
-                  {likedPostList.hasOwnProperty("length") &&
-                  likedPostList.length > 0
+                  {likedPostList?.hasOwnProperty("length") &&
+                  likedPostList?.length > 0
                     ? likedPostList.length
                     : null}
                 </span>
