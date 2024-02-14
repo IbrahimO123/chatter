@@ -9,6 +9,8 @@ import {
   Typography,
   CardHeader,
   Divider,
+  Modal,
+  Paper,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -21,6 +23,7 @@ import { PostMenu } from "../Utilities/Miscellaneous";
 import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import { likeList, usePost } from "../custom/hooks/usePost";
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { PostComment } from "./PostComment";
 
 type postCard = {
   id: string;
@@ -51,6 +54,9 @@ export const PostCard = ({
 }: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [openCommentDialog, setOpenCommentDialog] = useState(false);
+  const handleOpenCommentDialog = () => setOpenCommentDialog(true);
+  const handleCloseCommentDialog = () => setOpenCommentDialog(false);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -198,13 +204,41 @@ export const PostCard = ({
                 ) : (
                   <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
                 )}
-                <span style={{ margin: "2px", fontSize: "12px" }}>
-                  {likedPostList.length || null}
+                <span style={{ margin: "2px", fontSize: "10px" }}>
+                  {likedPostList.hasOwnProperty("length") &&
+                  likedPostList.length > 0
+                    ? likedPostList.length
+                    : null}
                 </span>
               </IconButton>
-              <IconButton title="Add Comment" sx={{ color: "black" }}>
+
+              <IconButton
+                onClick={handleOpenCommentDialog}
+                title="Add Comment"
+                sx={{ color: "black" }}
+              >
                 <AddCommentOutlinedIcon />
               </IconButton>
+              <Modal
+                open={openCommentDialog}
+                onClose={handleCloseCommentDialog}
+                aria-labelledby="comment-dialog"
+                aria-describedby="comment for post"
+                sx={{
+                  width: "100vw",
+                  height: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Paper
+                  sx={{ minHeight: "95vh", minWidth: "32vw", margin: "10px" }}
+                  elevation={0}
+                >
+                  <PostComment commentId={id} post={content}></PostComment>
+                </Paper>
+              </Modal>
               <IconButton title="Share" sx={{ color: "black" }}>
                 <ShareOutlinedIcon />
               </IconButton>
