@@ -107,7 +107,7 @@ export const Comment = ({ commentId, article }: CommentProps) => {
         <Box>
           {error && user?.uid === undefined ? (
             <Typography color="red" m={1} p={1} variant="caption">
-              Login or signup to comment on article
+              Login or signup to comment
             </Typography>
           ) : undefined}
         </Box>
