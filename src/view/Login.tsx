@@ -110,7 +110,7 @@ const Login = () => {
     <>
       <MetaTags
         description="Login in page, user can use email and password or use google sign-in method with popup"
-        title="Chatter | Login"
+        title="Login | Chatter"
         PageTitle="Login Page, login in the application"
         typeOfPlatform="website"
         url="/login"

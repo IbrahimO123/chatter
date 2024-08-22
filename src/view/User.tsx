@@ -24,7 +24,7 @@ const User = () => {
     <>
       <MetaTags
         description="User profile page, user can view his or her details, update his or her profile and avatar image"
-        title="Chatter | Profile"
+        title="Profile | Chatter"
         PageTitle="User profile page, edit  your profile and upadte it to the app"
         typeOfPlatform="website"
         url="/user/profile"

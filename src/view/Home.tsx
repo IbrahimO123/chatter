@@ -57,18 +57,18 @@ const Home = () => {
     <>
       <MetaTags
         description="Surf the website for article to read. The article displayed are articles of your interest"
-        title="Chatter | Home"
+        title="Home | Chatter"
         PageTitle="Surf the Post to read"
         typeOfPlatform="website"
         href="/"
         url="/"
       />
       <Box component="div">
-        <Grid container p={{ xs: 0, md: 1 }} spacing={1}>
+        <Grid container p={{ xs: 0, md: 1 }} spacing={4} justifyContent="center">
           <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2}>
             <GridOne />
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={11} md={6}>
             <GridTwo />
             <Box>
               {posts && posts.length > 0 ? (

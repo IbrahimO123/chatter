@@ -60,7 +60,7 @@ const SignUp = () => {
     <>
       <MetaTags
         description="Sign up  page, user can use email and password or use google sign-in method with popup"
-        title="Chatter | Sign Up"
+        title="Sign Up | Chatter "
         PageTitle="Sign up Page, Sign up  the application"
         typeOfPlatform="website"
         url="/signup"

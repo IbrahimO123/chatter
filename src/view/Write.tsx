@@ -153,7 +153,7 @@ const WriteArticle = () => {
     <>
       <MetaTags
         description="User can create new articles, update existing articles and delete articles"
-        title="Chatter | Write"
+        title="Write | Chatter"
         PageTitle="Write article Page, user can write articles "
         typeOfPlatform="website"
         url="/write"

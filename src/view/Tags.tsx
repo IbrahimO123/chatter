@@ -13,7 +13,7 @@ const TagsPage = () => {
     <>
       <MetaTags
         description="Tags page, user can view the trending tags and click on them to see the article trending"
-        title="Chatter | Tags"
+        title="Tags | Chatter "
         PageTitle="Tags Pag for the application"
         typeOfPlatform="website"
         url="/tags"
