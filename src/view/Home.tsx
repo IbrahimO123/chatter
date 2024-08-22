@@ -64,7 +64,12 @@ const Home = () => {
         url="/"
       />
       <Box component="div">
-        <Grid container p={{ xs: 0, md: 1 }} spacing={4} justifyContent="center">
+        <Grid
+          container
+          p={{ xs: 0, md: 1 }}
+          spacing={8}
+          justifyContent="center"
+        >
           <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2}>
             <GridOne />
           </Grid>
