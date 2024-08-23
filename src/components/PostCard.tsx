@@ -159,7 +159,7 @@ export const PostCard = ({
                 <center>
                   <CardMedia
                     component="video"
-                    sx={{ width: { xs: "300px", md: "500px" } }}
+                    sx={{ width: { xs: "300px", md: "500px" }, borderRadius:"5px" }}
                     controls
                   >
                     <source src={video} type="video/mp4" />

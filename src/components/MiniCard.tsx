@@ -114,6 +114,7 @@ export const MiniCard = (card: MiniCardProps) => {
             height: "300px",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            borderRadius:"5px"
           }}
           image={card.coverImage}
           title={"Chatter_App_" + card.title}

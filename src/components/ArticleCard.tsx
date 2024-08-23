@@ -114,11 +114,12 @@ export const ArticleCard = (article: any) => {
               width: "100%",
               maxWidth: "100%",
               height: MobileView() ? "15em" : "25em",
+              borderRadius:"5px",
             }}
             alt={article.title}
           ></img>
         </Box>
-        <Typography sx={{ fontWeight: "bold" }} textAlign="left">
+        <Typography sx={{wordSpacing:"5px"}} textAlign="left">
           {article.text}
         </Typography>
         <Box component="div" p={3} textAlign="left">
