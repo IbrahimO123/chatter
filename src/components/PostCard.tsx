@@ -174,7 +174,7 @@ export const PostCard = ({
                 <center>
                   <CardMedia
                     component="img"
-                    sx={{ height: 350 }}
+                    sx={{ height: 350, borderRadius:"5px" }}
                     image={picture}
                   ></CardMedia>
                 </center>

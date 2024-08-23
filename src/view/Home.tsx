@@ -73,7 +73,7 @@ const Home = () => {
           <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2}>
             <GridOne />
           </Grid>
-          <Grid item xs={11} md={6}>
+          <Grid item xs={12} md={6}>
             <GridTwo />
             <Box>
               {posts && posts.length > 0 ? (

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
 
 * {
-    font-family: "Dosis"!important;
+    font-family: "Dosis" !important;
     font-optical-sizing: auto;
     font-style: normal;
     letter-spacing: 1.5px;
@@ -45,7 +45,6 @@ form {
 
 .label.MuiFormLabel-root {
     color: #fff;
-
 }
 
 .caption {
