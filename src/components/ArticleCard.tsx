@@ -119,7 +119,7 @@ export const ArticleCard = (article: any) => {
             alt={article.title}
           ></img>
         </Box>
-        <Typography sx={{wordSpacing:"5px"}} textAlign="left">
+        <Typography sx={{wordSpacing:"5px", letterSpacing:"1.5px"}} textAlign="left">
           {article.text}
         </Typography>
         <Box component="div" p={3} textAlign="left">
