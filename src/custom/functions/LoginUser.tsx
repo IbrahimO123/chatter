@@ -123,5 +123,17 @@ export const LoginUser = async ({
     }
   } catch (err: any) {
     console.error("Error while login in a user", err.message);
+     if (err.code === "unavailable") {
+       dispatch(
+         updateOtherState({
+           message: "Check your internet connection",
+           open: true,
+           close: false,
+           error: "",
+           loading: false,
+           severity: "error",
+         })
+       );
+     }
   }
 };

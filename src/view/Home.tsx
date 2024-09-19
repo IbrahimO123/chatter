@@ -48,7 +48,7 @@ const Home = () => {
   useEffect(() => {
     fetchAllContent();
     if (user !== null) {
-      getLoggedInUser({ user, dispatch, aUser });
+       getLoggedInUser({ user, dispatch, aUser });
     } else return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, content]);

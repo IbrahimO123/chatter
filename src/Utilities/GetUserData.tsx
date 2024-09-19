@@ -3,7 +3,7 @@ import { db } from "../config/firebase";
 import { updateAUser } from "../redux/user/slice";
 import { AppDispatch } from "../redux/store";
 import { User } from "firebase/auth";
-
+import { updateOtherState } from "../redux/Others/slice";
 
 type getLoggedInUserProps = {
   user: User | undefined | null;
@@ -12,14 +12,9 @@ type getLoggedInUserProps = {
 };
 
 export const getData = async (email: string) => {
-  try {
-    const docRef = doc(db, "users", email);
-    const docSnap = await getDoc(docRef);
-    return docSnap;
-  } catch (err: any) {
-    console.info("Error getting data");
-    console.error(err.message);
-  }
+  const docRef = doc(db, "users", email);
+  const docSnap = await getDoc(docRef);
+  return docSnap;
 };
 
 export const getLoggedInUser = async ({
@@ -76,6 +71,18 @@ export const getLoggedInUser = async ({
       }
     }
   } catch (err: any) {
-    console.error("Erro while getting signin user", err.message);
+    console.error("Error while getting signed user", err.message);
+    if (err.code === "unavailable") {
+      dispatch(
+        updateOtherState({
+          message: "Check your internet connection",
+          open: true,
+          close: false,
+          error: "",
+          loading: false,
+          severity: "error",
+        })
+      );
+    }
   }
 };

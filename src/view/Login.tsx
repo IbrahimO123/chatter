@@ -180,7 +180,7 @@ const Login = () => {
               {errMessage && <small>{errMessage}</small>}
             </p>
             <div>
-              <Button color="primary" type="submit" variant="contained">
+              <Button disableElevation color="primary" type="submit" variant="contained">
                 Login
               </Button>
               <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
@@ -201,6 +201,7 @@ const Login = () => {
                 onClick={handleGoogleSignIn}
                 sx={{ backgroundColor: "#fff", color: "#000" }}
                 variant="contained"
+                disableElevation
                 startIcon={
                   <img
                     src={GoogleLogo}

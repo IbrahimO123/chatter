@@ -24,6 +24,7 @@ import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import { likeList, usePost } from "../custom/hooks/usePost";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { PostComment } from "./PostComment";
+import { useComment } from "../custom/hooks/useComment";
 
 type postCard = {
   id: string;
@@ -63,7 +64,7 @@ export const PostCard = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { user } = useGeneral();
+  const { user,  } = useGeneral();
   const {
     handleUserLikePost,
     handleUnLikedPost,
@@ -73,6 +74,8 @@ export const PostCard = ({
     likedPostList,
     likePost,
   } = usePost();
+
+  const {fetchComments, commentsList} = useComment()
   const handleLikePost = async () => {
     await handleUserLikePost(id, content);
   };
@@ -93,6 +96,7 @@ export const PostCard = ({
 
   useEffect(() => {
     getLikedPost();
+    fetchComments(id);
     handleFetchLikedPosts(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likePost]);
@@ -152,14 +156,17 @@ export const PostCard = ({
         <Grid container textAlign="center">
           <Grid item md={12} xs={12}>
             <Box component="div" p={2} pb={0} textAlign="left">
-              <Typography >{content}</Typography>
+              <Typography>{content}</Typography>
             </Box>
             <Box p={2}>
               {video ? (
                 <center>
                   <CardMedia
                     component="video"
-                    sx={{ width: { xs: "300px", md: "500px" }, borderRadius:"5px" }}
+                    sx={{
+                      width: { xs: "300px", md: "500px" },
+                      borderRadius: "5px",
+                    }}
                     controls
                   >
                     <source src={video} type="video/mp4" />
@@ -174,7 +181,7 @@ export const PostCard = ({
                 <center>
                   <CardMedia
                     component="img"
-                    sx={{ height: 350, borderRadius:"5px" }}
+                    sx={{ height: 350, borderRadius: "5px" }}
                     image={picture}
                   ></CardMedia>
                 </center>
@@ -218,6 +225,12 @@ export const PostCard = ({
                 sx={{ color: "black" }}
               >
                 <AddCommentOutlinedIcon />
+                <span style={{ margin: "2px", fontSize: "10px" }}>
+                  {commentsList?.hasOwnProperty("length") &&
+                  commentsList?.length > 0
+                    ? commentsList.length
+                    : null}
+                </span>
               </IconButton>
               <Modal
                 open={openCommentDialog}
@@ -236,7 +249,15 @@ export const PostCard = ({
                   sx={{ minHeight: "95vh", minWidth: "32vw", margin: "10px" }}
                   elevation={0}
                 >
-                  <PostComment commentId={id} post={content}></PostComment>
+                  <PostComment
+                    commentId={id}
+                    post={content}
+                    video={video}
+                    picture={picture}
+                    author={author}
+                    profileImageUrl={profileImageUrl}
+                    dateCreated={dateCreated}
+                  ></PostComment>
                 </Paper>
               </Modal>
               <IconButton title="Share" sx={{ color: "black" }}>

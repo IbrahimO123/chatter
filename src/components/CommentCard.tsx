@@ -66,7 +66,6 @@ export const CommentCard = (props: CommentModel) => {
           >
             {props.comment.dateCreated}{" "}
             <span style={{ marginLeft: "10px" }}>
-              {" "}
               {props.comment.timeCreated}
             </span>
           </Typography>

@@ -95,6 +95,18 @@ export const signUpUser = async ({
           loading: false,
         })
       );
+       if (err.code === "unavailable") {
+         dispatch(
+           updateOtherState({
+             message: "Check your internet connection",
+             open: true,
+             close: false,
+             error: "",
+             loading: false,
+             severity: "error",
+           })
+         );
+       }
       return setErrMessage("Email already used for another sign in method");
     }
   }

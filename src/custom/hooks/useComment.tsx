@@ -103,6 +103,7 @@ export const useComment = () => {
     if (error === null && comments.length > 0) {
       setPostCommentsList(comments as typeof allPostComments);
     } else {
+      console.log(error || "Error fetching comments")
     }
   };
   return {
