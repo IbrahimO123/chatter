@@ -18,6 +18,7 @@ const initialState: AppPosts = {
       timeCreated: new Date().toISOString(),
       dateCreated: new Date().toISOString(),
       profileImageUrl: "",
+      email: "",
     },
   ],
   aPost: {
@@ -34,6 +35,7 @@ const initialState: AppPosts = {
     timeCreated: new Date().toISOString(),
     dateCreated: new Date().toISOString(),
     profileImageUrl: "",
+    email: "",
   },
 };
 

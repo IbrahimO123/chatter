@@ -25,6 +25,7 @@ import { likeList, usePost } from "../custom/hooks/usePost";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { PostComment } from "./PostComment";
 import { useComment } from "../custom/hooks/useComment";
+import { ProfileCard } from "./ProfileCard";
 
 type postCard = {
   id: string;
@@ -41,6 +42,7 @@ type postCard = {
   timeCreated: string;
   dateCreated: string;
   profileImageUrl: string;
+  email: string;
 };
 
 export const PostCard = ({
@@ -52,19 +54,22 @@ export const PostCard = ({
   dateCreated,
   userId,
   id,
+  email,
 }: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [openCard, setOpenCard] = useState(false);
   const [openCommentDialog, setOpenCommentDialog] = useState(false);
   const handleOpenCommentDialog = () => setOpenCommentDialog(true);
   const handleCloseCommentDialog = () => setOpenCommentDialog(false);
+  const handleCloseCard = () => setOpenCard(false);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { user,  } = useGeneral();
+  const { user } = useGeneral();
   const {
     handleUserLikePost,
     handleUnLikedPost,
@@ -75,7 +80,7 @@ export const PostCard = ({
     likePost,
   } = usePost();
 
-  const {fetchComments, commentsList} = useComment()
+  const { fetchComments, commentsList } = useComment();
   const handleLikePost = async () => {
     await handleUserLikePost(id, content);
   };
@@ -117,6 +122,7 @@ export const PostCard = ({
           }}
         >
           <CardHeader
+            onClick={() => setOpenCard(true)}
             avatar={
               <Avatar
                 src={profileImageUrl}
@@ -133,6 +139,28 @@ export const PostCard = ({
               </small>
             }
           ></CardHeader>
+          <Modal
+            open={openCard}
+            onClose={handleCloseCard}
+            sx={{ display: "grid", placeItems: "center" }}
+          >
+            <Paper
+              elevation={0}
+              sx={{
+                height: "220px",
+                width: "250px",
+                borderRadius:"10px",
+                backgroundColor: "#4caf50",
+                color: "black",
+              }}
+            >
+              <ProfileCard
+                author={author}
+                email={email}
+                profileImg={profileImageUrl}
+              ></ProfileCard>
+            </Paper>
+          </Modal>
           <Box>
             <IconButton
               aria-label="more"

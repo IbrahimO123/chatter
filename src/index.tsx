@@ -10,7 +10,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import { HelmetProvider } from "react-helmet-async";
 import { Hourglass } from "react-loader-spinner";
 
-
 export const Loader = () => {
   const loaderStyle = {
     position: "absolute",
@@ -39,13 +38,11 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <HelmetProvider>
-         
-            <Suspense fallback={<Loader />}>
-              <Router>
-                <App />
-              </Router>
-            </Suspense>
-          
+          <Suspense fallback={<Loader />}>
+            <Router>
+              <App />
+            </Router>
+          </Suspense>
         </HelmetProvider>
       </PersistGate>
     </Provider>

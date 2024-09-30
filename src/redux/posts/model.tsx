@@ -12,6 +12,7 @@ export type Post = {
   timeCreated: string;
   dateCreated: string;
   profileImageUrl: string;
+  email:string;
 };
 
 export type AppPosts = {
