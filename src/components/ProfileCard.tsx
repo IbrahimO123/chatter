@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 
 type ProfileCardType = {
   profileImg: string;
@@ -8,7 +8,16 @@ type ProfileCardType = {
 
 export const ProfileCard = ({ profileImg, author, email }: ProfileCardType) => {
   return (
-    <section>
+    <Paper
+      elevation={0}
+      sx={{
+        height: "220px",
+        width: "250px",
+        borderRadius: "10px",
+        backgroundColor: "#4caf50",
+        color: "black",
+      }}
+    >
       <Box m={4} mt={2} sx={{ display: "grid", placeItems: "center" }}>
         <Box component="div" sx={{ textAlign: "center" }}>
           <Avatar
@@ -33,6 +42,6 @@ export const ProfileCard = ({ profileImg, author, email }: ProfileCardType) => {
           Follow
         </Button>
       </Box>
-    </section>
+    </Paper>
   );
 };

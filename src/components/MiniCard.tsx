@@ -9,6 +9,7 @@ import {
   IconButton,
   Avatar,
   Divider,
+  Modal,
 } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
@@ -21,6 +22,7 @@ import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { useComment } from "../custom/hooks/useComment";
 import { useArticle } from "../custom/hooks/useArticle";
+import { ProfileCard } from "./ProfileCard";
 
 const actionStyle = {
   display: "flex",
@@ -40,6 +42,7 @@ type MiniCardProps = {
   coverImage: string;
   text: string;
   title: string;
+  email: string;
 };
 export const MiniCard = (card: MiniCardProps) => {
   const { navigate } = useGeneral();
@@ -56,6 +59,11 @@ export const MiniCard = (card: MiniCardProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [openCard, setOpenCard] = useState(false);
+  const handleCloseCard = () => {
+    setOpenCard(false);
+  };
   useEffect(() => {
     fetchComments(card.id);
     handleFetchLikedArticles(card.id);
@@ -71,6 +79,7 @@ export const MiniCard = (card: MiniCardProps) => {
             src={card.profileImageUrl || " "}
             alt={card.authorName ? card.authorName + " picture" : ""}
             title={card.authorName || ""}
+            onClick={() => setOpenCard(true)}
           />
         }
         title={
@@ -108,19 +117,30 @@ export const MiniCard = (card: MiniCardProps) => {
           </small>
         }
       ></CardHeader>
+      <Modal
+        open={openCard}
+        onClose={handleCloseCard}
+        sx={{ display: "grid", placeItems: "center" }}
+      >
+        <ProfileCard
+          author={card.authorName}
+          email={card.email}
+          profileImg={card.profileImageUrl}
+        ></ProfileCard>
+      </Modal>
       <CardContent>
         <CardMedia
           sx={{
             height: "300px",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            borderRadius:"5px"
+            borderRadius: "5px",
           }}
           image={card.coverImage}
           title={"Chatter_App_" + card.title}
           onClick={blogPost}
         ></CardMedia>
-        <Typography mt={2} variant="body2" >
+        <Typography mt={2} variant="body2">
           {`${card.text?.substring(0, 300)}....`}{" "}
           <span className="read-more" onClick={blogPost}>
             Read more

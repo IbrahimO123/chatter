@@ -142,24 +142,13 @@ export const PostCard = ({
           <Modal
             open={openCard}
             onClose={handleCloseCard}
-            sx={{ display: "grid", placeItems: "center" }}
+           
           >
-            <Paper
-              elevation={0}
-              sx={{
-                height: "220px",
-                width: "250px",
-                borderRadius:"10px",
-                backgroundColor: "#4caf50",
-                color: "black",
-              }}
-            >
-              <ProfileCard
-                author={author}
-                email={email}
-                profileImg={profileImageUrl}
-              ></ProfileCard>
-            </Paper>
+            <ProfileCard
+              author={author}
+              email={email}
+              profileImg={profileImageUrl}
+            ></ProfileCard>
           </Modal>
           <Box>
             <IconButton
