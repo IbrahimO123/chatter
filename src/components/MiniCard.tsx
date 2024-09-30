@@ -43,6 +43,7 @@ type MiniCardProps = {
   text: string;
   title: string;
   email: string;
+  authorEmail: string;
 };
 export const MiniCard = (card: MiniCardProps) => {
   const { navigate } = useGeneral();
@@ -124,7 +125,7 @@ export const MiniCard = (card: MiniCardProps) => {
       >
         <ProfileCard
           author={card.authorName}
-          email={card.email}
+          email={card.authorEmail}
           profileImg={card.profileImageUrl}
         ></ProfileCard>
       </Modal>

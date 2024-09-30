@@ -11,11 +11,12 @@ export const ProfileCard = ({ profileImg, author, email }: ProfileCardType) => {
     <Paper
       elevation={0}
       sx={{
-        height: "220px",
-        width: "250px",
+        height: "260px",
+        width: "300px",
         borderRadius: "10px",
         backgroundColor: "#4caf50",
         color: "black",
+        padding: "10px",
       }}
     >
       <Box m={4} mt={2} sx={{ display: "grid", placeItems: "center" }}>
@@ -27,8 +28,24 @@ export const ProfileCard = ({ profileImg, author, email }: ProfileCardType) => {
             sx={{ width: "100px", height: "100px" }}
           ></Avatar>
         </Box>
-        <Typography sx={{ margin: "2px" }}>Name: {author}</Typography>
-        {email ? <Typography>Email: {email} </Typography> : null}
+        <Typography
+          variant="subtitle2"
+          sx={{ margin: "2px", fontWeight: "bolder" }}
+        >
+          Name:
+        </Typography>
+        <Typography> {author}</Typography>
+        {email ? (
+          <>
+            <Typography
+              variant="subtitle2"
+              sx={{ fontWeight: "bolder" }}
+            >
+              Email:
+            </Typography>
+            <Typography> {email}</Typography>
+          </>
+        ) : null}
 
         <Button
           sx={{
