@@ -142,7 +142,7 @@ export const PostCard = ({
           <Modal
             open={openCard}
             onClose={handleCloseCard}
-           
+            sx={{ display: "grid", placeItems: "center" }}
           >
             <ProfileCard
               author={author}

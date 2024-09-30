@@ -17,7 +17,6 @@ export const GridThree = () => {
       <ChatList
         title="Chats"
         {...chatProps}
-        
         style={{ maxWidth: "400px", borderRadius: "5px", maxHeight: "900px" }}
       >
         <ChatForm title="Chats" />
