@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import parse from "html-react-parser";
+import { mdParser } from "./Editors";
 import {
   Container,
   Typography,
@@ -114,13 +116,16 @@ export const ArticleCard = (article: any) => {
               width: "100%",
               maxWidth: "100%",
               height: MobileView() ? "15em" : "25em",
-              borderRadius:"5px",
+              borderRadius: "5px",
             }}
             alt={article.title}
           ></img>
         </Box>
-        <Typography sx={{wordSpacing:"5px", letterSpacing:"1.5px"}} textAlign="left">
-          {article.text}
+        <Typography
+          sx={{ wordSpacing: "5px", letterSpacing: "1.5px" }}
+          textAlign="left"
+        >
+          {parse(mdParser.render(article.text))}
         </Typography>
         <Box component="div" p={3} textAlign="left">
           {article.categories.map((category: string) => (

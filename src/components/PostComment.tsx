@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Stack,
   TextField,
@@ -9,6 +10,7 @@ import {
   CardMedia,
   CardHeader,
   Avatar,
+  IconButton,
 } from "@mui/material";
 import { useComment } from "../custom/hooks/useComment";
 import { useGeneral } from "../custom/hooks/useGeneral";
@@ -18,6 +20,7 @@ import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import ScrollToTop from "./ScrollToTop";
 
 export const style = {
+  width:"70%",
   "& .MuiOutlinedInput-root": {
     marginRight: "10px",
     "&.Mui-focused fieldset": {
@@ -34,6 +37,7 @@ type CommentProps = {
   author: string;
   profileImageUrl: string;
   dateCreated?: string;
+  handleCloseCard: () => void;
 };
 
 export const PostComment = ({
@@ -44,6 +48,7 @@ export const PostComment = ({
   author,
   profileImageUrl,
   dateCreated,
+  handleCloseCard
 }: CommentProps) => {
   const { user, dispatch, updateOtherState, others } = useGeneral();
   const {
@@ -110,30 +115,47 @@ export const PostComment = ({
           maxHeight: "calc(100vh - 100px)",
           overflowY: "auto",
           width: "450px",
+          m: 0,
+          p: 0,
         }}
       >
         <Box component="div">
-          <CardHeader
-            avatar={
-              <Avatar
-                src={profileImageUrl}
-                alt={`${author} picture`}
-                title={author}
-              ></Avatar>
-            }
-            title={<h3 style={{ wordWrap: "break-word" }}>{author}</h3>}
-            subheader={
-              <small style={{ lineHeight: 0 }}>
-                <Typography component="span" variant="caption">
-                  {getTimeDifferenceString(dateCreated || "") || "1 second ago"}
-                </Typography>
-              </small>
-            }
-          ></CardHeader>
-          <Box component="div"  pl={2} textAlign="left">
+          <Box sx={{float:"right"}} >
+            <IconButton onClick={handleCloseCard} >
+              <CancelIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <CardHeader
+              avatar={
+                <Avatar
+                  src={profileImageUrl}
+                  alt={`${author} picture`}
+                  title={author}
+                ></Avatar>
+              }
+              title={<h3 style={{ wordWrap: "break-word" }}>{author}</h3>}
+              subheader={
+                <small style={{ lineHeight: 0 }}>
+                  <Typography component="span" variant="caption">
+                    {getTimeDifferenceString(dateCreated || "") ||
+                      "1 second ago"}
+                  </Typography>
+                </small>
+              }
+            ></CardHeader>
+          </Box>
+          <Box component="div" pl={2} textAlign="left">
             <Typography>{post}</Typography>
           </Box>
-          <Box p={2}>
+          {
+            video ? <Box p={2}>
             {video ? (
               <center>
                 <CardMedia
@@ -150,8 +172,10 @@ export const PostComment = ({
                 </CardMedia>
               </center>
             ) : null}
-          </Box>
-          <Box p={2}>
+          </Box> : null
+          }
+       {
+        picture ?    <Box p={2}>
             {picture ? (
               <center>
                 <CardMedia
@@ -161,31 +185,41 @@ export const PostComment = ({
                 ></CardMedia>
               </center>
             ) : null}
-          </Box>
+          </Box> : null
+       }
         </Box>
         <Box mt={1}>
-          <TextField
-            value={text}
-            sx={style}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              addComment(e, commentId, post)
-            }
-            name="text"
-            className="comment-text"
-            multiline
-            placeholder="Write your comment..."
-          ></TextField>
-          <Button
-            disabled={text === "" || text.trim() === ""}
-            onClick={handleUserComment}
-            disableFocusRipple
-            size="small"
-            color="primary"
-            variant="contained"
-            disableElevation
+          <Stack
+            direction={{ md: "row", xs: "column" }}
+            spacing={2}
+            p={2}
+            height={40}
           >
-            Post
-          </Button>
+            <TextField
+              value={text}
+              sx={style}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                addComment(e, commentId, post)
+              }
+              
+              name="text"
+              className="comment-text"
+              multiline
+              placeholder="Write your comment..."
+            ></TextField>
+            <Button
+              disabled={text === "" || text.trim() === ""}
+              onClick={handleUserComment}
+              disableFocusRipple
+              size="small"
+              color="primary"
+              variant="contained"
+              disableElevation
+              sx={{ marginBottom: { xs: "10px" } }}
+            >
+              Post
+            </Button>
+          </Stack>
         </Box>
         <Box>
           <Box>
@@ -197,7 +231,13 @@ export const PostComment = ({
           </Box>
           {commentsList.length > 0 ? (
             <List>
-              <Typography component="h3" variant="h5" m={1} p={1}>
+              <Typography
+                component="h3"
+                variant="h5"
+                m={1}
+                mt={{ xs: 6 }}
+                p={1}
+              >
                 Comments:
               </Typography>
               {commentsList.map((result: typeof aComment) => (
@@ -205,7 +245,7 @@ export const PostComment = ({
               ))}
             </List>
           ) : (
-            <Typography m={1} p={1} variant="caption">
+            <Typography m={1} p={1} mt={{ xs: 7 }} variant="caption">
               No comments yet, be the first.
             </Typography>
           )}

@@ -15,6 +15,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { CommentModel } from "../redux/comment/model";
 import { style } from "./Comment";
 
+
 export const CommentCard = (props: CommentModel) => {
   const [commentLike, setCommentLike] = useState(false);
   const [showCommentReply, setShowCommentReply] = useState("none");
@@ -33,11 +34,12 @@ export const CommentCard = (props: CommentModel) => {
     <Card
       sx={{
         bgcolor: "#e8f5e9",
-        margin: "10px",
+        margin: "15px",
+        marginBottom:"25px",
         color: "#000",
         padding: "5px",
         borderRadius: "3px",
-        width: { md: "30vw", xs: "90vw" },
+        width: { md: "25vw", xs: "80vw" },
       }}
       elevation={0}
       key={props.comment.text}

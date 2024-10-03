@@ -260,10 +260,19 @@ export const PostCard = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  m:0,
+                  p:0,
                 }}
               >
                 <Paper
-                  sx={{ minHeight: "95vh", minWidth: "32vw", margin: "10px" }}
+                  sx={{
+                    minHeight: "75vh",
+                    minWidth: "32vw",
+                    m:0,
+                    p:0,
+                    display: "flex",
+                    justifyContent: "start",
+                  }}
                   elevation={0}
                 >
                   <PostComment
@@ -274,6 +283,7 @@ export const PostCard = ({
                     author={author}
                     profileImageUrl={profileImageUrl}
                     dateCreated={dateCreated}
+                    handleCloseCard={handleCloseCommentDialog}
                   ></PostComment>
                 </Paper>
               </Modal>
