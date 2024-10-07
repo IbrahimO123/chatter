@@ -162,7 +162,7 @@ export const PostComment = ({
                   <CardMedia
                     component="video"
                     sx={{
-                      width: "400px",
+                      width: "90% ",
                       borderRadius: "5px",
                     }}
                     controls
