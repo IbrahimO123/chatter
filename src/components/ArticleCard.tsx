@@ -103,7 +103,7 @@ export const ArticleCard = (article: any) => {
   return (
     <Paper elevation={0}>
       <Container sx={{ textAlign: "center" }}>
-        <Typography m={2} component="p" variant="h3">
+        <Typography m={2} component="p" variant={MobileView() ? "h5" : "h4"}>
           {article.title}
         </Typography>
         <Typography component="h1" variant="h6">

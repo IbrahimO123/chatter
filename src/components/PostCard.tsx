@@ -255,8 +255,7 @@ export const PostCard = ({
                 aria-labelledby="comment-dialog"
                 aria-describedby="comment for post"
                 sx={{
-                  width: "100vw",
-                  height: "100vh",
+                  
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -266,12 +265,10 @@ export const PostCard = ({
               >
                 <Paper
                   sx={{
-                    minHeight: "75vh",
-                    minWidth: "32vw",
+                    minHeight: "90vh",
+                    width: "380px",
                     m:0,
                     p:0,
-                    display: "flex",
-                    justifyContent: "start",
                   }}
                   elevation={0}
                 >

@@ -1,13 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../Utilities/RetrieveArticle";
-import {  Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { ArticleCard } from "../components/ArticleCard";
 import { MiniSkeleton } from "../components/MiniSkeleton";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
-
 
 const SingleArticle = () => {
   const { user, dispatch, aUser } = useGeneral();
@@ -55,7 +54,7 @@ const SingleArticle = () => {
         url={`/articles/single/${authorName}/${articleId}/${title}`}
         href={`/articles/single/${authorName}/${articleId}/${title}`}
       />
-      <Container>
+      <Box sx={{ mt: -2 }}>
         {isLoading ? (
           <MiniSkeleton />
         ) : (
@@ -63,8 +62,7 @@ const SingleArticle = () => {
             <ArticleCard {...article} key={article.id} />
           ))
         )}
-       
-      </Container>
+      </Box>
     </>
   );
 };

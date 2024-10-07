@@ -39,7 +39,7 @@ export const CommentCard = (props: CommentModel) => {
         color: "#000",
         padding: "5px",
         borderRadius: "3px",
-        width: { md: "25vw", xs: "80vw" },
+        width: { md: "25vw", xs: "90vw" },
       }}
       elevation={0}
       key={props.comment.text}

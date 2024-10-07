@@ -20,9 +20,11 @@ import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
 import ScrollToTop from "./ScrollToTop";
 
 export const style = {
-  width:"70%",
+  width: "100%",
+
   "& .MuiOutlinedInput-root": {
     marginRight: "10px",
+    marginBottom: "5px",
     "&.Mui-focused fieldset": {
       border: " 0.5px solid black",
     },
@@ -48,7 +50,7 @@ export const PostComment = ({
   author,
   profileImageUrl,
   dateCreated,
-  handleCloseCard
+  handleCloseCard,
 }: CommentProps) => {
   const { user, dispatch, updateOtherState, others } = useGeneral();
   const {
@@ -109,19 +111,18 @@ export const PostComment = ({
 
   return (
     <ScrollToTop>
-      <Stack
-        textAlign="center"
+      <Box
         sx={{
-          maxHeight: "calc(100vh - 100px)",
+          maxHeight: "calc(100vh - 50px)",
           overflowY: "auto",
-          width: "450px",
+          width: { xs: "370px", md: "400px" },
           m: 0,
           p: 0,
         }}
       >
         <Box component="div">
-          <Box sx={{float:"right"}} >
-            <IconButton onClick={handleCloseCard} >
+          <Box sx={{ float: "right" }}>
+            <IconButton onClick={handleCloseCard}>
               <CancelIcon />
             </IconButton>
           </Box>
@@ -154,86 +155,87 @@ export const PostComment = ({
           <Box component="div" pl={2} textAlign="left">
             <Typography>{post}</Typography>
           </Box>
-          {
-            video ? <Box p={2}>
-            {video ? (
-              <center>
-                <CardMedia
-                  component="video"
-                  sx={{
-                    width: "400px",
-                    borderRadius: "5px",
-                  }}
-                  controls
-                >
-                  <source src={video} type="video/mp4" />
-                  <source src={video} type="video/webm" />
-                  <p>Your browser doesn't support HTML5 video.</p>
-                </CardMedia>
-              </center>
-            ) : null}
-          </Box> : null
-          }
-       {
-        picture ?    <Box p={2}>
-            {picture ? (
-              <center>
-                <CardMedia
-                  component="img"
-                  sx={{ height: 250, width: "100%", borderRadius: "5px" }}
-                  image={picture}
-                ></CardMedia>
-              </center>
-            ) : null}
-          </Box> : null
-       }
+          {video ? (
+            <Box p={2}>
+              {video ? (
+                <center>
+                  <CardMedia
+                    component="video"
+                    sx={{
+                      width: "400px",
+                      borderRadius: "5px",
+                    }}
+                    controls
+                  >
+                    <source src={video} type="video/mp4" />
+                    <source src={video} type="video/webm" />
+                    <p>Your browser doesn't support HTML5 video.</p>
+                  </CardMedia>
+                </center>
+              ) : null}
+            </Box>
+          ) : null}
+          {picture ? (
+            <Box p={2}>
+              {picture ? (
+                <center>
+                  <CardMedia
+                    component="img"
+                    sx={{ height: 250, width: "100%", borderRadius: "5px" }}
+                    image={picture}
+                  ></CardMedia>
+                </center>
+              ) : null}
+            </Box>
+          ) : null}
         </Box>
         <Box mt={1}>
-          <Stack
-            direction={{ md: "row", xs: "column" }}
-            spacing={2}
-            p={2}
-            height={40}
-          >
+          <Stack direction={{ md: "row", xs: "column" }} p={1}>
             <TextField
               value={text}
               sx={style}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 addComment(e, commentId, post)
               }
-              
               name="text"
               className="comment-text"
               multiline
               placeholder="Write your comment..."
             ></TextField>
             <Button
-              disabled={text === "" || text.trim() === ""}
+              disabled={text.trim() === ""}
               onClick={handleUserComment}
-              disableFocusRipple
-              size="small"
+              size="medium"
               color="primary"
               variant="contained"
               disableElevation
-              sx={{ marginBottom: { xs: "10px" } }}
+              sx={{ width: { xs: "150px" } , textTransform:"capitalize"}}
             >
               Post
             </Button>
           </Stack>
         </Box>
         <Box>
-          <Box>
-            {error && user?.uid === undefined ? (
-              <Typography color="red" m={1} p={1} variant="caption">
-                Login or signup to comment on article
-              </Typography>
-            ) : undefined}
-          </Box>
+          {error ? (
+            <Box>
+              {error && user?.uid === undefined ? (
+                <Typography
+                  color="red"
+                  m={1}
+                  p={1}
+                  variant="caption"
+                  display="block"
+                >
+                  Login or signup to comment on article
+                </Typography>
+              ) : undefined}
+            </Box>
+          ) : null}
           {commentsList.length > 0 ? (
             <List>
               <Typography
                 component="h3"
-                variant="h5"
+                variant="h6"
                 m={1}
                 mt={{ xs: 6 }}
                 p={1}
@@ -245,12 +247,18 @@ export const PostComment = ({
               ))}
             </List>
           ) : (
-            <Typography m={1} p={1} mt={{ xs: 7 }} variant="caption">
+            <Typography
+              m={1}
+              textAlign="center"
+              sx={{ display: "block" }}
+              mt={10}
+              variant="caption"
+            >
               No comments yet, be the first.
             </Typography>
           )}
         </Box>
-      </Stack>
+      </Box>
     </ScrollToTop>
   );
 };
