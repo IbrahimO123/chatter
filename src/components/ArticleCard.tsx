@@ -25,6 +25,7 @@ import { getData } from "../Utilities/GetUserData";
 import { AuthorCard } from "./AuthorCard";
 import { User } from "../redux/user/model";
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { ShareComponent } from "./Share";
 
 const actionStyle = {
   display: "flex",
@@ -48,7 +49,8 @@ export const ArticleCard = (article: any) => {
   } = useArticle();
 
   const { user } = useGeneral();
-
+  const [openShare, setOpenShare] = useState<null | HTMLElement>(null);
+  const openShareMenu = Boolean(openShare);
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -62,6 +64,12 @@ export const ArticleCard = (article: any) => {
   const handleCloseComment = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setHideComment("none");
+  };
+  const handleClickShare = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenShare(event.currentTarget);
+  };
+  const handleCloseShare = () => {
+    setOpenShare(null);
   };
 
   const likeArticle = async () => {
@@ -161,9 +169,24 @@ export const ArticleCard = (article: any) => {
           >
             Comment
           </Button>
-          <Button sx={{ color: "black" }} endIcon={<ShareOutlinedIcon />}>
+          <Button
+            title="share"
+            aria-label="more"
+            id="long-button"
+            aria-controls={openShareMenu ? "menu" : undefined}
+            aria-expanded={openShareMenu ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleClickShare}
+            sx={{ color: "black" }}
+            endIcon={<ShareOutlinedIcon />}
+          >
             Share
           </Button>
+          <ShareComponent
+            handleClose={handleCloseShare}
+            open={openShareMenu}
+            anchorEl={openShare}
+          ></ShareComponent>
         </Box>
         <Box component="div" sx={{ display: hideComment }}>
           <Comment commentId={article.id} article={article.title} />

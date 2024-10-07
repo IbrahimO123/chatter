@@ -15,7 +15,6 @@ import {
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { MenuComponent } from "./MenuComponent";
@@ -26,6 +25,7 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import { PostComment } from "./PostComment";
 import { useComment } from "../custom/hooks/useComment";
 import { ProfileCard } from "./ProfileCard";
+
 
 type postCard = {
   id: string;
@@ -58,6 +58,7 @@ export const PostCard = ({
 }: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  
   const [openCard, setOpenCard] = useState(false);
   const [openCommentDialog, setOpenCommentDialog] = useState(false);
   const handleOpenCommentDialog = () => setOpenCommentDialog(true);
@@ -255,20 +256,19 @@ export const PostCard = ({
                 aria-labelledby="comment-dialog"
                 aria-describedby="comment for post"
                 sx={{
-                  
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  m:0,
-                  p:0,
+                  m: 0,
+                  p: 0,
                 }}
               >
                 <Paper
                   sx={{
                     minHeight: "90vh",
                     width: "380px",
-                    m:0,
-                    p:0,
+                    m: 0,
+                    p: 0,
                   }}
                   elevation={0}
                 >
@@ -284,9 +284,6 @@ export const PostCard = ({
                   ></PostComment>
                 </Paper>
               </Modal>
-              <IconButton title="Share" sx={{ color: "black" }}>
-                <ShareOutlinedIcon />
-              </IconButton>
               <IconButton title="Repost" sx={{ color: "black" }}>
                 <RepeatIcon />
               </IconButton>
