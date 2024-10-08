@@ -181,7 +181,7 @@ export const PostComment = ({
                 <center>
                   <CardMedia
                     component="img"
-                    sx={{ height: 250, width: "100%", borderRadius: "5px" }}
+                    sx={{ height: 200, width: "100%", borderRadius: "5px" }}
                     image={picture}
                   ></CardMedia>
                 </center>
@@ -237,7 +237,7 @@ export const PostComment = ({
                 component="h3"
                 variant="h6"
                 m={1}
-                mt={{ xs: 6 }}
+                mt={{ xs: 6, md:1 }}
                 p={1}
               >
                 Comments:
