@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Chatterton",
+  "name": "Writer, write about an article, steps to make an item or delicacy,  reader can read and comment on the article. Chat with the reader, get perferred feeds and trending articles and much more.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "circular_saw.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "circular_saw.png",
       "type": "image/png",
       "sizes": "512x512"
     }
