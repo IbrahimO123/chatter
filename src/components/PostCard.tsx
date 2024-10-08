@@ -265,7 +265,7 @@ export const PostCard = ({
                 <Paper
                   sx={{
                     minHeight: "90vh",
-                    width: { md: "400px", xs: "95vw" },
+                    width: { md: "400px", xs: "100vw" },
                     m: 0,
                     p: 0,
                   }}

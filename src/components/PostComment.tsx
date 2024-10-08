@@ -120,7 +120,7 @@ export const PostComment = ({
           p: 0,
         }}
       >
-        <Box component="div">
+        <Box component="div" p={1}>
           <Box sx={{ float: "right" }}>
             <IconButton onClick={handleCloseCard}>
               <CancelIcon />
