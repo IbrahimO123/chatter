@@ -47,17 +47,17 @@ export const AuthorCard = (props: User) => {
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <IconButton disableRipple>
-          <Link to={"" || props.facebookHandle} target="_blank">
+          <Link to={props.facebookHandle || ""} target="_blank">
             <FacebookIcon color="primary" />
           </Link>
         </IconButton>
         <IconButton disableRipple>
-          <Link to={"" || props.twitterHandle} target="_blank">
+          <Link to={props.twitterHandle || ""} target="_blank">
             <TwitterIcon color="info" />
           </Link>
         </IconButton>
         <IconButton disableRipple>
-          <Link to={"" || props.linkedInHandle} target="_blank">
+          <Link to={props.linkedInHandle || ""} target="_blank">
             <LinkedInIcon color="primary" />
           </Link>
         </IconButton>

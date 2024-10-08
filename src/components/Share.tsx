@@ -15,7 +15,6 @@ import {
 } from "react-share";
 import { Menu, MenuItem, Fade, Typography } from "@mui/material";
 
-
 type ShareProps = {
   handleClose: () => void;
   open: boolean;
@@ -60,9 +59,16 @@ const shareButtonsData = [
 ];
 
 export const ShareComponent = ({ handleClose, open, anchorEl }: ShareProps) => {
+  const url = window.location.href;
   return (
     <Menu
-      sx={{ left: 0, right: 5, padding: "0" }}
+      sx={{
+        left: 0,
+        right: 5,
+        padding: "0",
+        display: "flex",
+        justifyContent: "space-between",
+      }}
       id="fade-menu"
       MenuListProps={{
         "aria-labelledby": "fade-button",
@@ -74,10 +80,44 @@ export const ShareComponent = ({ handleClose, open, anchorEl }: ShareProps) => {
     >
       {shareButtonsData.map((item, index) => (
         <MenuItem key={index}>
-          {item.logo}
-          <Typography sx={{ fontSize: "13px" }} ml={1}>
-            {item.value}
-          </Typography>
+          {item.value === "Whatsapp" ? (
+            <Stack>
+              <WhatsappShareButton url={url} style={{ display: "flex" }}>
+                {item.logo}
+                <Typography sx={{ fontSize: "13px" }} ml={1}>
+                  {item.value}
+                </Typography>
+              </WhatsappShareButton>
+            </Stack>
+          ) : item.value === "Facebook" ? (
+            <FacebookShareButton url={url} style={{ display: "flex" }}>
+              {item.logo}
+              <Typography sx={{ fontSize: "13px" }} ml={1}>
+                {item.value}
+              </Typography>
+            </FacebookShareButton>
+          ) : item.value === "Twitter" ? (
+            <TwitterShareButton url={url} style={{ display: "flex" }}>
+              {item.logo}
+              <Typography sx={{ fontSize: "13px" }} ml={1}>
+                {item.value}
+              </Typography>
+            </TwitterShareButton>
+          ) : item.value === "Linkedin" ? (
+            <LinkedinShareButton url={url} style={{ display: "flex" }}>
+              {item.logo}
+              <Typography sx={{ fontSize: "13px" }} ml={1}>
+                {item.value}
+              </Typography>
+            </LinkedinShareButton>
+          ) : item.value === "Telegram" ? (
+            <TelegramShareButton url={url} style={{ display: "flex" }}>
+              {item.logo}
+              <Typography sx={{ fontSize: "13px" }} ml={1}>
+                {item.value}
+              </Typography>
+            </TelegramShareButton>
+          ) : null}
         </MenuItem>
       ))}
     </Menu>

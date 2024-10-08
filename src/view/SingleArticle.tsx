@@ -54,7 +54,7 @@ const SingleArticle = () => {
         url={`/articles/single/${authorName}/${articleId}/${title}`}
         href={`/articles/single/${authorName}/${articleId}/${title}`}
       />
-      <Box sx={{ mt: -2 }}>
+      <Box>
         {isLoading ? (
           <MiniSkeleton />
         ) : (

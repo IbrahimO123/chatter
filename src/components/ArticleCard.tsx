@@ -26,6 +26,7 @@ import { AuthorCard } from "./AuthorCard";
 import { User } from "../redux/user/model";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { ShareComponent } from "./Share";
+import ScrollToTop from "./ScrollToTop";
 
 const actionStyle = {
   display: "flex",
@@ -109,118 +110,120 @@ export const ArticleCard = (article: any) => {
   }, [like]);
 
   return (
-    <Paper elevation={0}>
-      <Container sx={{ textAlign: "center" }}>
-        <Typography m={2} component="p" variant={MobileView() ? "h5" : "h4"}>
-          {article.title}
-        </Typography>
-        <Typography component="h1" variant="h6">
-          {article.subtitle}
-        </Typography>
-        <Box mt={1} mb={1}>
-          <img
-            src={article.coverImage}
-            style={{
-              width: "100%",
-              maxWidth: "100%",
-              height: MobileView() ? "15em" : "25em",
-              borderRadius: "5px",
-            }}
-            alt={article.title}
-          ></img>
-        </Box>
-        <Typography
-          sx={{ wordSpacing: "5px", letterSpacing: "1.5px" }}
-          textAlign="left"
-        >
-          {parse(mdParser.render(article.text))}
-        </Typography>
-        <Box component="div" p={3} textAlign="left">
-          {article.categories.map((category: string) => (
-            <Chip
-              key={category}
-              sx={{ margin: "10px" }}
-              color="warning"
-              label={category}
-            />
-          ))}
-        </Box>
-        <Box sx={actionStyle}>
-          <Button
-            sx={{ color: "black" }}
-            onClick={like ? unLikeArticle : likeArticle}
-            endIcon={
-              like ? (
-                <ThumbUpIcon sx={{ color: "#4caf50", marginTop: "-5px" }} />
-              ) : (
-                <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
-              )
-            }
-          >
-            Like
-          </Button>
-          <Button
-            sx={{ color: "black" }}
-            onClick={
-              hideComment === "none" ? handleComment : handleCloseComment
-            }
-            disableElevation
-            endIcon={<AddCommentOutlinedIcon />}
-          >
-            Comment
-          </Button>
-          <Button
-            title="share"
-            aria-label="more"
-            id="long-button"
-            aria-controls={openShareMenu ? "menu" : undefined}
-            aria-expanded={openShareMenu ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClickShare}
-            sx={{ color: "black" }}
-            endIcon={<ShareOutlinedIcon />}
-          >
-            Share
-          </Button>
-          <ShareComponent
-            handleClose={handleCloseShare}
-            open={openShareMenu}
-            anchorEl={openShare}
-          ></ShareComponent>
-        </Box>
-        <Box component="div" sx={{ display: hideComment }}>
-          <Comment commentId={article.id} article={article.title} />
-        </Box>
-        <Zoom in={trigger}>
-          <Box
-            role="presentation"
-            sx={{
-              position: "fixed",
-              bottom: 32,
-              right: 32,
-              zIndex: 1,
-            }}
-          >
-            <Fab
-              onClick={scrollToTop}
-              size="large"
-              aria-label="Scroll back to top"
-            >
-              <KeyboardArrowUpIcon />
-            </Fab>
+    <ScrollToTop>
+      <Paper elevation={0} sx={{borderRadius:"0", p:2, m:1}}>
+        <Container sx={{ textAlign: "center" }}>
+          <Typography m={2} component="p" variant={MobileView() ? "h5" : "h4"}>
+            {article.title}
+          </Typography>
+          <Typography component="h1" variant="h6">
+            {article.subtitle}
+          </Typography>
+          <Box mt={1} mb={1}>
+            <img
+              src={article.coverImage}
+              style={{
+                width: "100%",
+                maxWidth: "100%",
+                height: MobileView() ? "15em" : "25em",
+                borderRadius: "5px",
+              }}
+              alt={article.title}
+            ></img>
           </Box>
-        </Zoom>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "20px",
-          }}
-        >
-          <AuthorCard {...author} />
-        </Box>
-      </Container>
-    </Paper>
+          <Typography
+            sx={{ wordSpacing: "5px", letterSpacing: "1.5px" }}
+            textAlign="left"
+          >
+            {parse(mdParser.render(article.text))}
+          </Typography>
+          <Box component="div" p={3} textAlign="left">
+            {article.categories.map((category: string) => (
+              <Chip
+                key={category}
+                sx={{ margin: "10px" }}
+                color="warning"
+                label={category}
+              />
+            ))}
+          </Box>
+          <Box sx={actionStyle}>
+            <Button
+              sx={{ color: "black" }}
+              onClick={like ? unLikeArticle : likeArticle}
+              endIcon={
+                like ? (
+                  <ThumbUpIcon sx={{ color: "#4caf50", marginTop: "-5px" }} />
+                ) : (
+                  <ThumbUpOutlinedIcon sx={{ marginTop: "-5px" }} />
+                )
+              }
+            >
+              Like
+            </Button>
+            <Button
+              sx={{ color: "black" }}
+              onClick={
+                hideComment === "none" ? handleComment : handleCloseComment
+              }
+              disableElevation
+              endIcon={<AddCommentOutlinedIcon />}
+            >
+              Comment
+            </Button>
+            <Button
+              title="share"
+              aria-label="more"
+              id="long-button"
+              aria-controls={openShareMenu ? "menu" : undefined}
+              aria-expanded={openShareMenu ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleClickShare}
+              sx={{ color: "black" }}
+              endIcon={<ShareOutlinedIcon />}
+            >
+              Share
+            </Button>
+            <ShareComponent
+              handleClose={handleCloseShare}
+              open={openShareMenu}
+              anchorEl={openShare}
+            ></ShareComponent>
+          </Box>
+          <Box component="div" sx={{ display: hideComment }}>
+            <Comment commentId={article.id} article={article.title} />
+          </Box>
+          <Zoom in={trigger}>
+            <Box
+              role="presentation"
+              sx={{
+                position: "fixed",
+                bottom: 32,
+                right: 32,
+                zIndex: 1,
+              }}
+            >
+              <Fab
+                onClick={scrollToTop}
+                size="large"
+                aria-label="Scroll back to top"
+              >
+                <KeyboardArrowUpIcon />
+              </Fab>
+            </Box>
+          </Zoom>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "20px",
+            }}
+          >
+            <AuthorCard {...author} />
+          </Box>
+        </Container>
+      </Paper>
+    </ScrollToTop>
   );
 };

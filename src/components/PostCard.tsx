@@ -26,7 +26,6 @@ import { PostComment } from "./PostComment";
 import { useComment } from "../custom/hooks/useComment";
 import { ProfileCard } from "./ProfileCard";
 
-
 type postCard = {
   id: string;
   likesCount?: number;
@@ -58,7 +57,7 @@ export const PostCard = ({
 }: postCard) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  
+
   const [openCard, setOpenCard] = useState(false);
   const [openCommentDialog, setOpenCommentDialog] = useState(false);
   const handleOpenCommentDialog = () => setOpenCommentDialog(true);
@@ -199,7 +198,7 @@ export const PostCard = ({
                 <center>
                   <CardMedia
                     component="img"
-                    sx={{ height: 350, borderRadius: "5px" }}
+                    sx={{ height: 320, borderRadius: "5px" }}
                     image={picture}
                   ></CardMedia>
                 </center>
@@ -265,8 +264,8 @@ export const PostCard = ({
               >
                 <Paper
                   sx={{
-                    minHeight: "90vh",
-                    width: "380px",
+                    minHeight: "100vh",
+                    width: { md: "380px", xs: "95vw" },
                     m: 0,
                     p: 0,
                   }}
