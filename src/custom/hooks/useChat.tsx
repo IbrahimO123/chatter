@@ -9,6 +9,7 @@ type AddUser = {
 };
 export const useChat = () => {
   //function for logging in user to comet chat
+
   const loggedInUserToCometChat = async () => {
     const user = await CometChat.getLoggedInUser();
     if (user === null) {
