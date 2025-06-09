@@ -37,7 +37,6 @@ export const CometChatSelector = (props: SelectorProps) => {
   // useEffect hook to fetch and set the logged-in user
   useEffect(() => {
     const loggedInUser = CometChatUIKitLoginListener.getLoggedInUser();
-    //console.log("logged in ",loggedInUser)
     setLoggedInUser(loggedInUser);
   }, [loggedInUser]); // Dependency on loggedInUser causes unnecessary re-renders
 

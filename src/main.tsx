@@ -34,7 +34,6 @@ export const Loader = () => {
   );
 };
 
-
 const UIKitSettings = new UIKitSettingsBuilder()
   .setAppId(import.meta.env.VITE_COMETCHAT_APP_ID)
   .setRegion(import.meta.env.VITE_COMETCHAT_REGION)
@@ -44,10 +43,10 @@ const UIKitSettings = new UIKitSettingsBuilder()
 
 CometChatUIKit.init(UIKitSettings)!
   .then(() => {
-    console.log("CometChat UI Kit initialized successfully.");
+    console.log("CometChat Initialization success.");
   })
   .catch((error) => {
-    console.error("CometChat UI Kit initialization failed:", error);
+    console.error("CometChat Initialization failed:", error);
   });
 
 const root = ReactDOM.createRoot(

@@ -57,7 +57,7 @@ function App() {
           onClose={handleSnackbarClose}
           open={open}
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          autoHideDuration={4000}
+          autoHideDuration={2500}
           TransitionComponent={Slide}
         >
           

@@ -8,12 +8,31 @@ type AddUser = {
   phoneNumber: string;
 };
 export const useChat = () => {
+  
   //function for logging in user to comet chat
-
-  const loggedInUserToCometChat = async () => {
-    const user = await CometChat.getLoggedInUser();
-    if (user === null) {
-      CometChat.login();
+  const loggedInUserToCometChat = async (email: string) => {
+    try {
+      const value = await getCometChatUsers();
+      const person = value.data.filter((p) => p.email === email);
+      CometChat.getLoggedinUser().then(
+        (user: CometChat.User | null) => {
+          if (!user) {
+            CometChat.login(person[0].authToken).then(
+              (user: CometChat.User) => {
+                console.log("Login Successful:", { user });
+              },
+              (error: CometChat.CometChatException) => {
+                console.log("Login failed with exception:", { error });
+              }
+            );
+          }
+        },
+        (error: CometChat.CometChatException) => {
+          console.log("Some Error Occured", { error });
+        }
+      );
+    } catch (e: any) {
+      console.log(e.message);
     }
   };
 

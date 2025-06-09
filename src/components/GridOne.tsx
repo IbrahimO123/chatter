@@ -31,6 +31,7 @@ import { updateAUser, updateUserDetailsToDefault } from "../redux/user/slice";
 import { Link } from "react-router-dom";
 
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { CometChat } from "@cometchat/chat-sdk-javascript";
 
 export const GridOne = () => {
   const { navigate, user, dispatch, others, aUser } = useGeneral();
@@ -53,6 +54,7 @@ export const GridOne = () => {
           message: "Signed out successfully",
         })
       );
+      CometChat.logout();
       dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
       dispatch(updateUserDetailsToDefault());
       return;

@@ -28,6 +28,7 @@ export const getCometChatUsers = async () => {
       id: doc.id,
       uid: doc.data().uid,
       email: doc.data().email,
+      authToken: doc.data().authToken,
       ...doc.data(),
     }));
     return { data: cometUsers, error: null };

@@ -5,7 +5,7 @@ import { updateOtherState } from "../../redux/Others/slice";
 import { updateAUser } from "../../redux/user/slice";
 import { comparePassword } from "../../Utilities/securePassword";
 import { getData } from "../../Utilities/GetUserData";
-import { getCometAuthToken } from "../../Utilities/RetrieveAuthToken";
+//import { getCometAuthToken } from "../../Utilities/RetrieveAuthToken";
 
 type RedirectLocationState = {
   redirectTo: Location;
@@ -19,6 +19,7 @@ export const LoginUser = async ({
   others,
   navigate,
   locationState,
+  loggedInUserToCometChat,
 }: any) => {
   try {
     const { redirectTo } = (locationState as RedirectLocationState) ?? {};
@@ -76,9 +77,9 @@ export const LoginUser = async ({
                       isLoggedIn: true,
                     })
                   );
-                  console.log("Res Data", res.data())
-                  const respond = getCometAuthToken(res.data()?.cometUid);
-                  console.log("To respond", respond);
+
+                  //const respond = getCometAuthToken(res.data()?.cometUid);
+                
                   navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
                     replace: true,
                   });

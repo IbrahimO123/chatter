@@ -49,7 +49,11 @@ const Login = () => {
   } = useGeneral();
 
   //hook for chat fucntion in the app
-  const { handleAddUserToCometChat, createAuthTokenToCometChat } = useChat();
+  const {
+    handleAddUserToCometChat,
+    createAuthTokenToCometChat,
+    loggedInUserToCometChat,
+  } = useChat();
 
   //function to fetch user details from firestore
   const handleFetchUser = async () => {
@@ -114,7 +118,9 @@ const Login = () => {
         others,
         navigate,
         locationState,
+        loggedInUserToCometChat,
       });
+      await loggedInUserToCometChat(email);
     } catch (err) {
       console.error("Error login", err);
     }
