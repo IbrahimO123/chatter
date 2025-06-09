@@ -22,6 +22,9 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoogleLogo from "../assets/images/google-icon-logo-svgrepo-com.svg";
+import { getCometAuthToken } from "../Utilities/RetrieveAuthToken";
+import { useChat } from "../custom/hooks/useChat";
+
 type RedirectLocationState = {
   redirectTo: Location;
 };
@@ -30,6 +33,8 @@ const Login = () => {
   const [user] = useAuthState(auth);
   const [errMessage, setErrMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  //general hook
   const {
     handleUserChange,
     updateOtherState,
@@ -42,6 +47,11 @@ const Login = () => {
     navigate,
     locationState,
   } = useGeneral();
+
+  //hook for chat fucntion in the app
+  const { handleAddUserToCometChat, createAuthTokenToCometChat } = useChat();
+
+  //function to fetch user details from firestore
   const handleFetchUser = async () => {
     const { redirectTo } = (locationState as RedirectLocationState) ?? {};
     try {
@@ -70,10 +80,15 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const value = await signInWithGoogle(aUser);
+      const value = await signInWithGoogle(
+        aUser,
+        createAuthTokenToCometChat,
+        handleAddUserToCometChat
+      );
       if (value?.error) {
         return navigate("/login", { replace: true });
       }
+      getCometAuthToken("mbmf1k2n00msqpc2pn8x");
       dispatch(
         updateOtherState({
           ...others,
@@ -83,7 +98,7 @@ const Login = () => {
         })
       );
     } catch (err) {
-      console.error("Error siging in user with google sign in method", err);
+      console.error("Error signing in user with google sign in method", err);
     }
   };
 
@@ -140,6 +155,7 @@ const Login = () => {
                 id="email"
                 value={email}
                 type="email"
+                autoComplete="off"
                 placeholder="Your email address"
               ></TextField>
             </Box>
@@ -176,11 +192,16 @@ const Login = () => {
             </Box>
           </Stack>
           <Box component="div">
-            <p style={{ color: "red" }}>
+            <p style={{ color: "red", fontWeight: "bolder" }}>
               {errMessage && <small>{errMessage}</small>}
             </p>
             <div>
-              <Button disableElevation color="primary" type="submit" variant="contained">
+              <Button
+                disableElevation
+                color="primary"
+                type="submit"
+                variant="contained"
+              >
                 Login
               </Button>
               <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>

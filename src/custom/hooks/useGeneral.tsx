@@ -12,6 +12,10 @@ import { UploadProfileImage } from "../../Utilities/UploadImage";
 import { AddProfileImageToDatabase } from "../../Utilities/AddProfileImage";
 import { updateUserSchema } from "../../config/joi";
 import { CopyToClipboard } from "../functions/CopyToClipboard";
+import { getLoggedInUser } from "../../Utilities/GetUserData";
+import { useChat } from "./useChat";
+import { addCometChatAuthTokenToDatabase } from "../../Utilities/SaveAuthToken";
+
 
 export const useGeneral = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +25,8 @@ export const useGeneral = () => {
   const [profileImage, setProfileImage] = useState<File>();
   const { state: locationState } = location;
   const { aUser } = useSelector((state: RootState) => state.users);
+  const { handleAddUserToCometChat, createAuthTokenToCometChat } = useChat();
+
   const {
     firstname,
     lastname,
@@ -34,6 +40,7 @@ export const useGeneral = () => {
     linkedInHandle,
     dateCreated,
   } = aUser;
+
   const others = useSelector((state: RootState) => state.others);
   const { loading } = others;
   const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,8 +84,50 @@ export const useGeneral = () => {
       setProfileImage(e.target!.files![0]);
     }
   };
+
+  //handle user details update
   const handleUpdateUser = async (e: any) => {
     e.preventDefault();
+    await getLoggedInUser({ user, dispatch, aUser });
+    if (
+      aUser.cometAuthToken === "" ||
+      aUser.cometAuthToken === null ||
+      aUser.cometAuthToken === undefined
+    ) {
+      const res = await handleAddUserToCometChat({
+        firstname: aUser.firstname,
+        lastname: aUser.lastname,
+        email: aUser.email,
+        phoneNumber: aUser.phoneNumber,
+      });
+      if (res.uid) {
+        const data = await createAuthTokenToCometChat(res.uid);
+        await addCometChatAuthTokenToDatabase(
+          {
+            uid: data.uid,
+            email: aUser.email,
+            authToken: data.authToken,
+            force: false,
+          },
+          data.uid
+        );
+        const response = await updateUserDetails(
+          { ...aUser, cometAuthToken: data.authToken, cometUid: data.uid },
+          email
+        );
+        if (response === "Done") {
+          return dispatch(
+            updateOtherState({
+              ...others,
+              open: true,
+              message: "User data updated successfully",
+              severity: "success",
+            })
+          );
+        }
+      }
+    }
+
     const { error, value } = updateUserSchema.validate({
       firstname,
       lastname,
@@ -111,6 +160,8 @@ export const useGeneral = () => {
       }
     }
   };
+
+  //handle profile photo of the user
   const handleProfilePhotoUpload = async (image: File) => {
     try {
       const response = await UploadProfileImage(image, user?.uid!);

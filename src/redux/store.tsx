@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { chatPhotosSlice } from "./chatbox/slice";
+import { cometChatSlice } from "./cometchat/slice";
 import { postSlice } from "./posts/slice";
 import { userSlice } from "./user/slice";
 import { otherSlice } from "./Others/slice";
@@ -40,7 +40,7 @@ const persistConfig = {
 export const sessionReducer = combineReducers({
   others: otherSlice.reducer,
   articles: articleSlice.reducer,
-  chats: chatPhotosSlice.reducer,
+  cometChat: cometChatSlice.reducer,
   posts: postSlice.reducer,
   users: userSlice.reducer,
   saveDrafts: saveDraftsSlice.reducer,

@@ -22,6 +22,8 @@ const initialState: AppUser = {
       facebookHandle: "",
       twitterHandle: "",
       linkedInHandle: "",
+      cometAuthToken: "",
+      cometUid: "",
     },
   ],
   aUser: {
@@ -40,6 +42,8 @@ const initialState: AppUser = {
     facebookHandle: "",
     twitterHandle: "",
     linkedInHandle: "",
+    cometAuthToken: "",
+    cometUid: "",
   },
 };
 
@@ -61,7 +65,7 @@ export const updateAUserPassword = createAsyncThunk(
   "user/updatePassword",
   async (userData: User, { rejectWithValue }) => {
     try {
-      hashPassword(userData.password)
+      await hashPassword(userData.password)
         .then(({ hash, done }) => {
           if (done) {
             return {
@@ -90,6 +94,30 @@ export const userSlice = createSlice({
     updateAUser(state, action: PayloadAction<AppUser["aUser"]>) {
       return { ...state, aUser: action.payload };
     },
+    updateUserDetailsToDefault(state) {
+      return {
+        ...state,
+        aUser: {
+          firstname: "",
+          lastname: "",
+          email: "",
+          phoneNumber: "",
+          password: "",
+          confirmPassword: "",
+          isAuthorised: false,
+          isLoggedIn: false,
+          isRegistered: false,
+          dateCreated: new Date().toLocaleDateString(),
+          timeCreated: new Date().toLocaleTimeString(),
+          profileImageUrl: "",
+          facebookHandle: "",
+          twitterHandle: "",
+          linkedInHandle: "",
+          cometAuthToken: "",
+          cometUid: "",
+        },
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(updateAUserPassword.fulfilled, (state, { payload }) => {
@@ -107,4 +135,4 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateAUser } = userSlice.actions;
+export const { updateAUser, updateUserDetailsToDefault } = userSlice.actions;

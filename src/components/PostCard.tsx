@@ -109,8 +109,9 @@ export const PostCard = ({
     <Box>
       <Card
         sx={{
-          padding: "2px 2px",
-          margin: "10px 10px",
+          padding: "1px 1px",
+          margin: "10px 5px",
+          
         }}
         elevation={0}
       >

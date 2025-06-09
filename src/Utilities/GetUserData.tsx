@@ -43,6 +43,8 @@ export const getLoggedInUser = async ({
               facebookHandle: res?.data()?.facebookHandle,
               twitterHandle: res?.data()?.twitterHandle,
               linkedInHandle: res?.data()?.linkedInHandle,
+              cometAuthToken: res?.data()?.cometAuthToken,
+              cometUid: res?.data()?.cometUid,
             })
           );
         } else {
@@ -63,6 +65,8 @@ export const getLoggedInUser = async ({
                 facebookHandle: "",
                 twitterHandle: " ",
                 linkedInHandle: " ",
+                cometAuthToken: "",
+                cometUid: "",
               })
             );
           });

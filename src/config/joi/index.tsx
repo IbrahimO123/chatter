@@ -51,6 +51,8 @@ export const SignUpSchema = Joi.object({
   facebookHandle: Joi.string().allow("", null),
   twitterHandle: Joi.string().allow("", null),
   linkedInHandle: Joi.string().allow("", null),
+  cometAuthToken: Joi.string().allow("", null),
+  cometUid: Joi.string().allow("", null),
 });
 
 export const loginSchema = Joi.object({

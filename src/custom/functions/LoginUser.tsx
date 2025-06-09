@@ -5,6 +5,7 @@ import { updateOtherState } from "../../redux/Others/slice";
 import { updateAUser } from "../../redux/user/slice";
 import { comparePassword } from "../../Utilities/securePassword";
 import { getData } from "../../Utilities/GetUserData";
+import { getCometAuthToken } from "../../Utilities/RetrieveAuthToken";
 
 type RedirectLocationState = {
   redirectTo: Location;
@@ -20,7 +21,7 @@ export const LoginUser = async ({
   locationState,
 }: any) => {
   try {
-    const { redirectTo } = locationState as RedirectLocationState ?? {};
+    const { redirectTo } = (locationState as RedirectLocationState) ?? {};
     setErrMessage("");
     dispatch(
       updateOtherState({
@@ -41,8 +42,67 @@ export const LoginUser = async ({
       try {
         if (value) {
           const { email, password } = value;
-
           await signInWithEmailAndPassword(auth, email, password);
+        }
+        if (email) {
+          getData(email).then((res) => {
+            if (res?.data() === undefined) {
+              dispatch(
+                updateOtherState({
+                  ...others,
+                  loading: false,
+                })
+              );
+              return setErrMessage("Invalid email or password");
+            } else {
+              comparePassword(password, res.data()?.password).then((value) => {
+                if (value) {
+                  setErrMessage("");
+                  dispatch(
+                    updateOtherState({
+                      ...others,
+                      open: true,
+                      message: "Login successful",
+                      severity: "success",
+                      loading: false,
+                    })
+                  );
+                  dispatch(
+                    updateAUser({
+                      ...aUser,
+                      ...res.data(),
+                      confirmPassword: "",
+                      password: "",
+                      isLoggedIn: true,
+                    })
+                  );
+                  console.log("Res Data", res.data())
+                  const respond = getCometAuthToken(res.data()?.cometUid);
+                  console.log("To respond", respond);
+                  navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
+                    replace: true,
+                  });
+                  return;
+                } else {
+                  dispatch(
+                    updateOtherState({
+                      ...others,
+                      loading: false,
+                    })
+                  );
+                  return setErrMessage("Invalid email or password");
+                }
+              });
+            }
+          });
+        } else {
+          dispatch(
+            updateOtherState({
+              ...others,
+              loading: false,
+            })
+          );
+          return setErrMessage("Email or Password is incorrect");
         }
       } catch (err: any) {
         if (err.code === "auth/user-not-found") {
@@ -63,77 +123,20 @@ export const LoginUser = async ({
           return setErrMessage("Incorrect email or password");
         }
       }
-      if (email) {
-        getData(email).then((res) => {
-          if (res?.data() === undefined) {
-            dispatch(
-              updateOtherState({
-                ...others,
-                loading: false,
-              })
-            );
-            return setErrMessage("Invalid email or password");
-          } else {
-            comparePassword(password, res.data()?.password).then((value) => {
-              if (value) {
-                setErrMessage("");
-                dispatch(
-                  updateOtherState({
-                    ...others,
-                    open: true,
-                    message: "Login successful",
-                    severity: "success",
-                    loading: false,
-                  })
-                );
-                dispatch(
-                  updateAUser({
-                    ...aUser,
-                    ...res.data(),
-                    confirmPassword: "",
-                    password: "",
-                    isLoggedIn: true,
-                  })
-                );
-                navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
-                  replace: true,
-                });
-                return;
-              } else {
-                dispatch(
-                  updateOtherState({
-                    ...others,
-                    loading: false,
-                  })
-                );
-                return setErrMessage("Invalid email or password");
-              }
-            });
-          }
-        });
-      } else {
-        dispatch(
-          updateOtherState({
-            ...others,
-            loading: false,
-          })
-        );
-        return setErrMessage("Email or Password is incorrect");
-      }
     }
   } catch (err: any) {
     console.error("Error while login in a user", err.message);
-     if (err.code === "unavailable") {
-       dispatch(
-         updateOtherState({
-           message: "Check your internet connection",
-           open: true,
-           close: false,
-           error: "",
-           loading: false,
-           severity: "error",
-         })
-       );
-     }
+    if (err.code === "unavailable") {
+      dispatch(
+        updateOtherState({
+          message: "Check your internet connection",
+          open: true,
+          close: false,
+          error: "",
+          loading: false,
+          severity: "error",
+        })
+      );
+    }
   }
 };

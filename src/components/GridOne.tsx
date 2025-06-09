@@ -27,7 +27,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { updateOtherState } from "../redux/Others/slice";
-import { updateAUser } from "../redux/user/slice";
+import { updateAUser, updateUserDetailsToDefault } from "../redux/user/slice";
 import { Link } from "react-router-dom";
 
 import { useGeneral } from "../custom/hooks/useGeneral";
@@ -54,6 +54,7 @@ export const GridOne = () => {
         })
       );
       dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
+      dispatch(updateUserDetailsToDefault());
       return;
     } catch (e: any) {
       console.error("Error while siging out user: ", e.code);

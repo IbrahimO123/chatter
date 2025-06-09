@@ -14,6 +14,8 @@ export type User = {
   facebookHandle: string;
   twitterHandle: string;
   linkedInHandle: string;
+  cometAuthToken: string;
+  cometUid: string;
 };
 
 export type AppUser = {
@@ -29,4 +31,6 @@ export type UserDataUpdateProps = {
   facebookHandle: string;
   twitterHandle: string;
   linkedInHandle: string;
+  cometAuthToken: string;
+  cometUid: string;
 };

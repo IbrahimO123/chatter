@@ -60,6 +60,7 @@ function App() {
           autoHideDuration={4000}
           TransitionComponent={Slide}
         >
+          
           <Alert variant="filled" severity={severity}>
             {message}
           </Alert>

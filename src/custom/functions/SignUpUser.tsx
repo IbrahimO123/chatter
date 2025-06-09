@@ -1,10 +1,14 @@
 import { updateOtherState } from "../../redux/Others/slice";
-import { updateUserAsync } from "../../redux/user/slice";
+import {
+  updateUserAsync,
+  updateUserDetailsToDefault,
+} from "../../redux/user/slice";
 import { getData } from "../../Utilities/GetUserData";
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateAUserPassword } from "../../redux/user/slice";
 import { SignUpSchema } from "../../config/joi";
+import { addCometChatAuthTokenToDatabase } from "../../Utilities/SaveAuthToken";
 
 export const signUpUser = async ({
   setErrMessage,
@@ -13,6 +17,8 @@ export const signUpUser = async ({
   others,
   aUser,
   navigate,
+  handleAddUserToCometChat,
+  createAuthTokenToCometChat,
 }: any) => {
   try {
     setErrMessage("");
@@ -60,14 +66,46 @@ export const signUpUser = async ({
       );
 
       if (userCredentials.user) {
-        await dispatch(
-          updateAUserPassword({
-            ...aUser,
-          })
-        );
+        if (value.email) {
+          const res = await handleAddUserToCometChat({
+            firstname: value.firstname,
+            lastname: value.lastname,
+            email: value.email,
+            phoneNumber: value.phoneNumber,
+          });
+          if (res.uid) {
+            const data = await createAuthTokenToCometChat(res.uid);
+            if (data.authToken) {
+              addCometChatAuthTokenToDatabase(
+                {
+                  uid: data.uid,
+                  email: value.email,
+                  authToken: data.authToken,
+                  force: false,
+                },
+                data.uid
+              );
+              await dispatch(
+                updateAUserPassword({
+                  ...aUser,
+                  cometAuthToken: data.authToken,
+                  cometUid: data.uid,
+                })
+              );
+            } else {
+              console.log("Invalid Auth Token, data not saved...");
+            }
+          }
+        } else {
+          console.log(
+            "Email is invalid, cannot create cometchat with this user..."
+          );
+        }
+
         await dispatch(
           updateUserAsync({ ...aUser, password: "", confirmPassword: "" })
         );
+        dispatch(updateUserDetailsToDefault());
         return navigate("/login", { replace: true });
       } else {
         return dispatch(
@@ -95,18 +133,18 @@ export const signUpUser = async ({
           loading: false,
         })
       );
-       if (err.code === "unavailable") {
-         dispatch(
-           updateOtherState({
-             message: "Check your internet connection",
-             open: true,
-             close: false,
-             error: "",
-             loading: false,
-             severity: "error",
-           })
-         );
-       }
+      if (err.code === "unavailable") {
+        dispatch(
+          updateOtherState({
+            message: "Check your internet connection",
+            open: true,
+            close: false,
+            error: "",
+            loading: false,
+            severity: "error",
+          })
+        );
+      }
       return setErrMessage("Email already used for another sign in method");
     }
   }

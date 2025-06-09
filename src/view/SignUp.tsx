@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IconButton,
   InputLabel,
@@ -19,6 +19,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { signUpUser } from "../custom/functions/SignUpUser";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";
+import { updateUserDetailsToDefault } from "../redux/user/slice";
+import { useChat } from "../custom/hooks/useChat";
 
 const SignUp = () => {
   const [errMessage, setErrMessage] = useState<string>("");
@@ -37,6 +39,8 @@ const SignUp = () => {
     dispatch,
   } = useGeneral();
 
+  const { handleAddUserToCometChat, createAuthTokenToCometChat } = useChat();
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -47,6 +51,8 @@ const SignUp = () => {
         others,
         aUser,
         navigate,
+        handleAddUserToCometChat,
+        createAuthTokenToCometChat,
       });
     } catch (err) {
       console.error("Error while signing-up user", err);
@@ -55,6 +61,11 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  useEffect(() => {
+    dispatch(updateUserDetailsToDefault());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -212,7 +223,7 @@ const SignUp = () => {
               ></TextField>
             </Box>
           </Stack>
-          <p style={{ color: "red" }}>
+          <p style={{ color: "red", fontWeight: "bolder" }}>
             <small>{errMessage ? errMessage : null}</small>
           </p>
           <Box component="div" className="signup">

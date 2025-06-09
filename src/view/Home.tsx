@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Grid } from "@mui/material";
-import { Loader } from "..";
+import { Loader } from "../main";
 
 import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
@@ -70,7 +70,7 @@ const Home = () => {
           spacing={8}
           justifyContent="center"
         >
-          <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2}>
+          <Grid sx={{ display: { xs: "none", md: "grid" } }} item md={2.5}>
             <GridOne />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -102,11 +102,12 @@ const Home = () => {
               )}
             </Box>
           </Grid>
-          <Grid item sx={{ display: { xs: "none", md: "grid" } }} md={2}>
+          <Grid item sx={{ display: { xs: "none", md: "grid" } }} md={2.5}>
             <GridThree />
             <About />
           </Grid>
         </Grid>
+        
       </Box>
     </>
   );
