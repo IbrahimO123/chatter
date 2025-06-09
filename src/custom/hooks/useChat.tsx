@@ -8,7 +8,6 @@ type AddUser = {
   phoneNumber: string;
 };
 export const useChat = () => {
-  
   //function for logging in user to comet chat
   const loggedInUserToCometChat = async (email: string) => {
     try {
@@ -19,7 +18,7 @@ export const useChat = () => {
           if (!user) {
             CometChat.login(person[0].authToken).then(
               (user: CometChat.User) => {
-                console.log("Login Successful:", { user });
+                console.log("login successful:");
               },
               (error: CometChat.CometChatException) => {
                 console.log("Login failed with exception:", { error });
