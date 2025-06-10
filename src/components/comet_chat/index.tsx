@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CometChatMessageComposer,
   CometChatMessageHeader,
@@ -6,8 +6,10 @@ import {
 } from "@cometchat/chat-uikit-react";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 import { CometChatSelector } from "./Sidebar";
-import "./comet_style.css";
+
 import "@cometchat/chat-uikit-react/css-variables.css";
+import { SendMessage } from "../SendMessage";
+import { RecieveMessage } from "./RecieveMessage";
 
 function CometChatApp() {
   // State to track the currently selected user
@@ -19,6 +21,8 @@ function CometChatApp() {
   const [selectedGroup, setSelectedGroup] = useState<
     CometChat.Group | undefined
   >(undefined);
+
+  useEffect(() => RecieveMessage(), []);
 
   return (
     <div className="conversations-with-messages">
@@ -62,7 +66,10 @@ function CometChatApp() {
         </div>
       ) : (
         // Default message when no conversation is selected
-        <div className="empty-conversation">Select Conversation to start</div>
+        <>
+          <div className="empty-conversation">Select Conversation to start</div>
+          <SendMessage />
+        </>
       )}
     </div>
   );

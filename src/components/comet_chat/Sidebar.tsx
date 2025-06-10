@@ -9,7 +9,6 @@ import {
   CometChatConversations,
   CometChatUIKitLoginListener,
 } from "@cometchat/chat-uikit-react";
-import "./comet_style.css";
 
 // Define the props for the CometChatSelector component
 interface SelectorProps {

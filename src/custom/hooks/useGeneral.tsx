@@ -102,28 +102,31 @@ export const useGeneral = () => {
       });
       if (res.uid) {
         const data = await createAuthTokenToCometChat(res.uid);
-        await addCometChatAuthTokenToDatabase(
-          {
-            uid: data.uid,
-            email: aUser.email,
-            authToken: data.authToken,
-            force: false,
-          },
-          data.uid
-        );
-        const response = await updateUserDetails(
-          { ...aUser, cometAuthToken: data.authToken, cometUid: data.uid },
-          email
-        );
-        if (response === "Done") {
-          return dispatch(
-            updateOtherState({
-              ...others,
-              open: true,
-              message: "User data updated successfully",
-              severity: "success",
-            })
+        if (data.uid) {
+          await addCometChatAuthTokenToDatabase(
+            {
+              uid: data.uid,
+              email: aUser.email,
+              authToken: data.authToken,
+              force: false,
+            },
+            data.uid
           );
+         
+          const response = await updateUserDetails(
+            { ...aUser, cometAuthToken: data.authToken, cometUid: data.uid },
+            email
+          );
+          if (response === "Done") {
+            return dispatch(
+              updateOtherState({
+                ...others,
+                open: true,
+                message: "User data updated successfully",
+                severity: "success",
+              })
+            );
+          }
         }
       }
     }

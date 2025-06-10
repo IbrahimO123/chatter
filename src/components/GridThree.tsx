@@ -1,9 +1,10 @@
-import { CometChatSelector } from "./comet_chat/Sidebar";
+import CometChatApp from "./comet_chat";
+// import { CometChatSelector } from "./comet_chat/Sidebar";
 
 export const GridThree = () => {
   return (
     <div>
-      <CometChatSelector />
+      <CometChatApp />
     </div>
   );
 };
