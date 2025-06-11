@@ -10,7 +10,10 @@ type AddUser = {
   phoneNumber: string;
 };
 export const useChat = () => {
-  const { aCometUser, allCometUsers } = useSelector((state: RootState) => state.cometChat);
+  const { aCometUser, allCometUsers, cometModal } = useSelector(
+    (state: RootState) => state.cometChat
+  );
+  const { open,  error } = cometModal;
 
   //function for logging in user to comet chat
   const loggedInUserToCometChat = async (email: string) => {
@@ -111,6 +114,9 @@ export const useChat = () => {
     createAuthTokenToCometChat,
     loggedInUserToCometChat,
     aCometUser,
-    allCometUsers
+    allCometUsers,
+    cometModal,
+    open,
+    error,
   };
 };

@@ -6,6 +6,8 @@ import {
 } from "@cometchat/chat-uikit-react";
 import { Box, Modal, Paper } from "@mui/material";
 import { useChat } from "../../../custom/hooks/useChat";
+import { useGeneral } from "../../../custom/hooks/useGeneral";
+import { openChatModal } from "../../../redux/cometchat/slice";
 
 export function MessageList() {
   const [chatUser, setChatUser] = useState<CometChat.User>();
@@ -47,15 +49,16 @@ export function MessageList() {
   ) : null;
 }
 
-type ModalMessage = {
-  handleCloseModal: () => void;
-  openModal: boolean;
-};
-export const MessageModal = ({ handleCloseModal, openModal }: ModalMessage) => {
+export const MessageModal = () => {
+  const { cometModal, open } = useChat();
+  const { dispatch } = useGeneral();
+  const handleCloseModal = () => {
+    dispatch(openChatModal({ ...cometModal, open: false }));
+  };
   return (
     <Modal
       onClose={handleCloseModal}
-      open={openModal}
+      open={open}
       sx={{ display: "grid", placeItems: "center" }}
     >
       <Paper sx={{ width: "30%", height: "50%" }} elevation={0}>

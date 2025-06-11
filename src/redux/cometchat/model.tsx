@@ -17,4 +17,10 @@ export type CometUser = {
 export type CometChatUser = {
   allCometUsers: CometUser[];
   aCometUser: CometUser;
+  cometModal: OpenModal,
+};
+
+export type OpenModal = {
+  open: boolean;
+  error: string;
 };

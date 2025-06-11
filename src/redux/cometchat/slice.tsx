@@ -34,6 +34,11 @@ const initialState: CometChatUser = {
     tags: [],
     withAuthToken: false,
   },
+  cometModal: {
+    open: false,
+    error: "",
+  
+  },
 };
 
 export const cometChatSlice = createSlice({
@@ -55,7 +60,15 @@ export const cometChatSlice = createSlice({
     ) {
       return { ...state, aCometUser: action.payload };
     },
+    openChatModal(state, action: PayloadAction<CometChatUser["cometModal"]>) {
+      return { ...state, cometModal: action.payload };
+    },
   },
 });
 
-export const { getAllCometUsers, getACometUser , updateCometChatUser} = cometChatSlice.actions;
+export const {
+  getAllCometUsers,
+  getACometUser,
+  updateCometChatUser,
+  openChatModal,
+} = cometChatSlice.actions;
