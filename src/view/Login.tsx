@@ -22,7 +22,6 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoogleLogo from "../assets/images/google-icon-logo-svgrepo-com.svg";
-import { getCometAuthToken } from "../Utilities/RetrieveAuthToken";
 import { useChat } from "../custom/hooks/useChat";
 
 type RedirectLocationState = {
