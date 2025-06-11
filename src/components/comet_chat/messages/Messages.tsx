@@ -37,7 +37,7 @@ export function MessageList() {
           </Box>
         }
       />
-      <CometChatMessageComposer />
+      <CometChatMessageComposer user={chatUser} />
     </div>
   ) : null;
 }
@@ -53,7 +53,7 @@ export const MessageModal = ({ handleCloseModal, openModal }: ModalMessage) => {
       open={openModal}
       sx={{ display: "grid", placeItems: "center" }}
     >
-      <Paper sx={{ width: "30%" }} elevation={0}>
+      <Paper sx={{ width: "30%", height:"50%" }} elevation={0}>
         <MessageList />
       </Paper>
     </Modal>
