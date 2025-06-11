@@ -21,8 +21,8 @@ const initialState: CometChatUser = {
   ],
   aCometUser: {
     name: "",
-    uid: Date.now().toString(36)+Math.random().toString(36).substring(2, 12).padStart(12, "0"),
-    role: "mbhactes00m13eeohis9",
+    uid: "",
+    role: " ",
     avatar: "",
     link: "",
     metadata: {
@@ -49,7 +49,13 @@ export const cometChatSlice = createSlice({
     getACometUser(state, action: PayloadAction<CometChatUser["aCometUser"]>) {
       return { ...state, aCometUser: action.payload };
     },
+    updateCometChatUser(
+      state,
+      action: PayloadAction<CometChatUser["aCometUser"]>
+    ) {
+      return { ...state, aCometUser: action.payload };
+    },
   },
 });
 
-export const { getAllCometUsers, getACometUser } = cometChatSlice.actions;
+export const { getAllCometUsers, getACometUser , updateCometChatUser} = cometChatSlice.actions;

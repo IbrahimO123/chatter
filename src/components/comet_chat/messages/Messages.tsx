@@ -1,18 +1,20 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 import {
   CometChatMessageList,
   CometChatMessageComposer,
 } from "@cometchat/chat-uikit-react";
 import { Box, Modal, Paper } from "@mui/material";
+import { useChat } from "../../../custom/hooks/useChat";
 
 export function MessageList() {
-  const [chatUser, setChatUser] = React.useState<CometChat.User>();
-  React.useEffect(() => {
-    CometChat.getUser("mbozjtgl00s6xmrw15lh").then((user) => {
+  const [chatUser, setChatUser] = useState<CometChat.User>();
+  const { aCometUser } = useChat();
+  useEffect(() => {
+    CometChat.getUser(aCometUser.uid).then((user) => {
       setChatUser(user);
     });
-  }, []);
+  }, [aCometUser.uid]);
 
   const getOnThreadRepliesClick = () => {
     //your custom actions
@@ -20,24 +22,27 @@ export function MessageList() {
 
   return chatUser ? (
     <div>
-      <CometChatMessageList
-        user={chatUser}
-        onThreadRepliesClick={getOnThreadRepliesClick}
-        emptyView={
-          <Box
-            sx={{
-              display: "grid",
-              placeContent: "center",
-              fontWeight: "lighter",
-            }}
-            m={5}
-            p={3}
-          >
-            No converstion between you and the user..Say "Hello" to start a chat
-          </Box>
-        }
-      />
-      <CometChatMessageComposer user={chatUser} />
+      <>
+        <CometChatMessageList
+          user={chatUser}
+          onThreadRepliesClick={getOnThreadRepliesClick}
+          emptyView={
+            <Box
+              sx={{
+                display: "grid",
+                placeContent: "center",
+                fontWeight: "lighter",
+              }}
+              m={5}
+              p={3}
+            >
+              No converstion between you and the user..Say "Hello" to start a
+              chat
+            </Box>
+          }
+        ></CometChatMessageList>
+        <CometChatMessageComposer user={chatUser} />
+      </>
     </div>
   ) : null;
 }
@@ -53,7 +58,7 @@ export const MessageModal = ({ handleCloseModal, openModal }: ModalMessage) => {
       open={openModal}
       sx={{ display: "grid", placeItems: "center" }}
     >
-      <Paper sx={{ width: "30%", height:"50%" }} elevation={0}>
+      <Paper sx={{ width: "30%", height: "50%" }} elevation={0}>
         <MessageList />
       </Paper>
     </Modal>

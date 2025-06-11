@@ -1,5 +1,7 @@
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 import { getCometChatUsers } from "../../Utilities/RetrieveAuthToken";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type AddUser = {
   firstname: string;
@@ -8,6 +10,8 @@ type AddUser = {
   phoneNumber: string;
 };
 export const useChat = () => {
+  const { aCometUser, allCometUsers } = useSelector((state: RootState) => state.cometChat);
+
   //function for logging in user to comet chat
   const loggedInUserToCometChat = async (email: string) => {
     try {
@@ -106,5 +110,7 @@ export const useChat = () => {
     handleAddUserToCometChat,
     createAuthTokenToCometChat,
     loggedInUserToCometChat,
+    aCometUser,
+    allCometUsers
   };
 };

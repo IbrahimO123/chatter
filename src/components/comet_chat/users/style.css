@@ -3,6 +3,7 @@
     color: #e5484d;
     border: 0px 1px 1px 0px solid #e5484d;
     font-family: "Times New Roman";
+    display: none;
 }
 
 .cometchat .cometchat-users .cometchat-search-bar__input::placeholder {
@@ -13,7 +14,7 @@
     line-height: 19.2px;
 }
 
-.cometchat .cometchat-users .cometchat-list-item__body-title {
+/* .cometchat .cometchat-users .cometchat-list-item__body-title {
     overflow: hidden;
     color: #141414;
     text-overflow: ellipsis;
@@ -42,4 +43,4 @@
 
 .cometchat-list-item__leading-view {
     background: #f0999b;
-    border-radius: 9.6px; }
+    border-radius: 9.6px; } */
