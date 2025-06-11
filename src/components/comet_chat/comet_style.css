@@ -169,4 +169,39 @@
 
 /* Remove border-radius for the message composer input */
 .cometchat .cometchat-message-composer {
-    border-radius: 0px; }
+    border-radius: 0px;
+}
+
+
+
+
+/*..........Conversation Styling .........................*/
+.cometchat-conversations .cometchat-list-item__body-title,
+.cometchat-conversations .cometchat-list__header-title,
+.cometchat-conversations .cometchat-avatar__text,
+.cometchat-conversations .cometchat-badge,
+.cometchat-conversations .cometchat-conversations__subtitle-text {
+    font-family: "SF Pro";
+}
+
+.cometchat-conversations .cometchat-list__header-title {
+    background: #fef8f8;
+    border-bottom: 2px solid #f4b6b8;
+}
+
+.cometchat-conversations .cometchat-avatar {
+    background: #f0999b;
+}
+
+.cometchat-conversations .cometchat-status-indicator {
+    min-width: 10px;
+    height: 10px;
+}
+
+.cometchat-conversations .cometchat-badge {
+    background: #e5484d;
+}
+
+.cometchat-conversations .cometchat-receipts-read {
+    background: #e96b6f;
+}
