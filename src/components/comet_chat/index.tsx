@@ -1,10 +1,8 @@
 import "@cometchat/chat-uikit-react/css-variables.css";
 
-import Conversations from "./Conversations";
+import Conversations from "./conversations/Conversations";
 
 function CometChatApp() {
-
-
   return (
     <div className="conversations-with-messages">
       <Conversations />
