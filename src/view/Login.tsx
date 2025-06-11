@@ -87,12 +87,12 @@ const Login = () => {
       const value = await signInWithGoogle(
         aUser,
         createAuthTokenToCometChat,
-        handleAddUserToCometChat
+        handleAddUserToCometChat,
+        loggedInUserToCometChat
       );
       if (value?.error) {
         return navigate("/login", { replace: true });
       }
-      getCometAuthToken("mbmf1k2n00msqpc2pn8x");
       dispatch(
         updateOtherState({
           ...others,

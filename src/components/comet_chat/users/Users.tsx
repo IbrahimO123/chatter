@@ -1,11 +1,18 @@
 import { CometChatUsers } from "@cometchat/chat-uikit-react";
 
+import { MessageModal } from "../messages/Messages";
+import { useState } from "react";
+
 function Users() {
-  const handleItemClick = () => {
-    console.log("CLICKED....");
-  };
+  const [openModal, setOpenModal] = useState(false);
+  const handleItemClick = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
-    <CometChatUsers onItemClick={handleItemClick} showSectionHeader={false} />
+    <>
+      <CometChatUsers onItemClick={handleItemClick} showSectionHeader={false} />
+      <MessageModal handleCloseModal={handleCloseModal} openModal={openModal} />
+    </>
   );
 }
 
