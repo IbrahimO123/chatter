@@ -121,9 +121,9 @@ export const PostComment = ({
         }}
       >
         <Box component="div" p={1}>
-          <Box sx={{ float: "right" }}>
+          <Box sx={{ float: "right", color:"red" }}>
             <IconButton onClick={handleCloseCard}>
-              <CancelIcon />
+              <CancelIcon color="error" />
             </IconButton>
           </Box>
           <Box

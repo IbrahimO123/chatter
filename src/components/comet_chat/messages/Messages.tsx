@@ -8,6 +8,7 @@ import { Box, Modal, Paper } from "@mui/material";
 import { useChat } from "../../../custom/hooks/useChat";
 import { useGeneral } from "../../../custom/hooks/useGeneral";
 import { openChatModal } from "../../../redux/cometchat/slice";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 export function MessageList() {
   const [chatUser, setChatUser] = useState<CometChat.User>();
@@ -24,7 +25,13 @@ export function MessageList() {
 
   return chatUser ? (
     <div>
-      <>
+      <Box
+        sx={{
+          height: "40vh",
+          
+          
+        }}
+      >
         <CometChatMessageList
           user={chatUser}
           onThreadRepliesClick={getOnThreadRepliesClick}
@@ -32,7 +39,8 @@ export function MessageList() {
             <Box
               sx={{
                 display: "grid",
-                placeContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
                 fontWeight: "lighter",
               }}
               m={5}
@@ -44,7 +52,7 @@ export function MessageList() {
           }
         ></CometChatMessageList>
         <CometChatMessageComposer user={chatUser} />
-      </>
+      </Box>
     </div>
   ) : null;
 }
@@ -62,6 +70,14 @@ export const MessageModal = () => {
       sx={{ display: "grid", placeItems: "center" }}
     >
       <Paper sx={{ width: "30%", height: "50%" }} elevation={0}>
+        <Box
+          component="span"
+          sx={{ float: "right", color: "red" }}
+          m={1}
+          onClick={handleCloseModal}
+        >
+          <CancelIcon color="error" />
+        </Box>
         <MessageList />
       </Paper>
     </Modal>
