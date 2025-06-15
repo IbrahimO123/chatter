@@ -4,6 +4,7 @@ import { useChat } from "../../../custom/hooks/useChat";
 import { useGeneral } from "../../../custom/hooks/useGeneral";
 import { openChatModal } from "../../../redux/cometchat/slice";
 import { MessageModal } from "../messages/Messages";
+import { Box } from "@mui/material";
 
 function Conversations() {
   const { cometModal } = useChat();
@@ -19,6 +20,7 @@ function Conversations() {
         <CometChatConversations
           onItemClick={getOnItemClick}
           emptyView={<Users />}
+          errorView={<Box sx={{m:2, p:2,display:"grid", alignItems:"center"}}>Login to chat your friends...have fun</Box>}
         />
         <MessageModal />
       </div>

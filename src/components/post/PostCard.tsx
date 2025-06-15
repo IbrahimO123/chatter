@@ -185,6 +185,7 @@ export const PostCard = ({
                     sx={{
                       width: { xs: "300px", md: "500px" },
                       borderRadius: "5px",
+                      height:"250px"
                     }}
                     controls
                   >
