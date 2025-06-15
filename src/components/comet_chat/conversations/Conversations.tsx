@@ -32,7 +32,7 @@ function Conversations() {
                 fontSize: "13px",
               }}
             >
-              Login to chat your friends...have fun
+              Login to chat your friends...have fun and enjoy!
             </Box>
           }
         />
