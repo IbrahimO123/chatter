@@ -32,9 +32,11 @@ import { Link } from "react-router-dom";
 
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
+import { useChat } from "../custom/hooks/useChat";
 
 export const GridOne = () => {
   const { navigate, user, dispatch, others, aUser } = useGeneral();
+  const { aCometUser } = useChat();
 
   const handleRoute = (route: string) => {
     navigate(`${route}`);
@@ -54,7 +56,9 @@ export const GridOne = () => {
           message: "Signed out successfully",
         })
       );
-      CometChat.logout();
+      if (aCometUser.withAuthToken) {
+        CometChat.logout();
+      }
       dispatch(updateAUser({ ...aUser, isLoggedIn: false }));
       dispatch(updateUserDetailsToDefault());
       return;

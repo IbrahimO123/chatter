@@ -72,6 +72,9 @@ const Login = () => {
   useEffect(
     () => {
       handleFetchUser();
+      if (user?.email) {
+        loggedInUserToCometChat(user?.email);
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, navigate]
@@ -86,8 +89,7 @@ const Login = () => {
       const value = await signInWithGoogle(
         aUser,
         createAuthTokenToCometChat,
-        handleAddUserToCometChat,
-        loggedInUserToCometChat
+        handleAddUserToCometChat
       );
       if (value?.error) {
         return navigate("/login", { replace: true });

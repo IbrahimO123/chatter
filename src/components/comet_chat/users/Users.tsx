@@ -12,7 +12,7 @@ function Users() {
   const handleItemClick = (users: CometChat.User) => {
     dispatch(openChatModal({ ...cometModal, open: true }));
     dispatch(getACometUser({ ...aCometUser, ...users }));
-    console.log("users", users)
+    
   };
 
   return (
