@@ -95,6 +95,7 @@ export const ManagePostMore = [
 export const linkStyle = {
   textDecoration: "none",
   color: "#000",
+  fontWeight:"bolder"
 };
 
 export const calculateReadingTime = (content: string): number => {

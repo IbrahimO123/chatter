@@ -113,10 +113,10 @@ export const ArticleCard = (article: any) => {
     <ScrollToTop>
       <Paper elevation={0} sx={{ borderRadius: "0", p: 2, m: 1 }}>
         <Container sx={{ textAlign: "center" }}>
-          <Typography m={2} component="p" variant={MobileView() ? "h5" : "h4"}>
+          <Typography m={2} component="p" variant={MobileView() ? "h4" : "h3"}>
             {article.title}
           </Typography>
-          <Typography component="h1" variant="h6">
+          <Typography component="h1" variant="h4">
             {article.subtitle}
           </Typography>
           <Box mt={1} mb={1}>
@@ -134,6 +134,7 @@ export const ArticleCard = (article: any) => {
           <Typography
             sx={{ wordSpacing: "5px", letterSpacing: "1.5px" }}
             textAlign="left"
+            variant="h6"
           >
             {parse(mdParser.render(article.text))}
           </Typography>

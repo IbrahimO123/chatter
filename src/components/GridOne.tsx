@@ -74,31 +74,31 @@ export const GridOne = () => {
             <IconButton>
               <HomeIcon />
             </IconButton>
-            Home
+            <Typography variant="subtitle2">Home</Typography>
           </MenuItem>
           <MenuItem onClick={() => handleRoute("/write")}>
             <IconButton>
               <EditNoteIcon />
             </IconButton>
-            Draft
+            <Typography variant="subtitle2">Write up</Typography>
           </MenuItem>
           <MenuItem onClick={() => handleRoute("/chat")}>
             <IconButton>
               <ChatIcon />
             </IconButton>
-            Chat
+            <Typography variant="subtitle2">Chat</Typography>
           </MenuItem>
           <MenuItem onClick={() => handleRoute("/communities")}>
             <IconButton>
               <ForumIcon />
             </IconButton>
-            Communities
+            <Typography variant="subtitle2">Communities</Typography>
           </MenuItem>
           <MenuItem>
             <IconButton>
               <FolderSpecialIcon />
             </IconButton>
-            Bookmarks
+            <Typography variant="subtitle2">Bookmarks</Typography>
           </MenuItem>
           <Accordion elevation={0}>
             <AccordionSummary>
@@ -111,13 +111,13 @@ export const GridOne = () => {
                   <IconButton>
                     <HelpIcon />
                   </IconButton>
-                  Help
+                  <Typography variant="subtitle2">Help</Typography>
                 </MenuItem>
                 <MenuItem>
                   <IconButton>
                     <InfoIcon />
                   </IconButton>
-                  About
+                   <Typography variant="subtitle2">About</Typography>
                 </MenuItem>
               </MenuList>
             </AccordionDetails>
@@ -129,17 +129,29 @@ export const GridOne = () => {
             <Box
               sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}
             >
-              <Typography variant="subtitle2" mr={1} component="span">
+              <Typography variant="h6" mr={1} component="span">
                 Trending Tags
               </Typography>
               <TrendingUpIcon />
             </Box>
             <MenuList>
-              <MenuItem>&#35;Programming</MenuItem>
-              <MenuItem>&#35;Science</MenuItem>
-              <MenuItem>&#35;Technology</MenuItem>
-              <MenuItem>&#35;Machine Learning</MenuItem>
-              <MenuItem>&#35;Politics</MenuItem>
+              <MenuItem>
+                <Typography variant="subtitle2">&#35;Programming</Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography variant="subtitle2">&#35;Science</Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography variant="subtitle2">&#35;Technology</Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography variant="subtitle2">
+                  &#35;Machine Learning
+                </Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography variant="subtitle2">&#35;Programming</Typography>
+              </MenuItem>
               <Link className="link" to="/tags">
                 <MenuItem>See all tags</MenuItem>
               </Link>

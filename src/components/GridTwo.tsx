@@ -7,6 +7,7 @@ import {
   TextField,
   Avatar,
   Badge,
+  Typography,
 } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -103,7 +104,11 @@ export const GridTwo = () => {
             Post
           </LoadingButton>
           <label onClick={() => navigate("/write")}>
-            {MobileView() ? <EditNoteIcon /> : "Write Article"}
+            {MobileView() ? (
+              <EditNoteIcon />
+            ) : (
+              <Typography variant="subtitle2">Write up</Typography>
+            )}
           </label>
 
           <label htmlFor="image">
@@ -118,7 +123,11 @@ export const GridTwo = () => {
               }
               color="primary"
             >
-              {MobileView() ? <AddPhotoAlternateIcon/> : "Photo"}
+              {MobileView() ? (
+                <AddPhotoAlternateIcon />
+              ) : (
+                <Typography variant="subtitle2">Photo</Typography>
+              )}
             </Badge>
             <TextField
               id="image"
@@ -145,7 +154,11 @@ export const GridTwo = () => {
               }
               color="primary"
             >
-              {MobileView() ? <VideoCallIcon/> : "Video"}
+              {MobileView() ? (
+                <VideoCallIcon />
+              ) : (
+                <Typography variant="subtitle2">Video</Typography>
+              )}
             </Badge>
             <TextField
               sx={{ display: "none" }}
@@ -158,7 +171,13 @@ export const GridTwo = () => {
               }}
             />
           </label>
-          <label>{MobileView() ? <EventNoteIcon/> : "Event"}</label>
+          <label>
+            {MobileView() ? (
+              <EventNoteIcon />
+            ) : (
+              <Typography variant="subtitle2">Events</Typography>
+            )}
+          </label>
         </Box>
       </Paper>
     </Box>

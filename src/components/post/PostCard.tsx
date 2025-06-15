@@ -175,7 +175,7 @@ export const PostCard = ({
         <Grid container textAlign="center">
           <Grid item md={12} xs={12}>
             <Box component="div" p={2} pb={0} textAlign="left">
-              <Typography>{content}</Typography>
+              <Typography variant="h6" >{content}</Typography>
             </Box>
             <Box p={2}>
               {video ? (

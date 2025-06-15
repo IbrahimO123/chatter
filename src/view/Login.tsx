@@ -211,6 +211,9 @@ const Login = () => {
               >
                 Login
               </Button>
+              <Box sx={{alignSelf:"start", cursor:"default"}} mt={3} >
+                <Typography component="p" variant="caption" color="blue" >Forgot password?</Typography>
+              </Box>
               <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
                 {loading && <LinearProgress color="success" />}
               </Box>

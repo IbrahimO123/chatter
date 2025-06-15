@@ -141,7 +141,7 @@ export const MiniCard = (card: MiniCardProps) => {
           title={"Chatter_App_" + card.title}
           onClick={blogPost}
         ></CardMedia>
-        <Typography mt={2} variant="body2">
+        <Typography mt={2} variant="subtitle2">
           {`${card.text?.substring(0, 300)}....`}{" "}
           <span className="read-more" onClick={blogPost}>
             Read more
