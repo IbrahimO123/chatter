@@ -20,7 +20,21 @@ function Conversations() {
         <CometChatConversations
           onItemClick={getOnItemClick}
           emptyView={<Users />}
-          errorView={<Box sx={{m:2, p:2,display:"grid", alignItems:"center"}}>Login to chat your friends...have fun</Box>}
+          errorView={
+            <Box
+              sx={{
+                m: 2,
+                p: 2,
+                display: "grid",
+                alignContent: "center",
+                justifyItems:"center",
+                fontWeight: "lighter",
+                fontSize: "13px",
+              }}
+            >
+              Login to chat your friends...have fun
+            </Box>
+          }
         />
         <MessageModal />
       </div>
