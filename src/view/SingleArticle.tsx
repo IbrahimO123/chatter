@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleArticle } from "../Utilities/RetrieveArticle";
 import { Box } from "@mui/material";
-import { ArticleCard } from "../components/ArticleCard";
+import { ArticleCard } from "../components/article/ArticleCard";
 import { MiniSkeleton } from "../components/MiniSkeleton";
 import { MetaTags } from "../components/MetaTag";
 import { useGeneral } from "../custom/hooks/useGeneral";

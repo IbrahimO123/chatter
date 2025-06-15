@@ -12,9 +12,8 @@ import {
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { CommentModel } from "../redux/comment/model";
+import { CommentModel } from "../../redux/comment/model";
 import { style } from "./Comment";
-
 
 export const CommentCard = (props: CommentModel) => {
   const [commentLike, setCommentLike] = useState(false);
@@ -35,11 +34,11 @@ export const CommentCard = (props: CommentModel) => {
       sx={{
         bgcolor: "#e8f5e9",
         margin: "15px",
-        marginBottom:"25px",
+        marginBottom: "25px",
         color: "#000",
         padding: "5px",
         borderRadius: "3px",
-        width: { md: "25vw", xs: "90vw" },
+        width: { md: "22vw", xs: "90vw" },
       }}
       elevation={0}
       key={props.comment.text}

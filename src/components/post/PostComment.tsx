@@ -12,12 +12,12 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
-import { useComment } from "../custom/hooks/useComment";
-import { useGeneral } from "../custom/hooks/useGeneral";
-import { CommentCard } from "./CommentCard";
-import { addCommentToDatabase } from "../Utilities/AddComments";
-import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
-import ScrollToTop from "./ScrollToTop";
+import { useGeneral } from "../../custom/hooks/useGeneral";
+import { useComment } from "../../custom/hooks/useComment";
+import { addCommentToDatabase } from "../../Utilities/AddComments";
+import ScrollToTop from "../ScrollToTop";
+import { getTimeDifferenceString } from "../../Utilities/Miscellaneous";
+import { CommentCard } from "../article/CommentCard";
 
 export const style = {
   width: "100%",
@@ -121,7 +121,7 @@ export const PostComment = ({
         }}
       >
         <Box component="div" p={1}>
-          <Box sx={{ float: "right", color:"red" }}>
+          <Box sx={{ float: "right", color: "red" }}>
             <IconButton onClick={handleCloseCard}>
               <CancelIcon color="error" />
             </IconButton>
@@ -205,11 +205,11 @@ export const PostComment = ({
             <Button
               disabled={text.trim() === ""}
               onClick={handleUserComment}
-              size="medium"
+              size="small"
               color="primary"
               variant="contained"
               disableElevation
-              sx={{ width: { xs: "150px" } , textTransform:"capitalize"}}
+              sx={{ height:{md:"40px", }, textTransform: "capitalize", alignSelf:{md:"center", xs:"end"} }}
             >
               Post
             </Button>
@@ -237,7 +237,7 @@ export const PostComment = ({
                 component="h3"
                 variant="h6"
                 m={1}
-                mt={{ xs: 6, md:1 }}
+                mt={{ xs: 6, md: 1 }}
                 p={1}
               >
                 Comments:

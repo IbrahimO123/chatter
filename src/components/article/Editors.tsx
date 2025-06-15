@@ -1,11 +1,11 @@
 import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
-import { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { updateArticle } from "../redux/articles/slice";
 
 
 import "react-markdown-editor-lite/lib/index.css";
+import { RootState } from "../../redux/store";
+import { updateArticle } from "../../redux/articles/slice";
 
 
 export const mdParser = new MarkdownIt();

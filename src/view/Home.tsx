@@ -5,7 +5,7 @@ import { Loader } from "../main";
 import { GridOne } from "../components/GridOne";
 import { GridTwo } from "../components/GridTwo";
 import { MetaTags } from "../components/MetaTag";
-import { PostCard } from "../components/PostCard";
+
 
 import { MiniCard } from "../components/MiniCard";
 import { useEffect } from "react";
@@ -19,6 +19,7 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
 import { getAllPosts } from "../Utilities/RetrieveAllPost";
 import { usePost } from "../custom/hooks/usePost";
+import { PostCard } from "../components/post/PostCard";
 
 const Home = () => {
   const [feed, setFeed] = useState<any>([]);

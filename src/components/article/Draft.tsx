@@ -9,21 +9,18 @@ import {
   Modal,
 } from "@mui/material";
 import Typewriter from "typewriter-effect";
-import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import {
-  RetrieveDrafts,
-  RetrieveSingleDraft,
-} from "../Utilities/RetrieveDrafts";
-import { updateArticle, updateSaveDrafts } from "../redux/articles/slice";
-import { updateOtherState } from "../redux/Others/slice";
-import { style } from "../Utilities/Miscellaneous";
-import { DeleteDraft } from "../Utilities/DeleteDraft";
-import { DeleteImage } from "../Utilities/DeleteImage";
-import { useGeneral } from "../custom/hooks/useGeneral";
-import { DraftModel } from "../redux/articles/model";
+import { useGeneral } from "../../custom/hooks/useGeneral";
+import { RootState } from "../../redux/store";
+import { RetrieveDrafts, RetrieveSingleDraft } from "../../Utilities/RetrieveDrafts";
+import { updateArticle, updateSaveDrafts } from "../../redux/articles/slice";
+import { DraftModel } from "../../redux/articles/model";
+import { DeleteDraft } from "../../Utilities/DeleteDraft";
+import { DeleteImage } from "../../Utilities/DeleteImage";
+import { updateOtherState } from "../../redux/Others/slice";
+import { style } from "../../Utilities/Miscellaneous";
 
 type DraftProps = {
   applyStyle?: boolean;

@@ -14,6 +14,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { HelmetProvider } from "react-helmet-async";
 import { Hourglass } from "react-loader-spinner";
 
+
 export const Loader = () => {
   const loaderStyle = {
     position: "absolute",
@@ -43,10 +44,10 @@ const UIKitSettings = new UIKitSettingsBuilder()
 
 CometChatUIKit.init(UIKitSettings)!
   .then(() => {
-    console.log("CometChat Initialization success.");
+    console.log("success.");
   })
   .catch((error) => {
-    console.error("CometChat Initialization failed:", error);
+    console.error("failed:", error);
   });
 
 const root = ReactDOM.createRoot(

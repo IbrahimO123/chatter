@@ -24,6 +24,7 @@ import { auth } from "./config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ScrollToTop from "./components/ScrollToTop";
 
+
 function App() {
   const others = useSelector((state: RootState) => state.others);
   const [user] = useAuthState(auth);
@@ -42,7 +43,6 @@ function App() {
       updateOtherState({ ...others, open: false, message: "", severity })
     );
   };
-
   return (
     <>
       <ScrollToTop>
@@ -60,7 +60,6 @@ function App() {
           autoHideDuration={2500}
           TransitionComponent={Slide}
         >
-          
           <Alert variant="filled" severity={severity}>
             {message}
           </Alert>

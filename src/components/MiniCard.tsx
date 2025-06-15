@@ -22,7 +22,7 @@ import { MenuComponent } from "./MenuComponent";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { useComment } from "../custom/hooks/useComment";
 import { useArticle } from "../custom/hooks/useArticle";
-import { ProfileCard } from "./ProfileCard";
+import { ProfileCard } from "./profile/ProfileCard";
 
 const actionStyle = {
   display: "flex",

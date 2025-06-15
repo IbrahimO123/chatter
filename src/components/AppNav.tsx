@@ -14,7 +14,6 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuIcon from "@mui/icons-material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
-import { Draft } from "./Draft";
 import { GridOne } from "./GridOne";
 import ChatIcon from "@mui/icons-material/Chat";
 import {
@@ -24,6 +23,7 @@ import {
 } from "../Utilities/Miscellaneous";
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { PopUp } from "./PopUpState";
+import { Draft } from "./article/Draft";
 
 export const AppNav = () => {
   const [open, setOpen] = useState(false);

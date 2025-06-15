@@ -19,14 +19,11 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
 import { Tags } from "../Utilities/Miscellaneous";
 import { updateArticle } from "../redux/articles/slice";
-import { Draft } from "../components/Draft";
 import { updateOtherState } from "../redux/Others/slice";
-import EditorMarkdown from "../components/Editors";
 import { addDraftToDatabase } from "../Utilities/AddDrafts";
 import { useState } from "react";
 import { UploadCoverImage } from "../Utilities/UploadImage";
 import { MobileView } from "../Utilities/Miscellaneous";
-import { mdParser } from "../components/Editors";
 import { RetrieveDrafts } from "../Utilities/RetrieveDrafts";
 import { updateSaveDrafts } from "../redux/articles/slice";
 import { PublishArticle } from "../Utilities/PublishArticle";
@@ -35,6 +32,8 @@ import { useArticle } from "../custom/hooks/useArticle";
 import { MetaTags } from "../components/MetaTag";
 import { DraftModel } from "../redux/articles/model";
 import { getLoggedInUser } from "../Utilities/GetUserData";
+import { Draft } from "../components/article/Draft";
+import EditorMarkdown, { mdParser } from "../components/article/Editors";
 
 const WriteArticle = () => {
   const { others, dispatch, user, aUser } = useGeneral();

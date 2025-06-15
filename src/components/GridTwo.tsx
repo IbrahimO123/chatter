@@ -10,10 +10,14 @@ import {
 } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import LoadingButton from "@mui/lab/LoadingButton";
-
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import VideoCallIcon from '@mui/icons-material/VideoCall';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
 import { usePost } from "../custom/hooks/usePost";
+import { MobileView } from "../Utilities/Miscellaneous";
 const postStyle = {
   display: "flex",
   justifyContent: "space-around",
@@ -98,7 +102,9 @@ export const GridTwo = () => {
           >
             Post
           </LoadingButton>
-          <label onClick={() => navigate("/write")}>Write Article</label>
+          <label onClick={() => navigate("/write")}>
+            {MobileView() ? <EditNoteIcon /> : "Write Article"}
+          </label>
 
           <label htmlFor="image">
             <Badge
@@ -112,7 +118,7 @@ export const GridTwo = () => {
               }
               color="primary"
             >
-              Photo
+              {MobileView() ? <AddPhotoAlternateIcon/> : "Photo"}
             </Badge>
             <TextField
               id="image"
@@ -139,7 +145,7 @@ export const GridTwo = () => {
               }
               color="primary"
             >
-              Video
+              {MobileView() ? <VideoCallIcon/> : "Video"}
             </Badge>
             <TextField
               sx={{ display: "none" }}
@@ -152,7 +158,7 @@ export const GridTwo = () => {
               }}
             />
           </label>
-          <label>Event</label>
+          <label>{MobileView() ? <EventNoteIcon/> : "Event"}</label>
         </Box>
       </Paper>
     </Box>

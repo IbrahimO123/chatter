@@ -17,14 +17,16 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { MenuComponent } from "./MenuComponent";
-import { PostMenu } from "../Utilities/Miscellaneous";
-import { getTimeDifferenceString } from "../Utilities/Miscellaneous";
-import { likeList, usePost } from "../custom/hooks/usePost";
-import { useGeneral } from "../custom/hooks/useGeneral";
+import { useGeneral } from "../../custom/hooks/useGeneral";
+import { likeList, usePost } from "../../custom/hooks/usePost";
+import { useComment } from "../../custom/hooks/useComment";
+import {
+  getTimeDifferenceString,
+  PostMenu,
+} from "../../Utilities/Miscellaneous";
+import { ProfileCard } from "../profile/ProfileCard";
+import { MenuComponent } from "./../MenuComponent";
 import { PostComment } from "./PostComment";
-import { useComment } from "../custom/hooks/useComment";
-import { ProfileCard } from "./ProfileCard";
 
 type postCard = {
   id: string;
@@ -111,7 +113,6 @@ export const PostCard = ({
         sx={{
           padding: "1px 1px",
           margin: "10px 5px",
-          
         }}
         elevation={0}
       >

@@ -7,11 +7,11 @@ import {
   Divider,
   IconButton,
 } from "@mui/material";
-import { User } from "../redux/user/model";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
+import { User } from "../../redux/user/model";
 
 export const AuthorCard = (props: User) => {
   return (

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Stack, TextField, Button, Box, Typography, List } from "@mui/material";
-import { useComment } from "../custom/hooks/useComment";
-import { useGeneral } from "../custom/hooks/useGeneral";
+import { useComment } from "../../custom/hooks/useComment";
+import { useGeneral } from "../../custom/hooks/useGeneral";
 import { CommentCard } from "./CommentCard";
-import { addCommentToDatabase } from "../Utilities/AddComments";
+import { addCommentToDatabase } from "../../Utilities/AddComments";
 
 export const style = {
   "& .MuiOutlinedInput-root": {

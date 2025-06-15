@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import parse from "html-react-parser";
-import { mdParser } from "./Editors";
 import {
   Container,
   Typography,
@@ -12,7 +11,7 @@ import {
   Fab,
   Button,
 } from "@mui/material";
-import { MobileView } from "../Utilities/Miscellaneous";
+import { MobileView } from "../../Utilities/Miscellaneous";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useCallback } from "react";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
@@ -20,13 +19,14 @@ import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { Comment } from "./Comment";
-import { likeList, useArticle } from "../custom/hooks/useArticle";
-import { getData } from "../Utilities/GetUserData";
-import { AuthorCard } from "./AuthorCard";
-import { User } from "../redux/user/model";
-import { useGeneral } from "../custom/hooks/useGeneral";
-import { ShareComponent } from "./Share";
-import ScrollToTop from "./ScrollToTop";
+import { likeList, useArticle } from "../../custom/hooks/useArticle";
+import { getData } from "../../Utilities/GetUserData";
+import { User } from "../../redux/user/model";
+import { useGeneral } from "../../custom/hooks/useGeneral";
+import { ShareComponent } from "../Share";
+import ScrollToTop from "../ScrollToTop";
+import { mdParser } from "./Editors";
+import { AuthorCard } from "../profile/AuthorCard";
 
 const actionStyle = {
   display: "flex",
@@ -111,7 +111,7 @@ export const ArticleCard = (article: any) => {
 
   return (
     <ScrollToTop>
-      <Paper elevation={0} sx={{borderRadius:"0", p:2, m:1}}>
+      <Paper elevation={0} sx={{ borderRadius: "0", p: 2, m: 1 }}>
         <Container sx={{ textAlign: "center" }}>
           <Typography m={2} component="p" variant={MobileView() ? "h5" : "h4"}>
             {article.title}
