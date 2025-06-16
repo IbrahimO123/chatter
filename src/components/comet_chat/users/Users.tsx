@@ -17,7 +17,7 @@ function Users() {
 
   return (
     <>
-      <CometChatUsers onItemClick={handleItemClick} showSectionHeader={false} />
+      <CometChatUsers  onItemClick={handleItemClick} showSectionHeader={false} />
     </>
   );
 }

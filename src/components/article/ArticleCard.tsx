@@ -116,7 +116,7 @@ export const ArticleCard = (article: any) => {
           <Typography m={2} component="p" variant={MobileView() ? "h4" : "h3"}>
             {article.title}
           </Typography>
-          <Typography component="h1" variant="h4">
+          <Typography component="p" variant={MobileView() ? "h6" : "h4"}>
             {article.subtitle}
           </Typography>
           <Box mt={1} mb={1}>
