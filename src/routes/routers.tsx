@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import Chat from "../view/Chat";
+import { MobileView } from "../Utilities/Miscellaneous";
 
 const Home = lazy(() => import("../view/Home"));
 const Login = lazy(() => import("../view/Login"));
@@ -18,6 +20,7 @@ export const Routers = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/user/profile" element={<User />}></Route>
         <Route path="/write" element={<WriteArticle />}></Route>
+        { MobileView() ?  <Route path="/chat" element={<Chat/>} ></Route> : null }
       </Route>
       <Route
         path="/articles/single/:authorName/:articleId/:title"

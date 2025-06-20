@@ -82,7 +82,10 @@ export const GridOne = () => {
             </IconButton>
             <Typography variant="subtitle2">Write up</Typography>
           </MenuItem>
-          <MenuItem onClick={() => handleRoute("/chat")}>
+          <MenuItem
+            onClick={() => handleRoute("/chat")}
+            sx={{ display: { xs: "span", md: "none" } }}
+          >
             <IconButton>
               <ChatIcon />
             </IconButton>
@@ -117,7 +120,7 @@ export const GridOne = () => {
                   <IconButton>
                     <InfoIcon />
                   </IconButton>
-                   <Typography variant="subtitle2">About</Typography>
+                  <Typography variant="subtitle2">About</Typography>
                 </MenuItem>
               </MenuList>
             </AccordionDetails>
@@ -170,13 +173,6 @@ export const GridOne = () => {
                   <MenuItem onClick={() => handleRoute("/user/settings")}>
                     <SettingsOutlinedIcon sx={{ marginRight: "7px" }} />{" "}
                     Settings
-                  </MenuItem>
-                  <MenuItem onClick={() => handleRoute("/user/notifications")}>
-                    {" "}
-                    <NotificationsNoneOutlinedIcon
-                      sx={{ marginRight: "7px" }}
-                    />
-                    Notifications
                   </MenuItem>
 
                   <Button
