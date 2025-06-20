@@ -211,38 +211,42 @@ const Login = () => {
               >
                 Login
               </Button>
-              <Box sx={{alignSelf:"start", cursor:"default"}} mt={3} >
-                <Typography component="p" variant="caption" color="blue" >Forgot password?</Typography>
-              </Box>
               <Box sx={{ width: "20%", margin: "0 auto", paddingTop: "5px" }}>
                 {loading && <LinearProgress color="success" />}
               </Box>
             </div>
 
-            <Typography className="caption" variant="caption">
-              Don't have an account?{" "}
-              <Link style={linkStyle} to="/signup">
-                Sign-up
-              </Link>
-            </Typography>
-            <Box textAlign="center" color="white">
-              <p>Sign in with Google </p>
+            <Box sx={{ cursor: "default" }} mt={3}>
+              <Typography variant="caption" component="p">
+                <Link to="#" style={linkStyle}>
+                  Forgot password?
+                </Link>
+              </Typography>
+              <Typography className="caption" component="p" variant="caption">
+                Don't have an account?{" "}
+                <Link style={linkStyle} to="/signup">
+                  Sign-up
+                </Link>
+              </Typography>
+              <Box textAlign="center" color="white">
+                <p>Sign in with Google </p>
 
-              <Button
-                onClick={handleGoogleSignIn}
-                sx={{ backgroundColor: "#fff", color: "#000" }}
-                variant="contained"
-                disableElevation
-                startIcon={
-                  <img
-                    src={GoogleLogo}
-                    style={{ width: "20px", padding: "5px", color: "white" }}
-                    alt="man working on a saw mill"
-                  />
-                }
-              >
-                Sign In
-              </Button>
+                <Button
+                  onClick={handleGoogleSignIn}
+                  sx={{ backgroundColor: "#fff", color: "#000" }}
+                  variant="contained"
+                  disableElevation
+                  startIcon={
+                    <img
+                      src={GoogleLogo}
+                      style={{ width: "20px", padding: "5px", color: "white" }}
+                      alt="man working on a saw mill"
+                    />
+                  }
+                >
+                  Sign In
+                </Button>
+              </Box>
             </Box>
           </Box>
         </form>
