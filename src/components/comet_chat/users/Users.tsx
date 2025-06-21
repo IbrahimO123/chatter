@@ -4,6 +4,7 @@ import "./style.css";
 import { useChat } from "../../../custom/hooks/useChat";
 import { useGeneral } from "../../../custom/hooks/useGeneral";
 import { getACometUser, openChatModal } from "../../../redux/cometchat/slice";
+import { Box } from "@mui/material";
 
 
 function Users() {
@@ -16,9 +17,9 @@ function Users() {
   };
 
   return (
-    <>
+    <Box>
       <CometChatUsers  onItemClick={handleItemClick} showSectionHeader={false} />
-    </>
+    </Box>
   );
 }
 

@@ -4,11 +4,8 @@ import {
   CometChatMessageList,
   CometChatMessageComposer,
 } from "@cometchat/chat-uikit-react";
-import { Box, Modal, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import { useChat } from "../../../custom/hooks/useChat";
-import { useGeneral } from "../../../custom/hooks/useGeneral";
-import { openChatModal } from "../../../redux/cometchat/slice";
-import CancelIcon from "@mui/icons-material/Cancel";
 
 export function MessageList() {
   const [chatUser, setChatUser] = useState<CometChat.User>();
@@ -24,12 +21,10 @@ export function MessageList() {
   };
 
   return chatUser ? (
-    <div>
+    <Box>
       <Box
         sx={{
-          height: "40vh",
-          
-          
+          minHeight: "40vh",
         }}
       >
         <CometChatMessageList
@@ -53,33 +48,6 @@ export function MessageList() {
         ></CometChatMessageList>
         <CometChatMessageComposer user={chatUser} />
       </Box>
-    </div>
+    </Box>
   ) : null;
 }
-
-export const MessageModal = () => {
-  const { cometModal, open } = useChat();
-  const { dispatch } = useGeneral();
-  const handleCloseModal = () => {
-    dispatch(openChatModal({ ...cometModal, open: false }));
-  };
-  return (
-    <Modal
-      onClose={handleCloseModal}
-      open={open}
-      sx={{ display: "grid", placeItems: "center" }}
-    >
-      <Paper sx={{ width: "30%", height: "50%" }} elevation={0}>
-        <Box
-          component="span"
-          sx={{ float: "right", color: "red" }}
-          m={1}
-          onClick={handleCloseModal}
-        >
-          <CancelIcon color="error" />
-        </Box>
-        <MessageList />
-      </Paper>
-    </Modal>
-  );
-};

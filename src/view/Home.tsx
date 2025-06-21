@@ -108,7 +108,6 @@ const Home = () => {
             <About />
           </Grid>
         </Grid>
-        
       </Box>
     </>
   );

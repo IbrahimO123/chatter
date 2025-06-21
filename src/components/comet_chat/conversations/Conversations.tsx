@@ -3,9 +3,8 @@ import Users from "../users/Users";
 import { useChat } from "../../../custom/hooks/useChat";
 import { useGeneral } from "../../../custom/hooks/useGeneral";
 import { openChatModal } from "../../../redux/cometchat/slice";
-import { MessageModal } from "../messages/Messages";
 import { Box, Paper, Typography } from "@mui/material";
-
+import MessageModal from "./../components/MessageModal";
 
 function Conversations() {
   const { cometModal } = useChat();
@@ -13,12 +12,15 @@ function Conversations() {
 
   const getOnItemClick = (conversation: CometChat.Conversation) => {
     dispatch(openChatModal({ ...cometModal, open: true }));
-    console.log("Conversation", conversation)
+    console.log("Conversation", conversation);
   };
 
   return (
-    <div className="conversations" style={{ width: "100%", height: "100%" }}>
-      <div>
+    <Box
+      className="conversations"
+      sx={{ width: { md: "100%", xs: "95vw" }, height: "100%" }}
+    >
+      <Box>
         {user?.uid ? (
           <CometChatConversations
             onItemClick={getOnItemClick}
@@ -60,8 +62,8 @@ function Conversations() {
           </Paper>
         )}
         <MessageModal />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

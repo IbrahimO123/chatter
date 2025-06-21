@@ -7,20 +7,14 @@ import {
   Box,
   Typography,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import ChatIcon from "@mui/icons-material/Chat";
 import ForumIcon from "@mui/icons-material/Forum";
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import InfoIcon from "@mui/icons-material/Info";
 
@@ -82,15 +76,6 @@ export const GridOne = () => {
             </IconButton>
             <Typography variant="subtitle2">Write up</Typography>
           </MenuItem>
-          <MenuItem
-            onClick={() => handleRoute("/chat")}
-            sx={{ display: { xs: "span", md: "none" } }}
-          >
-            <IconButton>
-              <ChatIcon />
-            </IconButton>
-            <Typography variant="subtitle2">Chat</Typography>
-          </MenuItem>
           <MenuItem onClick={() => handleRoute("/communities")}>
             <IconButton>
               <ForumIcon />
@@ -103,28 +88,18 @@ export const GridOne = () => {
             </IconButton>
             <Typography variant="subtitle2">Bookmarks</Typography>
           </MenuItem>
-          <Accordion elevation={0}>
-            <AccordionSummary>
-              <ExpandMoreIcon />
-              More
-            </AccordionSummary>
-            <AccordionDetails>
-              <MenuList>
-                <MenuItem>
-                  <IconButton>
-                    <HelpIcon />
-                  </IconButton>
-                  <Typography variant="subtitle2">Help</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                  <Typography variant="subtitle2">About</Typography>
-                </MenuItem>
-              </MenuList>
-            </AccordionDetails>
-          </Accordion>
+          <MenuItem>
+            <IconButton>
+              <HelpIcon />
+            </IconButton>
+            <Typography variant="subtitle2">Help</Typography>
+          </MenuItem>
+          <MenuItem>
+            <IconButton>
+              <InfoIcon />
+            </IconButton>
+            <Typography variant="subtitle2">About</Typography>
+          </MenuItem>
         </MenuList>
         <Divider></Divider>
         <Box component="div" p={2}>
