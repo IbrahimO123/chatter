@@ -19,6 +19,9 @@ import { useGeneral } from "../custom/hooks/useGeneral";
 import { getLoggedInUser } from "../Utilities/GetUserData";
 import { usePost } from "../custom/hooks/usePost";
 import { MobileView } from "../Utilities/Miscellaneous";
+import { useState } from "react";
+import ModalCalendar from "./Calendar";
+
 const postStyle = {
   display: "flex",
   justifyContent: "space-around",
@@ -45,6 +48,13 @@ export const GridTwo = () => {
     selectedVideo,
     postButton,
   } = usePost();
+
+  const [openCalendar, setOpenCalendar] = useState(false);
+
+  const handleOpenCalendar = () => setOpenCalendar(true);
+
+  const handleCloseCalendar = () => setOpenCalendar(false);
+
   const userPhoto = async () => {
     try {
       await getLoggedInUser({ user, dispatch, aUser });
@@ -80,7 +90,7 @@ export const GridTwo = () => {
               />
             </IconButton>
           </Grid>
-          <Grid item md={11}>
+          <Grid item md={11} xs={9.5}>
             <TextField
               fullWidth
               name="content"
@@ -173,9 +183,23 @@ export const GridTwo = () => {
           </label>
           <label>
             {MobileView() ? (
-              <EventNoteIcon />
+              <>
+                <EventNoteIcon onClick={handleOpenCalendar} />
+                <ModalCalendar
+                  openCalendar={openCalendar}
+                  handleCloseCalendar={handleCloseCalendar}
+                />
+              </>
             ) : (
-              <Typography variant="subtitle2">Events</Typography>
+              <>
+                <Typography onClick={handleOpenCalendar} variant="subtitle2">
+                  Events
+                </Typography>
+                <ModalCalendar
+                  openCalendar={openCalendar}
+                  handleCloseCalendar={handleCloseCalendar}
+                />
+              </>
             )}
           </label>
         </Box>
