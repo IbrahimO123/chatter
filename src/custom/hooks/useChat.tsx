@@ -24,7 +24,6 @@ export const useChat = () => {
       if (person.length !== 0) {
         CometChat.getLoggedinUser().then(
           (user: CometChat.User | null) => {
-            console.log("user", user);
             if (!user) {
               CometChat.login(person[0].authToken).then(
                 (user: CometChat.User) => {
