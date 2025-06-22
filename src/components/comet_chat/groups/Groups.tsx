@@ -4,8 +4,8 @@ import React from "react";
 
 const Groups = () => {
   return (
-    <Box sx={{ width: { md: "100%", xs: "95vw" }, height: "100%" }}>
-      <CometChatGroups />;
+    <Box sx={{ width: { md: "100%", xs: "95vw" }, height: "100%" }} px={1}>
+      <CometChatGroups />
     </Box>
   );
 };
