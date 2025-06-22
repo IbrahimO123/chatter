@@ -12,7 +12,7 @@ function Conversations() {
 
   const getOnItemClick = (conversation: CometChat.Conversation) => {
     dispatch(openChatModal({ ...cometModal, open: true }));
-    console.log("Conversation", conversation);
+    //console.log("Conversation", conversation);
   };
 
   return (

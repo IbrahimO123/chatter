@@ -8,8 +8,7 @@ import { addCometChatAuthTokenToDatabase } from "./SaveAuthToken";
 export const signInWithGoogle = async (
   data: User,
   handleAddUserToCometChat: any,
-  createAuthTokenToCometChat: any,
-  
+  createAuthTokenToCometChat: any
 ) => {
   let result;
   let error = "";
@@ -60,7 +59,6 @@ export const signInWithGoogle = async (
         );
       }
     }
-   
   } catch (err: any) {
     error = "Error while signing with Google Sign In Method: " + err.code;
     console.error(error);

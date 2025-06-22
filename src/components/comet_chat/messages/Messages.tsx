@@ -21,7 +21,7 @@ export function MessageList() {
   };
 
   return chatUser ? (
-    <Box>
+    <>
       <Box
         sx={{
           minHeight: "40vh",
@@ -48,6 +48,6 @@ export function MessageList() {
         ></CometChatMessageList>
         <CometChatMessageComposer user={chatUser} />
       </Box>
-    </Box>
+    </>
   ) : null;
 }

@@ -19,7 +19,6 @@ export const LoginUser = async ({
   others,
   navigate,
   locationState,
-  loggedInUserToCometChat,
 }: any) => {
   try {
     const { redirectTo } = (locationState as RedirectLocationState) ?? {};
@@ -78,8 +77,6 @@ export const LoginUser = async ({
                     })
                   );
 
-                  //const respond = getCometAuthToken(res.data()?.cometUid);
-                
                   navigate(redirectTo ? `${redirectTo.pathname}` : "/", {
                     replace: true,
                   });

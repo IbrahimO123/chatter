@@ -4,7 +4,7 @@ import CometChatApp from "./comet_chat";
 
 export const GridThree = () => {
   return (
-    <Box sx={{maxWidth:"310px"}}>
+    <Box >
       <CometChatApp />
     </Box>
   );

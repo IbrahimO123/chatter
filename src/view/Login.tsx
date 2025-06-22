@@ -119,13 +119,12 @@ const Login = () => {
         others,
         navigate,
         locationState,
-        loggedInUserToCometChat,
       });
-      await loggedInUserToCometChat(email);
     } catch (err) {
       console.error("Error login", err);
     }
   };
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
@@ -240,7 +239,7 @@ const Login = () => {
                     <img
                       src={GoogleLogo}
                       style={{ width: "20px", padding: "5px", color: "white" }}
-                      alt="man working on a saw mill"
+                      alt="Google Logo"
                     />
                   }
                 >

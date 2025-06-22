@@ -14,8 +14,7 @@ export const useComment = () => {
   const [postCommentsList, setPostCommentsList] = useState<
     typeof allPostComments
   >([]);
-  const { dispatch } = useGeneral();
-  const { user, firstname, lastname, profileImageUrl } = useGeneral();
+  const { dispatch, user, firstname, lastname, profileImageUrl } = useGeneral();
   const { aComment, allComments } = useSelector(
     (state: RootState) => state.comment
   );

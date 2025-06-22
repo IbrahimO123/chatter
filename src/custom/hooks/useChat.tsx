@@ -13,30 +13,34 @@ export const useChat = () => {
   const { aCometUser, allCometUsers, cometModal } = useSelector(
     (state: RootState) => state.cometChat
   );
-  const { open,  error } = cometModal;
+  const { open, error } = cometModal;
+  // const { dispatch, others } = useGeneral();
 
   //function for logging in user to comet chat
   const loggedInUserToCometChat = async (email: string) => {
     try {
       const value = await getCometChatUsers();
       const person = value.data.filter((p) => p.email === email);
-      CometChat.getLoggedinUser().then(
-        (user: CometChat.User | null) => {
-          if (!user) {
-            CometChat.login(person[0].authToken).then(
-              (user: CometChat.User) => {
-                //console.log("login successful:");
-              },
-              (error: CometChat.CometChatException) => {
-                console.log("Login failed with exception:", { error });
-              }
-            );
+      if (person.length !== 0) {
+        CometChat.getLoggedinUser().then(
+          (user: CometChat.User | null) => {
+            console.log("user", user);
+            if (!user) {
+              CometChat.login(person[0].authToken).then(
+                (user: CometChat.User) => {
+                  //console.log("login successful:");
+                },
+                (error: CometChat.CometChatException) => {
+                  console.log("Login failed with exception:", { error });
+                }
+              );
+            }
+          },
+          (error: CometChat.CometChatException) => {
+            console.log("Some Error Occured", { error });
           }
-        },
-        (error: CometChat.CometChatException) => {
-          console.log("Some Error Occured", { error });
-        }
-      );
+        );
+      } else return;
     } catch (e: any) {
       console.log(e.message);
     }
