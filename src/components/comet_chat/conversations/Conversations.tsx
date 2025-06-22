@@ -4,7 +4,6 @@ import { useChat } from "../../../custom/hooks/useChat";
 import { useGeneral } from "../../../custom/hooks/useGeneral";
 import { openChatModal } from "../../../redux/cometchat/slice";
 import { Box, Paper, Typography } from "@mui/material";
-import MessageModal from "./../components/MessageModal";
 
 function Conversations() {
   const { cometModal } = useChat();
@@ -61,7 +60,7 @@ function Conversations() {
             </Box>
           </Paper>
         )}
-        <MessageModal />
+      
       </Box>
     </Box>
   );

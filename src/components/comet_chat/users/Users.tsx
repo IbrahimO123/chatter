@@ -15,8 +15,8 @@ function Users() {
   };
 
   return (
-    <Box>
-      <CometChatUsers  onItemClick={handleItemClick} showSectionHeader={false} />
+    <Box sx={{ width: { md: "100%", xs: "95vw" }, height: "100%" }}>
+      <CometChatUsers onItemClick={handleItemClick} showSectionHeader={false} />
     </Box>
   );
 }

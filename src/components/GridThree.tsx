@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
-import CometChatApp from "./comet_chat";
-// import { CometChatSelector } from "./comet_chat/Sidebar";
+import ChatTabs from "./comet_chat/components/CustomPanel";
+
 
 export const GridThree = () => {
   return (
-    <Box >
-      <CometChatApp />
+    <Box>
+      <ChatTabs />
     </Box>
   );
 };

@@ -2,6 +2,10 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Users from "../users/Users";
+import CometChatApp from "..";
+import MessageModal from "./MessageModal";
+import Groups from "../groups/Groups";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,7 +24,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{pt:1}} >{children}</Box>}
     </div>
   );
 }
@@ -32,7 +36,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function ChatTabs() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -52,15 +56,16 @@ export default function BasicTabs() {
           <Tab label="Users" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Chat
+      <CustomTabPanel value={value} index={0} >
+        <CometChatApp/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Groups
+        <Groups/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        User
+        <Users/>
       </CustomTabPanel>
+      <MessageModal/>
     </Box>
   );
 }

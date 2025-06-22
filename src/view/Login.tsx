@@ -119,7 +119,6 @@ const Login = () => {
         others,
         navigate,
         locationState,
-        loggedInUserToCometChat,
       });
       await loggedInUserToCometChat(email);
     } catch (err) {
