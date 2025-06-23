@@ -218,7 +218,7 @@ const Login = () => {
 
             <Box sx={{ cursor: "default" }} mt={3}>
               <Typography variant="caption" component="p">
-                <Link to="#" style={linkStyle}>
+                <Link to="/forgot-password" style={linkStyle}>
                   Forgot password?
                 </Link>
               </Typography>

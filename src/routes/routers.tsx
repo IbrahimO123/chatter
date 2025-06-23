@@ -1,6 +1,5 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Chat from "../view/Chat";
 import { MobileView } from "../Utilities/Miscellaneous";
 
 const Home = lazy(() => import("../view/Home"));
@@ -12,6 +11,9 @@ const User = lazy(() => import("../view/User"));
 const NotFound = lazy(() => import("../view/NotFound"));
 const SingleArticle = lazy(() => import("../view/SingleArticle"));
 const PrivateRoute = lazy(() => import("../components/PrivateRoute"));
+const Chat = lazy(() => import("../view/Chat"));
+const Reset = lazy(() => import("../view/Reset"));
+const ForgotPassword = lazy(() => import("../components/Forgot"));
 
 export const Routers = () => {
   return (
@@ -20,8 +22,10 @@ export const Routers = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/user/profile" element={<User />}></Route>
         <Route path="/write" element={<WriteArticle />}></Route>
-        { MobileView() ?  <Route path="/chat" element={<Chat/>} ></Route> : null }
+        {MobileView() ? <Route path="/chat" element={<Chat />}></Route> : null}
       </Route>
+      <Route path="/reset-password" element={<Reset />}></Route>
+      <Route path="/forgot-password" element={<ForgotPassword />}></Route>
       <Route
         path="/articles/single/:authorName/:articleId/:title"
         element={<SingleArticle />}

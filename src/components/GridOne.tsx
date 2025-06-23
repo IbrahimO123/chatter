@@ -57,7 +57,7 @@ export const GridOne = () => {
     }
   };
   return (
-    <Box>
+    <Box sx={{ width: { xs: "70vw", md:"inherit" } }}>
       <Paper elevation={0} sx={{ padding: "0px 1px" }}>
         <MenuList>
           <MenuItem onClick={() => handleRoute("/")}>

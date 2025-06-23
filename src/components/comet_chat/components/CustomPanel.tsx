@@ -45,27 +45,29 @@ export default function ChatTabs() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", color: "#000" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          textColor="inherit"
+          indicatorColor="primary"
         >
           <Tab label="Chat" {...a11yProps(0)} />
           <Tab label="Groups" {...a11yProps(1)} />
           <Tab label="Users" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0} >
-        <CometChatApp/>
+      <CustomTabPanel value={value} index={0}>
+        <CometChatApp />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Groups/>
+        <Groups />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Users/>
+        <Users />
       </CustomTabPanel>
-      <MessageModal/>
+      <MessageModal />
     </Box>
   );
 }
